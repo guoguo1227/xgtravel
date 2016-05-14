@@ -69,15 +69,15 @@
     <!-- mybaits 数据工厂 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath*:com/lagou/auction/dao/*/mapper/*.xml" />
+        <property name="mapperLocations" value="classpath*:com/stars/travel/dao/*/mapper/*.xml" />
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.lagou.auction.dao" />
+        <property name="basePackage" value="com.stars.travel.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 
-    <bean id="dataSource" class="com.lagou.auction.datasource.MasterSlaveDataSource">
+    <bean id="dataSource" class="com.stars.travel.datasource.MasterSlaveDataSource">
         <property name="targetDataSources">
             <map>
                 <entry key-ref="masterDataSource" value-ref="masterDataSource"/>
@@ -89,7 +89,7 @@
     </bean>
 
     <!-- 数据源选择器 -->
-    <bean id="dataSelector" class="com.lagou.auction.datasource.MasterSlaveSelectorByPoll">
+    <bean id="dataSelector" class="com.stars.travel.datasource.MasterSlaveSelectorByPoll">
         <property name="masters">
             <list>
                 <ref bean="masterDataSource"/>
@@ -104,7 +104,7 @@
     </bean>
 
     <!-- 数据库切面 -->
-    <bean id="masterSlaveAspect" class="com.lagou.auction.datasource.MasterSlaveAspect">
+    <bean id="masterSlaveAspect" class="com.stars.travel.datasource.MasterSlaveAspect">
         <property name="prefixMasters">
             <list>
                 <value>update</value>
@@ -127,7 +127,7 @@
 
     <aop:config>
         <aop:aspect id="c" ref="masterSlaveAspect">
-            <aop:pointcut id="tx" expression="execution(* com.lagou.auction..dao..*.*(..))"/>
+            <aop:pointcut id="tx" expression="execution(* com.stars.travel..dao..*.*(..))"/>
             <aop:before pointcut-ref="tx" method="before"/>
         </aop:aspect>
     </aop:config>

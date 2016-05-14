@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Author : guo
  * Date : 2016/1/17 22:05
  */
-@Service("repository")
+@Service
 public class Repository implements ServletContextAware{
 
     public String getRealPath(String name){

@@ -47,7 +47,7 @@ public class MyPlus extends PluginAdapter implements Plugin {
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass,
                                    IntrospectedTable introspectedTable) {
-        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.lagou.auction.dao.base.BaseMapper");
+        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.stars.travel.dao.base.BaseMapper");
         interfaze.addImportedType(ptype);
         interfaze.addSuperInterface(ptype);
 

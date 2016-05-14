@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stars.travel.dao.ext.mapper.JourneyVoMapper" >
-  <resultMap id="JourneyResultMap" type="com.lagou.auction.model.base.Journey" >
+  <resultMap id="JourneyResultMap" type="com.stars.travel.model.base.Journey" >
     <id column="jId" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="nikename" property="nikename" jdbcType="VARCHAR" />
@@ -18,32 +18,32 @@
     <result column="coverImage" property="coverImage" jdbcType="VARCHAR" />
     <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="JourneyResultMapWithBLOBs" type="com.lagou.auction.model.base.JourneyWithBLOBs" extends="JourneyResultMap" >
+  <resultMap id="JourneyResultMapWithBLOBs" type="com.stars.travel.model.base.JourneyWithBLOBs" extends="JourneyResultMap" >
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-  <resultMap id="JourneyVoResultMap" type="com.lagou.auction.model.ext.JourneyVo" extends="JourneyResultMapWithBLOBs" >
+  <resultMap id="JourneyVoResultMap" type="com.stars.travel.model.ext.JourneyVo" extends="JourneyResultMapWithBLOBs" >
     <association property="journeyDayVoList" resultMap="JourneyDayVoResultMap"></association>
   </resultMap>
 
-  <resultMap id="JourneyDayVoResultMap" type="com.lagou.auction.model.ext.JourneyDayVo" extends="JourneyDayResultMap" >
+  <resultMap id="JourneyDayVoResultMap" type="com.stars.travel.model.ext.JourneyDayVo" extends="JourneyDayResultMap" >
     <association property="journeyItemVoList" resultMap="JourneyItemVoResultMapWithBLOBs"></association>
   </resultMap>
 
-  <resultMap id="JourneyDayResultMap" type="com.lagou.auction.model.base.JourneyDay" >
+  <resultMap id="JourneyDayResultMap" type="com.stars.travel.model.base.JourneyDay" >
     <id column="jDId" property="id" jdbcType="INTEGER" />
     <result column="journeyId" property="journeyId" jdbcType="INTEGER" />
     <result column="currentDay" property="currentDay" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
 
-  <resultMap id="JourneyItemVoResultMapWithBLOBs" type="com.lagou.auction.model.ext.JourneyItemVo" extends="JourneyItemResultMap">
+  <resultMap id="JourneyItemVoResultMapWithBLOBs" type="com.stars.travel.model.ext.JourneyItemVo" extends="JourneyItemResultMap">
     <result column="journeyId" property="journeyId" jdbcType="INTEGER" />
     <result column="currentDay" property="currentDay" jdbcType="INTEGER" />
   </resultMap>
 
-  <resultMap id="JourneyItemResultMap" type="com.lagou.auction.model.base.JourneyItem" >
+  <resultMap id="JourneyItemResultMap" type="com.stars.travel.model.base.JourneyItem" >
     <id column="jIId" property="id" jdbcType="INTEGER" />
     <result column="journeyDayId" property="journeyDayId" jdbcType="INTEGER" />
     <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
@@ -53,7 +53,7 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="JourneyItemResultMapWithBLOBs" type="com.lagou.auction.model.base.JourneyItem" extends="JourneyItemResultMap" >
+  <resultMap id="JourneyItemResultMapWithBLOBs" type="com.stars.travel.model.base.JourneyItem" extends="JourneyItemResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
@@ -135,7 +135,7 @@
   </sql>
 
   <!-- 根据条件查询行程分享列表 -->
-  <select id="queryJourneyVoList" resultMap="JourneyVoResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition">
+  <select id="queryJourneyVoList" resultMap="JourneyVoResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition">
     select
     <include refid="JourneySQL"></include>
     ,
@@ -163,7 +163,7 @@
   </select>
 
   <!-- 根据条件查询行程分享数量 -->
-  <select id="countJourneyVo" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition">
+  <select id="countJourneyVo" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition">
     select count(*)
     from root_journey journey
     <where >

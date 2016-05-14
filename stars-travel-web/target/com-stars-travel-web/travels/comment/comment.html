@@ -1,0 +1,18 @@
+<div class="col-xs-12" id="commentApp"  ng-app="commentApp"  ng-controller="commentCtrl" ng-init="init()">
+    <form class="lagou-form-search lagou-auction-offer" role="form">
+        <div class="box-body">
+            <div class="form-group row">
+                <div class="col-xs-2 lagou-margin-top-10">
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <lg-data-table table-data="tableData"></lg-data-table>
+    <lg-paginator   on-change="onChangePage(page)"
+                    total-pages="pagesNumber"
+                    visible-pages="10"
+                    total-entries="totalEntries">
+    </lg-paginator>
+</div>

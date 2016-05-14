@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stars.travel.dao.ext.mapper.MicroblogVoMapper" >
 
-  <resultMap id="BaseResultMap" type="com.lagou.auction.model.ext.MicroblogVo" extends="ResultMapWithBLOBs" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.ext.MicroblogVo" extends="ResultMapWithBLOBs" >
     <association property="userInfo" resultMap="userInfoMap"></association>
   </resultMap>
 
-  <resultMap id="MicroblogMap" type="com.lagou.auction.model.base.Microblog" >
+  <resultMap id="MicroblogMap" type="com.stars.travel.model.base.Microblog" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
@@ -28,12 +28,12 @@
     <result column="destination" property="destination" jdbcType="VARCHAR" />
     <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.lagou.auction.model.base.MicroblogWithBLOBs" extends="MicroblogMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.stars.travel.model.base.MicroblogWithBLOBs" extends="MicroblogMap" >
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-  <resultMap id="userInfoMap" type="com.lagou.auction.model.ext.UserInfo">
+  <resultMap id="userInfoMap" type="com.stars.travel.model.ext.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nikename" jdbcType="VARCHAR" property="nikename" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -108,7 +108,7 @@
       ]]>
     </if>
   </sql>
-  <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+  <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
     select
     <include refid="microblogSelectSQL"></include>
     ,
@@ -133,7 +133,7 @@
     </if>
   </select>
 
-  <select id="countSharedMicroblogList" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+  <select id="countSharedMicroblogList" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
     select count(*)
     from root_microblog microblog
     <where >

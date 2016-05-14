@@ -1,0 +1,136 @@
+@import '../customize';
+
+@keyframes lg-sidebar-item-extend-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes lg-sidebar-item-shrink-anim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes lg-sidebar-extend-anim {
+  0% {
+    width: $lgSidebarMiniWidth;
+  }
+  100% {
+    width: $lgSidebarWidth;
+  }
+}
+@keyframes lg-sidebar-shrink-anim {
+  0% {
+    width: $lgSidebarWidth;
+  }
+  100% {
+    width: $lgSidebarMiniWidth;
+  }
+}
+
+.lg-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: $lgSidebarWidth;
+  min-height: 100%;
+  background-color: $lgSidebarMenuEvenBgColor;
+  z-index: 1000;
+
+  &.lg-sidebar-shrink {
+    animation: lg-sidebar-shrink-anim .2s ease-in-out forwards;
+  }
+  &.lg-sidebar-extend {
+    animation: lg-sidebar-extend-anim .2s ease-in-out forwards;
+  }
+  &.lg-sidebar-shrink > .lg-sidebar-menu > .lg-sidebar-menu-item > .item-label-wrapper {
+    .middle, .right {
+      animation: lg-sidebar-item-shrink-anim .2s ease-in-out forwards;
+    }
+  }
+  &.lg-sidebar-extend > .lg-sidebar-menu > .lg-sidebar-menu-item > .item-label-wrapper {
+    .middle, .right {
+      animation: lg-sidebar-item-extend-anim .2s ease-in-out forwards;
+    }
+  }
+
+  .lg-sidebar-menu {
+    position: relative;
+    list-style: none;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+
+    &.odd {
+      background-color: $lgSidebarMenuOddBgColor;
+      > .lg-sidebar-menu-item:hover {
+        background-color: $lgSidebarMenuEvenBgColor;
+      }
+    }
+
+    &.even {
+      background-color: $lgSidebarMenuEvenBgColor;
+      > .lg-sidebar-menu-item:hover {
+        background-color: $lgSidebarMenuOddBgColor;
+      }
+    }
+  }
+
+  .lg-sidebar-menu-item {
+    .item-label {
+      text-decoration: none;
+      color: $lgSidebarMenuLabelColor;
+      display: block;
+
+      position: relative;
+      display: block;
+      padding: 12px 5px 12px 12px;
+      border-left: 3px solid transparent;
+      &:hover {
+        border-left-color: $lgSidebarMenuLabelBorderColor;
+      }
+
+      &:not([disabled="disabled"]) {
+        cursor: pointer;
+      }
+
+      .fa {
+        width: 20px;
+      }
+      .right {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+
+    > .lg-sidebar-menu {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: $lgSidebarWidth;
+    }
+
+    &:hover > .lg-sidebar-menu {
+      display: block;
+    }
+
+    &.adjust {
+      position: relative;
+      > .lg-sidebar-menu {
+        top: auto;
+        bottom: 0;
+      }
+    }
+  }
+}
+

@@ -27,7 +27,7 @@
 	</bean>
 
 	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户的认证和授权 -->  
-    <bean id="shiroDbRealm" class="com.lagou.auction.service.realm.ShiroDbRealm">
+    <bean id="shiroDbRealm" class="com.stars.travel.service.realm.ShiroDbRealm">
     	<!--<property name="userService" ref="userService"/>-->
     </bean>
 	

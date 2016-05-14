@@ -1,0 +1,43 @@
+@import '../customize';
+
+.lg-tabs {
+  background-color: white;
+  border: 1px solid $lgBorderColor;
+  border-radius: 3px;
+
+  .lg-tab-title {
+    > a {
+      color: #444;
+      cursor: default;
+      border-radius: 0;
+    }
+    &.active a,
+    &.active:hover a {
+      border-left: 1px solid $lgBorderColor;
+      border-right: 1px solid $lgBorderColor;
+      border-top: 3px solid $lgPrimary;
+    }
+    &.active:first-child a {
+      border-left: 1px solid transparent;
+    }
+    &:not(.active) a {
+      border-top: 3px solid transparent;
+      border-left: 1px solid transparent;
+      border-right: 1px solid transparent;
+    }
+
+    &:hover a {
+      background-color: white;
+      color: #999;
+    }
+  }
+
+  .lg-tab-wrapper .lg-tab {
+    &.active {
+      display: block;
+    }
+    &:not(.active) {
+      display: none;
+    }
+  }
+}

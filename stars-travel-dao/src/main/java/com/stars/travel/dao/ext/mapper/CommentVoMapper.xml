@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stars.travel.dao.ext.mapper.CommentVoMapper" >
 
-  <resultMap id="BaseResultMap" type="com.lagou.auction.model.ext.CommentVo" extends="CommentResultMap" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.ext.CommentVo" extends="CommentResultMap" >
     <association property="userInfo" resultMap="userInfoMap"></association>
   </resultMap>
 
-  <resultMap id="CommentResultMap" type="com.lagou.auction.model.base.Comment" >
+  <resultMap id="CommentResultMap" type="com.stars.travel.model.base.Comment" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="checked" property="checked" jdbcType="BIT" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
@@ -18,7 +18,7 @@
     <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
 
-  <resultMap id="userInfoMap" type="com.lagou.auction.model.ext.UserInfo">
+  <resultMap id="userInfoMap" type="com.stars.travel.model.ext.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nikename" jdbcType="VARCHAR" property="nikename" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -75,7 +75,7 @@
     </if>
 
   </sql>
-  <select id="queryCommentList" resultMap="BaseResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+  <select id="queryCommentList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
     select
     <include refid="commentSelectSQL"></include>
     ,
@@ -100,7 +100,7 @@
     </if>
   </select>
 
-  <select id="queryCommentCount" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+  <select id="queryCommentCount" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
     select count(*)
     from root_comment comment
     <where >

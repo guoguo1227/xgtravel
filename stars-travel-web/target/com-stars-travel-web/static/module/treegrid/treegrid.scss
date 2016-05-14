@@ -1,0 +1,36 @@
+@import '../customize';
+
+.lg-tree-grid {
+  background-color: white;
+  max-width: 100%;
+  overflow: auto;
+  padding: 8px;
+
+  table {
+    white-space: nowrap;
+    margin-bottom: 0;
+    border: 1px solid $lgBorderColor;
+
+    tr {
+      &.selected {
+        background-color: $lgBgColor;
+      }
+
+      th, td {
+        min-width: 100px;
+      }
+      td {
+        position: relative;
+        &.selected {
+          background-color: $lgBgColor;
+        }
+        &.title {
+          .fa {
+            width: 18px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

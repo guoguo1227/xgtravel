@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stars.travel.dao.ext.mapper.UserVoMapper" >
-  <resultMap id="BaseResultMap" type="com.lagou.auction.model.base.User" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.base.User" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
@@ -44,11 +44,11 @@
     <result column="lastLoginTime" property="lastlogintime" jdbcType="TIMESTAMP" />
     <result column="manageType" property="managetype" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.lagou.auction.model.base.User" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.stars.travel.model.base.User" extends="BaseResultMap" >
     <result column="summary" property="summary" jdbcType="LONGVARCHAR" />
   </resultMap>
 
-  <select id="queryUserByPhone" resultType="com.lagou.auction.model.base.User"  parameterType="java.lang.String" >
+  <select id="queryUserByPhone" resultType="com.stars.travel.model.base.User"  parameterType="java.lang.String" >
     select * from root_user
     <where >
       <if test="phone != null" >

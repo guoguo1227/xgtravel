@@ -1,0 +1,150 @@
+@import '../customize';
+.lg-calendar {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid $lgBorderColor;
+  border-radius: 3px;
+
+  table {
+    thead th {
+      text-align: center;
+
+      input {
+        width: 40px;
+        height: 20px;
+        outline: none;
+      }
+
+      span:hover {
+        cursor: pointer;
+      }
+    }
+
+    tbody {
+      td {
+        border-radius: 5px;
+        text-align: center;
+        min-width: 32px;
+
+        &.off {
+          color: #999;
+        }
+        &.active {
+          background-color: $lgPrimary;
+        }
+        &.range:not(.active), &.range.off {
+          background-color: #ebf4f8;
+        }
+        &:hover:not(.off):not(.active) {
+          background-color: $lgBgColor;
+          cursor: pointer;
+        }
+      }
+
+      &.year td {
+        padding: 10px 5px;
+      }
+
+      &.month td {
+        padding: 10px 5px;
+        &:first-child {
+          font-weight: bold;
+          &:hover {
+            background: none;
+            cursor: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.lg-datepicker {
+  position: relative;
+
+  .input-group-addon {
+    background-color: #fff;
+    border-radius: 0;
+    border: 1px solid $lgBorderColor;
+    border-right: none;
+  }
+
+  .form-control {
+    outline: none;
+    border-radius: 0;
+    border: 1px solid $lgBorderColor;
+    box-shadow: none;
+    background-color: #fff;
+    cursor: auto;
+  }
+
+  .lg-calendar {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+
+  &.active {
+    .lg-calendar {
+      display: block;
+      z-index: 100;
+    }
+  }
+}
+
+.lg-calendar-range {
+  overflow: hidden;
+  border: 1px solid $lgBorderColor;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 8px;
+
+  .start {
+    float: left;
+    margin-right: 10px;
+  }
+
+  .end {
+    float: left;
+  }
+}
+
+.lg-date-range-picker {
+  position: relative;
+
+  .lg-calendar-range {
+    width: 530px;
+  }
+
+  .input-group-addon {
+    background-color: #fff;
+    border-radius: 0;
+    border: 1px solid $lgBorderColor;
+    border-right: none;
+  }
+  .form-control {
+    outline: none;
+    border-radius: 0;
+    border: 1px solid $lgBorderColor;
+    background-color: #fff;
+    cursor: auto;
+    &:focus {
+      border-color: $lgPrimary;
+    }
+  }
+
+  .lg-calendar-range {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+
+  &.active {
+    .lg-calendar-range {
+      display: block;
+      z-index: 100;
+    }
+  }
+}
