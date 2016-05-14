@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.ext.mapper.UserVoMapper" >
+  <resultMap id="BaseResultMap" type="com.lagou.auction.model.base.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="oauthid" property="oauthid" jdbcType="VARCHAR" />
+    <result column="sinaToken" property="sinatoken" jdbcType="VARCHAR" />
+    <result column="qqOauthid" property="qqoauthid" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="SMALLINT" />
+    <result column="sex" property="sex" jdbcType="SMALLINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="personalemail" property="personalemail" jdbcType="VARCHAR" />
+    <result column="weibo" property="weibo" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="SMALLINT" />
+    <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="companyId" property="companyid" jdbcType="INTEGER" />
+    <result column="publishPositionCount" property="publishpositioncount" jdbcType="SMALLINT" />
+    <result column="publishPositionTotalCount" property="publishpositiontotalcount" jdbcType="SMALLINT" />
+    <result column="namespy" property="namespy" jdbcType="VARCHAR" />
+    <result column="receiveEmail" property="receiveemail" jdbcType="VARCHAR" />
+    <result column="orderEmail" property="orderemail" jdbcType="VARCHAR" />
+    <result column="idMd5" property="idmd5" jdbcType="VARCHAR" />
+    <result column="tryOpen" property="tryopen" jdbcType="INTEGER" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="isDefaultResume" property="isdefaultresume" jdbcType="INTEGER" />
+    <result column="comeFrom" property="comefrom" jdbcType="VARCHAR" />
+    <result column="deliverTotalCount" property="delivertotalcount" jdbcType="INTEGER" />
+    <result column="shareCode" property="sharecode" jdbcType="VARCHAR" />
+    <result column="fromsite" property="fromsite" jdbcType="VARCHAR" />
+    <result column="utm_source" property="utmSource" jdbcType="VARCHAR" />
+    <result column="isActiveEmailSend" property="isactiveemailsend" jdbcType="INTEGER" />
+    <result column="companyManager" property="companymanager" jdbcType="INTEGER" />
+    <result column="nikename" property="nikename" jdbcType="VARCHAR" />
+    <result column="qqNikeName" property="qqnikename" jdbcType="VARCHAR" />
+    <result column="isLoginTokenOverdue" property="islogintokenoverdue" jdbcType="BIT" />
+    <result column="accessVersion" property="accessversion" jdbcType="CHAR" />
+    <result column="lastLoginTime" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="manageType" property="managetype" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lagou.auction.model.base.User" extends="BaseResultMap" >
+    <result column="summary" property="summary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="queryUserByPhone" resultType="com.lagou.auction.model.base.User"  parameterType="java.lang.String" >
+    select * from root_user
+    <where >
+      <if test="phone != null" >
+        and phone = #{phone}
+      </if>
+      limit 1
+    </where>
+  </select>
+
+  <select id="updatePassword" resultType="java.lang.Integer"  parameterType="java.lang.String" >
+    update root_user
+    set password = #{password,jdbcType=VARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+</mapper>

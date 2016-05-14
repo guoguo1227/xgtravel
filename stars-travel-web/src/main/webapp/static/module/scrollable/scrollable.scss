@@ -1,0 +1,23 @@
+@import '../customize';
+
+.lg-scrollable {
+  overflow-y: hidden;
+  position: relative;
+
+  .lg-scrollbar {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: $lgScrollbarWidth;
+    height: 10px;
+    background-color: $lgScrollbarColor;
+    z-index: 10;
+  }
+
+  .lg-scroll-body {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.ext.mapper.JourneyVoMapper" >
+  <resultMap id="JourneyResultMap" type="com.lagou.auction.model.base.Journey" >
+    <id column="jId" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="nikename" property="nikename" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="isEnable" property="isEnable" jdbcType="BIT" />
+    <result column="isShared" property="isShared" jdbcType="BIT" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="totalday" property="totalday" jdbcType="INTEGER" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="coverImage" property="coverImage" jdbcType="VARCHAR" />
+    <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="JourneyResultMapWithBLOBs" type="com.lagou.auction.model.base.JourneyWithBLOBs" extends="JourneyResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="JourneyVoResultMap" type="com.lagou.auction.model.ext.JourneyVo" extends="JourneyResultMapWithBLOBs" >
+    <association property="journeyDayVoList" resultMap="JourneyDayVoResultMap"></association>
+  </resultMap>
+
+  <resultMap id="JourneyDayVoResultMap" type="com.lagou.auction.model.ext.JourneyDayVo" extends="JourneyDayResultMap" >
+    <association property="journeyItemVoList" resultMap="JourneyItemVoResultMapWithBLOBs"></association>
+  </resultMap>
+
+  <resultMap id="JourneyDayResultMap" type="com.lagou.auction.model.base.JourneyDay" >
+    <id column="jDId" property="id" jdbcType="INTEGER" />
+    <result column="journeyId" property="journeyId" jdbcType="INTEGER" />
+    <result column="currentDay" property="currentDay" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="JourneyItemVoResultMapWithBLOBs" type="com.lagou.auction.model.ext.JourneyItemVo" extends="JourneyItemResultMap">
+    <result column="journeyId" property="journeyId" jdbcType="INTEGER" />
+    <result column="currentDay" property="currentDay" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="JourneyItemResultMap" type="com.lagou.auction.model.base.JourneyItem" >
+    <id column="jIId" property="id" jdbcType="INTEGER" />
+    <result column="journeyDayId" property="journeyDayId" jdbcType="INTEGER" />
+    <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="JourneyItemResultMapWithBLOBs" type="com.lagou.auction.model.base.JourneyItem" extends="JourneyItemResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <!-- journey -->
+  <sql id="JourneySQL">
+    journey.id as jId,
+    journey.phone as phone,
+    journey.nikename as nikename,
+    journey.createtime as createtime,
+    journey.updatetime as updatetime,
+    journey.is_enable as isEnable,
+    journey.is_shared as isShared,
+    journey.top as top,
+    journey.status as status,
+    journey.title as title,
+    journey.budget as budget,
+    journey.totalday as totalday,
+    journey.destination as destination,
+    journey.sharetimes as sharetimes,
+    journey.description as description,
+    journey.cover_image as coverImage,
+    journey.content as content
+  </sql>
+  <!-- root_journey_day -->
+  <sql id="JourneyDaySQL">
+    journeyDay.id as jDId,
+    journeyDay.journey_id as journeyId,
+    journeyDay.current_day as current_day,
+    journeyDay.createtime as createtime
+  </sql>
+  <!-- root_journey_item -->
+  <sql id="JourneyItemDaySQL">
+    journeyItem.id as jIId,
+    journeyItem.journey_day_id as journeyDayId,
+    journeyItem.itemtype as itemtype,
+    journeyItem.createtime as createtime,
+    journeyItem.time as time,
+    journeyItem.title as title,
+    journeyItem.description as description,
+    journeyItem.budget as budget
+  </sql>
+
+  <!-- 公共查询条件sql -->
+  <sql id="whereBaseSQL" >
+
+    <!-- ID -->
+    <if test="id != null" >
+      and journey.id = #{id}
+    </if>
+    <!-- 用户手机 -->
+    <if test="phone != null" >
+      and journey.phone = #{phone}
+    </if>
+
+    <!-- 是否可用 -->
+    <if test="ifEnable != null" >
+      and journey.is_enable = #{ifEnable}
+    </if>
+    <!-- 是否分享 -->
+    <if test="ifShared != null" >
+      and journey.is_shared = #{ifShared}
+    </if>
+    <!-- 目的地 -->
+    <if test="destination != null" >
+      and journey.destination = #{destination}
+    </if>
+    <!-- 最新 -->
+    <if test="idGreaterThan != null" >
+      and journey.id > #{idGreaterThan}
+    </if>
+    <!-- 历史 -->
+    <if test="idLessThan != null" >
+      <![CDATA[
+        and journey.id < #{idLessThan}
+      ]]>
+    </if>
+
+
+  </sql>
+
+  <!-- 根据条件查询行程分享列表 -->
+  <select id="queryJourneyVoList" resultMap="JourneyVoResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition">
+    select
+    <include refid="JourneySQL"></include>
+    ,
+    <include refid="JourneyDaySQL"></include>
+    ,
+    <include refid="JourneyItemDaySQL"></include>
+
+    from root_journey journey
+    left join root_journey_day journeyDay on journeyDay.journey_id = journey.id
+    left join root_journey_item journeyItem on journeyItem.journey_day_id = journeyDay.id
+
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+
+    <!--<if test="orderByClause != null" >
+      order by #{orderByClause}
+    </if>-->
+    order by journey.id desc
+    limit #{limit}
+
+    <if test="offset != null" >
+      offset #{offset}
+    </if>
+  </select>
+
+  <!-- 根据条件查询行程分享数量 -->
+  <select id="countJourneyVo" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition">
+    select count(*)
+    from root_journey journey
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+
+  </select>
+
+</mapper>

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.base.mapper.CustomizationMapper" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.base.Customization" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="traveltime" property="traveltime" jdbcType="VARCHAR" />
+    <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="is_shared" property="isShared" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="out_traffic" property="outTraffic" jdbcType="VARCHAR" />
+    <result column="inner_traffic" property="innerTraffic" jdbcType="VARCHAR" />
+    <result column="hotel" property="hotel" jdbcType="VARCHAR" />
+    <result column="hotel_factors" property="hotelFactors" jdbcType="VARCHAR" />
+    <result column="feature_hobby" property="featureHobby" jdbcType="VARCHAR" />
+    <result column="food_hobby" property="foodHobby" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="peopleday" property="peopleday" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, phone, createtime, updatetime, traveltime, is_enable, is_shared, status, city, 
+    out_traffic, inner_traffic, hotel, hotel_factors, feature_hobby, food_hobby, remark, 
+    budget, peopleday, order_number, destination
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.CustomizationCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from root_customization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from root_customization
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from root_customization
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stars.travel.model.base.CustomizationCriteria" >
+    delete from root_customization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stars.travel.model.base.Customization" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_customization (phone, createtime, updatetime, 
+      traveltime, is_enable, is_shared, 
+      status, city, out_traffic, 
+      inner_traffic, hotel, hotel_factors, 
+      feature_hobby, food_hobby, remark, 
+      budget, peopleday, order_number, 
+      destination)
+    values (#{phone,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{traveltime,jdbcType=VARCHAR}, #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, 
+      #{status,jdbcType=SMALLINT}, #{city,jdbcType=VARCHAR}, #{outTraffic,jdbcType=VARCHAR}, 
+      #{innerTraffic,jdbcType=VARCHAR}, #{hotel,jdbcType=VARCHAR}, #{hotelFactors,jdbcType=VARCHAR}, 
+      #{featureHobby,jdbcType=VARCHAR}, #{foodHobby,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{budget,jdbcType=VARCHAR}, #{peopleday,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{destination,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stars.travel.model.base.Customization" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_customization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="traveltime != null" >
+        traveltime,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isShared != null" >
+        is_shared,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="outTraffic != null" >
+        out_traffic,
+      </if>
+      <if test="innerTraffic != null" >
+        inner_traffic,
+      </if>
+      <if test="hotel != null" >
+        hotel,
+      </if>
+      <if test="hotelFactors != null" >
+        hotel_factors,
+      </if>
+      <if test="featureHobby != null" >
+        feature_hobby,
+      </if>
+      <if test="foodHobby != null" >
+        food_hobby,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="budget != null" >
+        budget,
+      </if>
+      <if test="peopleday != null" >
+        peopleday,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="traveltime != null" >
+        #{traveltime,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isShared != null" >
+        #{isShared,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="outTraffic != null" >
+        #{outTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="innerTraffic != null" >
+        #{innerTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="hotel != null" >
+        #{hotel,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelFactors != null" >
+        #{hotelFactors,jdbcType=VARCHAR},
+      </if>
+      <if test="featureHobby != null" >
+        #{featureHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="foodHobby != null" >
+        #{foodHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="budget != null" >
+        #{budget,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleday != null" >
+        #{peopleday,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stars.travel.model.base.CustomizationCriteria" resultType="java.lang.Integer" >
+    select count(*) from root_customization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update root_customization
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.traveltime != null" >
+        traveltime = #{record.traveltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=BIT},
+      </if>
+      <if test="record.isShared != null" >
+        is_shared = #{record.isShared,jdbcType=BIT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTraffic != null" >
+        out_traffic = #{record.outTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.innerTraffic != null" >
+        inner_traffic = #{record.innerTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotel != null" >
+        hotel = #{record.hotel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotelFactors != null" >
+        hotel_factors = #{record.hotelFactors,jdbcType=VARCHAR},
+      </if>
+      <if test="record.featureHobby != null" >
+        feature_hobby = #{record.featureHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodHobby != null" >
+        food_hobby = #{record.foodHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.budget != null" >
+        budget = #{record.budget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peopleday != null" >
+        peopleday = #{record.peopleday,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destination != null" >
+        destination = #{record.destination,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update root_customization
+    set id = #{record.id,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      traveltime = #{record.traveltime,jdbcType=VARCHAR},
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      is_shared = #{record.isShared,jdbcType=BIT},
+      status = #{record.status,jdbcType=SMALLINT},
+      city = #{record.city,jdbcType=VARCHAR},
+      out_traffic = #{record.outTraffic,jdbcType=VARCHAR},
+      inner_traffic = #{record.innerTraffic,jdbcType=VARCHAR},
+      hotel = #{record.hotel,jdbcType=VARCHAR},
+      hotel_factors = #{record.hotelFactors,jdbcType=VARCHAR},
+      feature_hobby = #{record.featureHobby,jdbcType=VARCHAR},
+      food_hobby = #{record.foodHobby,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      budget = #{record.budget,jdbcType=VARCHAR},
+      peopleday = #{record.peopleday,jdbcType=INTEGER},
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      destination = #{record.destination,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stars.travel.model.base.Customization" >
+    update root_customization
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="traveltime != null" >
+        traveltime = #{traveltime,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isShared != null" >
+        is_shared = #{isShared,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="outTraffic != null" >
+        out_traffic = #{outTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="innerTraffic != null" >
+        inner_traffic = #{innerTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="hotel != null" >
+        hotel = #{hotel,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelFactors != null" >
+        hotel_factors = #{hotelFactors,jdbcType=VARCHAR},
+      </if>
+      <if test="featureHobby != null" >
+        feature_hobby = #{featureHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="foodHobby != null" >
+        food_hobby = #{foodHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="budget != null" >
+        budget = #{budget,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleday != null" >
+        peopleday = #{peopleday,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.Customization" >
+    update root_customization
+    set phone = #{phone,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      traveltime = #{traveltime,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=BIT},
+      is_shared = #{isShared,jdbcType=BIT},
+      status = #{status,jdbcType=SMALLINT},
+      city = #{city,jdbcType=VARCHAR},
+      out_traffic = #{outTraffic,jdbcType=VARCHAR},
+      inner_traffic = #{innerTraffic,jdbcType=VARCHAR},
+      hotel = #{hotel,jdbcType=VARCHAR},
+      hotel_factors = #{hotelFactors,jdbcType=VARCHAR},
+      feature_hobby = #{featureHobby,jdbcType=VARCHAR},
+      food_hobby = #{foodHobby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      budget = #{budget,jdbcType=VARCHAR},
+      peopleday = #{peopleday,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

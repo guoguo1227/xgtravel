@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.base.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.base.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="oauthid" property="oauthid" jdbcType="VARCHAR" />
+    <result column="sinaToken" property="sinatoken" jdbcType="VARCHAR" />
+    <result column="qqOauthid" property="qqoauthid" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="SMALLINT" />
+    <result column="sex" property="sex" jdbcType="SMALLINT" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="strategy_info" property="strategyInfo" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="personalemail" property="personalemail" jdbcType="VARCHAR" />
+    <result column="weibo" property="weibo" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="SMALLINT" />
+    <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="introduce_image" property="introduceImage" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="namespy" property="namespy" jdbcType="VARCHAR" />
+    <result column="idMd5" property="idmd5" jdbcType="VARCHAR" />
+    <result column="fromsite" property="fromsite" jdbcType="VARCHAR" />
+    <result column="utm_source" property="utmSource" jdbcType="VARCHAR" />
+    <result column="isActiveEmailSend" property="isactiveemailsend" jdbcType="INTEGER" />
+    <result column="nikeName" property="nikename" jdbcType="VARCHAR" />
+    <result column="qqNikeName" property="qqnikename" jdbcType="VARCHAR" />
+    <result column="isLoginTokenOverdue" property="islogintokenoverdue" jdbcType="BIT" />
+    <result column="accessVersion" property="accessversion" jdbcType="CHAR" />
+    <result column="lastLoginTime" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, email, password, createtime, source, oauthid, sinaToken, qqOauthid, weixin, 
+    state, sex, signature, strategy_info, score, summary, phone, personalemail, weibo, 
+    activated, portrait, type, introduce_image, introduction, address, profession, namespy, 
+    idMd5, fromsite, utm_source, isActiveEmailSend, nikeName, qqNikeName, isLoginTokenOverdue, 
+    accessVersion, lastLoginTime, is_enable, price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.UserCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from root_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from root_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from root_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stars.travel.model.base.UserCriteria" >
+    delete from root_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stars.travel.model.base.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_user (name, email, password, 
+      createtime, source, oauthid, 
+      sinaToken, qqOauthid, weixin, 
+      state, sex, signature, 
+      strategy_info, score, summary, 
+      phone, personalemail, weibo, 
+      activated, portrait, type, 
+      introduce_image, introduction, address, 
+      profession, namespy, idMd5, 
+      fromsite, utm_source, isActiveEmailSend, 
+      nikeName, qqNikeName, isLoginTokenOverdue, 
+      accessVersion, lastLoginTime, is_enable, 
+      price)
+    values (#{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{oauthid,jdbcType=VARCHAR}, 
+      #{sinatoken,jdbcType=VARCHAR}, #{qqoauthid,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{state,jdbcType=SMALLINT}, #{sex,jdbcType=SMALLINT}, #{signature,jdbcType=VARCHAR}, 
+      #{strategyInfo,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{personalemail,jdbcType=VARCHAR}, #{weibo,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=SMALLINT}, #{portrait,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
+      #{introduceImage,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{profession,jdbcType=VARCHAR}, #{namespy,jdbcType=VARCHAR}, #{idmd5,jdbcType=VARCHAR}, 
+      #{fromsite,jdbcType=VARCHAR}, #{utmSource,jdbcType=VARCHAR}, #{isactiveemailsend,jdbcType=INTEGER}, 
+      #{nikename,jdbcType=VARCHAR}, #{qqnikename,jdbcType=VARCHAR}, #{islogintokenoverdue,jdbcType=BIT}, 
+      #{accessversion,jdbcType=CHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, 
+      #{price,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stars.travel.model.base.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="oauthid != null" >
+        oauthid,
+      </if>
+      <if test="sinatoken != null" >
+        sinaToken,
+      </if>
+      <if test="qqoauthid != null" >
+        qqOauthid,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="strategyInfo != null" >
+        strategy_info,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="personalemail != null" >
+        personalemail,
+      </if>
+      <if test="weibo != null" >
+        weibo,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="portrait != null" >
+        portrait,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="introduceImage != null" >
+        introduce_image,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="namespy != null" >
+        namespy,
+      </if>
+      <if test="idmd5 != null" >
+        idMd5,
+      </if>
+      <if test="fromsite != null" >
+        fromsite,
+      </if>
+      <if test="utmSource != null" >
+        utm_source,
+      </if>
+      <if test="isactiveemailsend != null" >
+        isActiveEmailSend,
+      </if>
+      <if test="nikename != null" >
+        nikeName,
+      </if>
+      <if test="qqnikename != null" >
+        qqNikeName,
+      </if>
+      <if test="islogintokenoverdue != null" >
+        isLoginTokenOverdue,
+      </if>
+      <if test="accessversion != null" >
+        accessVersion,
+      </if>
+      <if test="lastlogintime != null" >
+        lastLoginTime,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthid != null" >
+        #{oauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinatoken != null" >
+        #{sinatoken,jdbcType=VARCHAR},
+      </if>
+      <if test="qqoauthid != null" >
+        #{qqoauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyInfo != null" >
+        #{strategyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="personalemail != null" >
+        #{personalemail,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null" >
+        #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=SMALLINT},
+      </if>
+      <if test="portrait != null" >
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="introduceImage != null" >
+        #{introduceImage,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="namespy != null" >
+        #{namespy,jdbcType=VARCHAR},
+      </if>
+      <if test="idmd5 != null" >
+        #{idmd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fromsite != null" >
+        #{fromsite,jdbcType=VARCHAR},
+      </if>
+      <if test="utmSource != null" >
+        #{utmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isactiveemailsend != null" >
+        #{isactiveemailsend,jdbcType=INTEGER},
+      </if>
+      <if test="nikename != null" >
+        #{nikename,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnikename != null" >
+        #{qqnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="islogintokenoverdue != null" >
+        #{islogintokenoverdue,jdbcType=BIT},
+      </if>
+      <if test="accessversion != null" >
+        #{accessversion,jdbcType=CHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stars.travel.model.base.UserCriteria" resultType="java.lang.Integer" >
+    select count(*) from root_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update root_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oauthid != null" >
+        oauthid = #{record.oauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sinatoken != null" >
+        sinaToken = #{record.sinatoken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqoauthid != null" >
+        qqOauthid = #{record.qqoauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.signature != null" >
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strategyInfo != null" >
+        strategy_info = #{record.strategyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personalemail != null" >
+        personalemail = #{record.personalemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weibo != null" >
+        weibo = #{record.weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activated != null" >
+        activated = #{record.activated,jdbcType=SMALLINT},
+      </if>
+      <if test="record.portrait != null" >
+        portrait = #{record.portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.introduceImage != null" >
+        introduce_image = #{record.introduceImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namespy != null" >
+        namespy = #{record.namespy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idmd5 != null" >
+        idMd5 = #{record.idmd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromsite != null" >
+        fromsite = #{record.fromsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utmSource != null" >
+        utm_source = #{record.utmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactiveemailsend != null" >
+        isActiveEmailSend = #{record.isactiveemailsend,jdbcType=INTEGER},
+      </if>
+      <if test="record.nikename != null" >
+        nikeName = #{record.nikename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqnikename != null" >
+        qqNikeName = #{record.qqnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.islogintokenoverdue != null" >
+        isLoginTokenOverdue = #{record.islogintokenoverdue,jdbcType=BIT},
+      </if>
+      <if test="record.accessversion != null" >
+        accessVersion = #{record.accessversion,jdbcType=CHAR},
+      </if>
+      <if test="record.lastlogintime != null" >
+        lastLoginTime = #{record.lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=BIT},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update root_user
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      source = #{record.source,jdbcType=VARCHAR},
+      oauthid = #{record.oauthid,jdbcType=VARCHAR},
+      sinaToken = #{record.sinatoken,jdbcType=VARCHAR},
+      qqOauthid = #{record.qqoauthid,jdbcType=VARCHAR},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=SMALLINT},
+      sex = #{record.sex,jdbcType=SMALLINT},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      strategy_info = #{record.strategyInfo,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      personalemail = #{record.personalemail,jdbcType=VARCHAR},
+      weibo = #{record.weibo,jdbcType=VARCHAR},
+      activated = #{record.activated,jdbcType=SMALLINT},
+      portrait = #{record.portrait,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=SMALLINT},
+      introduce_image = #{record.introduceImage,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=VARCHAR},
+      namespy = #{record.namespy,jdbcType=VARCHAR},
+      idMd5 = #{record.idmd5,jdbcType=VARCHAR},
+      fromsite = #{record.fromsite,jdbcType=VARCHAR},
+      utm_source = #{record.utmSource,jdbcType=VARCHAR},
+      isActiveEmailSend = #{record.isactiveemailsend,jdbcType=INTEGER},
+      nikeName = #{record.nikename,jdbcType=VARCHAR},
+      qqNikeName = #{record.qqnikename,jdbcType=VARCHAR},
+      isLoginTokenOverdue = #{record.islogintokenoverdue,jdbcType=BIT},
+      accessVersion = #{record.accessversion,jdbcType=CHAR},
+      lastLoginTime = #{record.lastlogintime,jdbcType=TIMESTAMP},
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      price = #{record.price,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stars.travel.model.base.User" >
+    update root_user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthid != null" >
+        oauthid = #{oauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="sinatoken != null" >
+        sinaToken = #{sinatoken,jdbcType=VARCHAR},
+      </if>
+      <if test="qqoauthid != null" >
+        qqOauthid = #{qqoauthid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyInfo != null" >
+        strategy_info = #{strategyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="personalemail != null" >
+        personalemail = #{personalemail,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null" >
+        weibo = #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=SMALLINT},
+      </if>
+      <if test="portrait != null" >
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="introduceImage != null" >
+        introduce_image = #{introduceImage,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="namespy != null" >
+        namespy = #{namespy,jdbcType=VARCHAR},
+      </if>
+      <if test="idmd5 != null" >
+        idMd5 = #{idmd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fromsite != null" >
+        fromsite = #{fromsite,jdbcType=VARCHAR},
+      </if>
+      <if test="utmSource != null" >
+        utm_source = #{utmSource,jdbcType=VARCHAR},
+      </if>
+      <if test="isactiveemailsend != null" >
+        isActiveEmailSend = #{isactiveemailsend,jdbcType=INTEGER},
+      </if>
+      <if test="nikename != null" >
+        nikeName = #{nikename,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnikename != null" >
+        qqNikeName = #{qqnikename,jdbcType=VARCHAR},
+      </if>
+      <if test="islogintokenoverdue != null" >
+        isLoginTokenOverdue = #{islogintokenoverdue,jdbcType=BIT},
+      </if>
+      <if test="accessversion != null" >
+        accessVersion = #{accessversion,jdbcType=CHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.User" >
+    update root_user
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=VARCHAR},
+      oauthid = #{oauthid,jdbcType=VARCHAR},
+      sinaToken = #{sinatoken,jdbcType=VARCHAR},
+      qqOauthid = #{qqoauthid,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      state = #{state,jdbcType=SMALLINT},
+      sex = #{sex,jdbcType=SMALLINT},
+      signature = #{signature,jdbcType=VARCHAR},
+      strategy_info = #{strategyInfo,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      personalemail = #{personalemail,jdbcType=VARCHAR},
+      weibo = #{weibo,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=SMALLINT},
+      portrait = #{portrait,jdbcType=VARCHAR},
+      type = #{type,jdbcType=SMALLINT},
+      introduce_image = #{introduceImage,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      namespy = #{namespy,jdbcType=VARCHAR},
+      idMd5 = #{idmd5,jdbcType=VARCHAR},
+      fromsite = #{fromsite,jdbcType=VARCHAR},
+      utm_source = #{utmSource,jdbcType=VARCHAR},
+      isActiveEmailSend = #{isactiveemailsend,jdbcType=INTEGER},
+      nikeName = #{nikename,jdbcType=VARCHAR},
+      qqNikeName = #{qqnikename,jdbcType=VARCHAR},
+      isLoginTokenOverdue = #{islogintokenoverdue,jdbcType=BIT},
+      accessVersion = #{accessversion,jdbcType=CHAR},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      is_enable = #{isEnable,jdbcType=BIT},
+      price = #{price,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

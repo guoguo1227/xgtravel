@@ -1,0 +1,27 @@
+@import '../customize';
+
+.lg-paginator {
+  background-color: white;
+  padding: 8px;
+
+  .page-info {
+    transform: translateY(50%);
+  }
+  .pagination {
+    margin: 0;
+    li > a {
+      color: #666;
+      cursor: pointer;
+      background-color: #fafafa;
+    }
+
+    li.active > a {
+      color: white;
+      background-color: $lgPrimary;
+    }
+  }
+
+  .input-group {
+    width: 80px;
+  }
+}

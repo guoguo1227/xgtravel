@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.base.mapper.MicroblogMapper" >
+  <resultMap id="BaseResultMap" type="com.stars.travel.model.base.Microblog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="fun_picture" property="funPicture" jdbcType="VARCHAR" />
+    <result column="food_picture" property="foodPicture" jdbcType="VARCHAR" />
+    <result column="scenery_picture" property="sceneryPicture" jdbcType="VARCHAR" />
+    <result column="newness_picture" property="newnessPicture" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="is_shared" property="isShared" jdbcType="BIT" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="dest_Description" property="destDescription" jdbcType="VARCHAR" />
+    <result column="novel_Description" property="novelDescription" jdbcType="VARCHAR" />
+    <result column="end_Description" property="endDescription" jdbcType="VARCHAR" />
+    <result column="scenery_Description" property="sceneryDescription" jdbcType="VARCHAR" />
+    <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.stars.travel.model.base.MicroblogWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, phone, picture, fun_picture, food_picture, scenery_picture, newness_picture, 
+    createtime, updatetime, is_enable, is_shared, top, status, title, destination, dest_Description, 
+    novel_Description, end_Description, scenery_Description, sharetimes
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.stars.travel.model.base.MicroblogCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from root_microblog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.MicroblogCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from root_microblog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <choose >
+      <when test="limitStart != -1 and limitEnd != -1" >
+        limit ${limitStart} , ${limitEnd}
+      </when>
+      <when test="limitStart != -1" >
+        limit ${limitStart}
+      </when>
+    </choose>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from root_microblog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from root_microblog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stars.travel.model.base.MicroblogCriteria" >
+    delete from root_microblog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stars.travel.model.base.MicroblogWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_microblog (phone, picture, fun_picture, 
+      food_picture, scenery_picture, newness_picture, 
+      createtime, updatetime, is_enable, 
+      is_shared, top, status, 
+      title, destination, dest_Description, 
+      novel_Description, end_Description, scenery_Description, 
+      sharetimes, description, content
+      )
+    values (#{phone,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{funPicture,jdbcType=VARCHAR}, 
+      #{foodPicture,jdbcType=VARCHAR}, #{sceneryPicture,jdbcType=VARCHAR}, #{newnessPicture,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, 
+      #{isShared,jdbcType=BIT}, #{top,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, 
+      #{title,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, #{destDescription,jdbcType=VARCHAR}, 
+      #{novelDescription,jdbcType=VARCHAR}, #{endDescription,jdbcType=VARCHAR}, #{sceneryDescription,jdbcType=VARCHAR}, 
+      #{sharetimes,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stars.travel.model.base.MicroblogWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT @@IDENTITY
+    </selectKey>
+    insert into root_microblog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="funPicture != null" >
+        fun_picture,
+      </if>
+      <if test="foodPicture != null" >
+        food_picture,
+      </if>
+      <if test="sceneryPicture != null" >
+        scenery_picture,
+      </if>
+      <if test="newnessPicture != null" >
+        newness_picture,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isShared != null" >
+        is_shared,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+      <if test="destDescription != null" >
+        dest_Description,
+      </if>
+      <if test="novelDescription != null" >
+        novel_Description,
+      </if>
+      <if test="endDescription != null" >
+        end_Description,
+      </if>
+      <if test="sceneryDescription != null" >
+        scenery_Description,
+      </if>
+      <if test="sharetimes != null" >
+        sharetimes,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="funPicture != null" >
+        #{funPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPicture != null" >
+        #{foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneryPicture != null" >
+        #{sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="newnessPicture != null" >
+        #{newnessPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isShared != null" >
+        #{isShared,jdbcType=BIT},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="destDescription != null" >
+        #{destDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="novelDescription != null" >
+        #{novelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="endDescription != null" >
+        #{endDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneryDescription != null" >
+        #{sceneryDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sharetimes != null" >
+        #{sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stars.travel.model.base.MicroblogCriteria" resultType="java.lang.Integer" >
+    select count(*) from root_microblog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update root_microblog
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funPicture != null" >
+        fun_picture = #{record.funPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPicture != null" >
+        food_picture = #{record.foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceneryPicture != null" >
+        scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newnessPicture != null" >
+        newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=BIT},
+      </if>
+      <if test="record.isShared != null" >
+        is_shared = #{record.isShared,jdbcType=BIT},
+      </if>
+      <if test="record.top != null" >
+        top = #{record.top,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destination != null" >
+        destination = #{record.destination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destDescription != null" >
+        dest_Description = #{record.destDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.novelDescription != null" >
+        novel_Description = #{record.novelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endDescription != null" >
+        end_Description = #{record.endDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceneryDescription != null" >
+        scenery_Description = #{record.sceneryDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharetimes != null" >
+        sharetimes = #{record.sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update root_microblog
+    set id = #{record.id,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      fun_picture = #{record.funPicture,jdbcType=VARCHAR},
+      food_picture = #{record.foodPicture,jdbcType=VARCHAR},
+      scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      is_shared = #{record.isShared,jdbcType=BIT},
+      top = #{record.top,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=SMALLINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      destination = #{record.destination,jdbcType=VARCHAR},
+      dest_Description = #{record.destDescription,jdbcType=VARCHAR},
+      novel_Description = #{record.novelDescription,jdbcType=VARCHAR},
+      end_Description = #{record.endDescription,jdbcType=VARCHAR},
+      scenery_Description = #{record.sceneryDescription,jdbcType=VARCHAR},
+      sharetimes = #{record.sharetimes,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update root_microblog
+    set id = #{record.id,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      fun_picture = #{record.funPicture,jdbcType=VARCHAR},
+      food_picture = #{record.foodPicture,jdbcType=VARCHAR},
+      scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      is_shared = #{record.isShared,jdbcType=BIT},
+      top = #{record.top,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=SMALLINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      destination = #{record.destination,jdbcType=VARCHAR},
+      dest_Description = #{record.destDescription,jdbcType=VARCHAR},
+      novel_Description = #{record.novelDescription,jdbcType=VARCHAR},
+      end_Description = #{record.endDescription,jdbcType=VARCHAR},
+      scenery_Description = #{record.sceneryDescription,jdbcType=VARCHAR},
+      sharetimes = #{record.sharetimes,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stars.travel.model.base.MicroblogWithBLOBs" >
+    update root_microblog
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="funPicture != null" >
+        fun_picture = #{funPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPicture != null" >
+        food_picture = #{foodPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneryPicture != null" >
+        scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="newnessPicture != null" >
+        newness_picture = #{newnessPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isShared != null" >
+        is_shared = #{isShared,jdbcType=BIT},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="destDescription != null" >
+        dest_Description = #{destDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="novelDescription != null" >
+        novel_Description = #{novelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="endDescription != null" >
+        end_Description = #{endDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneryDescription != null" >
+        scenery_Description = #{sceneryDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sharetimes != null" >
+        sharetimes = #{sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stars.travel.model.base.MicroblogWithBLOBs" >
+    update root_microblog
+    set phone = #{phone,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      fun_picture = #{funPicture,jdbcType=VARCHAR},
+      food_picture = #{foodPicture,jdbcType=VARCHAR},
+      scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      newness_picture = #{newnessPicture,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      is_enable = #{isEnable,jdbcType=BIT},
+      is_shared = #{isShared,jdbcType=BIT},
+      top = #{top,jdbcType=INTEGER},
+      status = #{status,jdbcType=SMALLINT},
+      title = #{title,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      dest_Description = #{destDescription,jdbcType=VARCHAR},
+      novel_Description = #{novelDescription,jdbcType=VARCHAR},
+      end_Description = #{endDescription,jdbcType=VARCHAR},
+      scenery_Description = #{sceneryDescription,jdbcType=VARCHAR},
+      sharetimes = #{sharetimes,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.Microblog" >
+    update root_microblog
+    set phone = #{phone,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      fun_picture = #{funPicture,jdbcType=VARCHAR},
+      food_picture = #{foodPicture,jdbcType=VARCHAR},
+      scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      newness_picture = #{newnessPicture,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      is_enable = #{isEnable,jdbcType=BIT},
+      is_shared = #{isShared,jdbcType=BIT},
+      top = #{top,jdbcType=INTEGER},
+      status = #{status,jdbcType=SMALLINT},
+      title = #{title,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      dest_Description = #{destDescription,jdbcType=VARCHAR},
+      novel_Description = #{novelDescription,jdbcType=VARCHAR},
+      end_Description = #{endDescription,jdbcType=VARCHAR},
+      scenery_Description = #{sceneryDescription,jdbcType=VARCHAR},
+      sharetimes = #{sharetimes,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

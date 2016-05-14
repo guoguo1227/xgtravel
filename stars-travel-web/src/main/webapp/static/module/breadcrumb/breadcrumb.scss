@@ -1,0 +1,29 @@
+.lg-breadcrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  li {
+    float: left;
+    a {
+      color: #444;
+      font-size: 12px;
+      text-decoration: none;
+
+      &:not([disabled="disabled"]) {
+        cursor: pointer;
+      }
+    }
+
+    .fa {
+      margin-right: 5px;
+      margin-left: 5px;
+      color: #ccc;
+    }
+
+    &:first-child .fa {
+      color: #444;
+    }
+  }
+}

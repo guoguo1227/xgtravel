@@ -1,0 +1,27 @@
+@import '../customize';
+
+.lg-line-chart {
+  background-color: white;
+  border: 1px solid $lgBorderColor;
+  border-radius: 3px;
+}
+
+.lg-date-chart {
+  position: relative;
+  background-color: white !important;
+  border: 1px solid $lgBorderColor;
+  border-radius: 3px;
+
+  .chart-units {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 1;
+
+    .btn {
+      background-color: $lgPrimary;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

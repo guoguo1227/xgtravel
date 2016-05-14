@@ -1,0 +1,94 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+              http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<!--
+<localRepository>E:\maven_repository</localRepository>
+-->
+
+<!--非官方插件命令行运行配置-->
+<pluginGroups>
+    <pluginGroup>org.mortbay.jetty</pluginGroup>      
+</pluginGroups>
+<servers>
+    <server>
+      <id>releases</id>
+      <username>gim</username>
+      <password>gim702</password>
+    </server>
+    <server>
+      <id>snapshots</id>
+      <username>soul</username>
+      <password>soul1234</password>
+    </server>
+	<server>
+      <id>nexus</id>
+      <username>soul</username>
+      <password>soul1234</password>
+    </server>	
+</servers>
+
+<mirrors>
+	<!--配置仓库镜像-->
+	<mirror>
+	  <id>nexus</id>
+	  <mirrorOf>*</mirrorOf>
+	  <name>Human Readable Name for this Mirror.</name>
+	  <url>http://nexus.lagou.com/content/groups/public/</url>
+	</mirror>
+	
+</mirrors>
+  
+<profiles>
+    <!--配置仓库和插件仓库-->
+    <profile>
+      <id>nexus</id>
+      <repositories>
+				<repository>
+					<id>central</id>
+					<name>central</name>
+					<url>http://central</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+			
+			<pluginRepositories>
+				<pluginRepository>
+					<id>central</id>
+					<name>central</name>
+					<url>http://central</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+    </profile>
+<!--    <profile>  
+        <id>jdk-1.6</id>  
+        <activation>  
+            <activeByDefault>true</activeByDefault>  
+            <jdk>1.6</jdk>  
+        </activation>  
+        <properties>  
+            <maven.compiler.source>1.7</maven.compiler.source>  
+            <maven.compiler.target>1.7</maven.compiler.target>  
+            <maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>  
+        </properties>  
+    </profile> 
+--> 
+ </profiles> 
+
+  <!--激活profile-->
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+  
+</settings>

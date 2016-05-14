@@ -1,0 +1,136 @@
+/** 公用css样式 **/
+.overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lagou-center{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.lagou-padding-3{
+    padding:3px;
+}
+
+.lagou-margin-3{
+    margin: 3px;
+}
+
+/* 上边距 */
+.lagou-margin-top-3{
+    margin-top: 3px;
+}
+
+.lagou-margin-top-5{
+    margin-top: 5px;
+}
+.lagou-margin-top-10{
+    margin-top: 10px;
+}
+
+.lagou-margin-top-15{
+    margin-top: 15px;
+}
+
+.lagou-margin-top-20{
+    margin-top: 20px;
+}
+
+.lagou-margin-top-30{
+    margin-top: 30px;
+}
+/* 下边距 */
+.lagou-margin-bottom-3{
+    margin-bottom: 3px;
+}
+
+.lagou-margin-bottom-5{
+    margin-bottom: 5px;
+}
+
+.lagou-margin-bottom-10{
+    margin-bottom: 10px;
+}
+
+/* 左边距 */
+.lagou-margin-left-2{
+    padding: 2px;
+    margin-left: 2px;
+}
+.lagou-margin-left-3{
+    margin-left: 3px;
+}
+.lagou-margin-left-5{
+    margin-left: 5px;
+}
+
+.lagou-margin-left-10{
+    margin-left: 10px;
+}
+
+.lagou-margin-left-15{
+    margin-left: 15px;
+}
+
+.lagou-margin-left-20{
+    margin-left: 20px;
+}
+
+.lagou-margin-left-30{
+    margin-left: 30px;
+}
+
+.lagou-margin-left-50{
+    margin-left: 50px;
+}
+
+/* 右边距 */
+.lagou-margin-right-2{
+    margin-right: 2px;
+}
+.lagou-margin-right-3{
+    margin-right: 3px;
+}
+.lagou-margin-right-5{
+    margin-right: 5px;
+}
+.lagou-margin-right-10{
+    margin-right: 10px;
+}
+.lagou-margin-right-15{
+    margin-right: 15px;
+}
+
+/* 内边距 */
+.lagou-padding-top-3{
+    padding-top: 3px;
+}
+.lagou-padding-top-5{
+    padding-top: 5px;
+}
+.lagou-padding-top-10{
+    padding-top: 10px;
+}
+.width40{
+    width:40%;
+}
+.width80{
+    width:80%;
+}
+.width60{
+    width:60%;
+}
+.width100{
+    width:100%;
+}
+.lagou-fleft{
+    float:left;
+}
+.lagou-fright{
+    float:right;
+}
+.lagou-default-border{
+    border: 1px solid #DCD6D6;
+}

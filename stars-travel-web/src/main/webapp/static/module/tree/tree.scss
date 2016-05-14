@@ -1,0 +1,105 @@
+@import '../customize';
+
+.lg-tree {
+  background-color: white;
+  &.root {
+    border: 1px solid $lgBorderColor;
+    padding: 5px;
+  }
+
+  &, ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .lg-tree-node {
+    > .node-row {
+      position: relative;
+      padding: 8px 0;
+
+      > ul {
+        > li {
+          float: left;
+          padding: 0;
+
+          &:not(:first-child) {
+            padding: 0 15px;
+          }
+          &.row-toggler {
+            font-size: 14px;
+            width: 16px;
+            padding-right: 5px;
+            cursor: pointer;
+            background-color: white;
+            .fa {
+              margin-left: 1px;
+            }
+          }
+          &.row-title {
+            padding-left: 0;
+          }
+
+          &:nth-child(3) {
+            padding-left: 15px;
+          }
+          &.row-item {
+            text-align: center;
+          }
+        }
+      }
+
+      > .row-hborder {
+        position: absolute;
+        left: -15px;
+        width: 12px;
+        height: 50%;
+        top: 50%;
+        border-top: 1px dotted #aaaaaa;
+
+        //&.long {
+        //  width: 26px;
+        //}
+      }
+    }
+    &:last-child > .node-row > .row-hborder {
+      border-left: 1px solid white;
+    }
+
+    > .node-subtree {
+      padding-left: 20px;
+      position: relative;
+
+      &.collapse {
+        display: none;
+      }
+
+      > .subtree-vborder {
+        position: absolute;
+        left: 5px;
+        top: -5px;
+        width: 1px;
+        height: 100%;
+        border-left: 1px dotted #aaaaaa;
+      }
+    }
+    &:last-child > .node-subtree > .subtree-vborder-overlay {
+      position: absolute;
+      left: -15px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      border-left: 1px solid white;
+    }
+  }
+
+  &.root > .lg-tree-node {
+    > .node-row > .row-hborder {
+      border: none;
+    }
+    > .node-subtree > .subtree-vborder-overlay {
+      border-left: none;
+    }
+  }
+}
+

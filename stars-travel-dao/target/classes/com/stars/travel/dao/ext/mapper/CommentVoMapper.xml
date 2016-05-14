@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.ext.mapper.CommentVoMapper" >
+
+  <resultMap id="BaseResultMap" type="com.lagou.auction.model.ext.CommentVo" extends="CommentResultMap" >
+    <association property="userInfo" resultMap="userInfoMap"></association>
+  </resultMap>
+
+  <resultMap id="CommentResultMap" type="com.lagou.auction.model.base.Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="checked" property="checked" jdbcType="BIT" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="downs" property="downs" jdbcType="SMALLINT" />
+    <result column="recommend" property="recommend" jdbcType="VARCHAR" />
+    <result column="ups" property="ups" jdbcType="SMALLINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="relateId" property="relateId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="userInfoMap" type="com.lagou.auction.model.ext.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nikename" jdbcType="VARCHAR" property="nikename" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="portrait" jdbcType="VARCHAR" property="portrait" />
+  </resultMap>
+
+  <!-- comment -->
+  <sql id="commentSelectSQL">
+    comment.id as id,
+    comment.checked as checked,
+    comment.createtime as createtime,
+    comment.downs as downs,
+    comment.recommend as recommend,
+    comment.ups as ups,
+    comment.phone as phone,
+    comment.relate_id as relateId,
+    comment.type as type
+  </sql>
+  <!-- user -->
+  <sql id="userInfoSelectSQL">
+    userInfo.id as id,
+    userInfo.nikename as nikename,
+    userInfo.email as email,
+    userInfo.portrait as portrait
+  </sql>
+
+  <!-- 公共查询条件sql -->
+  <sql id="whereBaseSQL" >
+
+    <!-- 用户手机 -->
+    <if test="phone != null" >
+      and comment.phone = #{phone}
+    </if>
+
+    <!-- 关联id -->
+    <if test="id != null" >
+      and comment.relate_id = #{id}
+    </if>
+
+    <!-- 类型 -->
+    <if test="type != null" >
+      and comment.type = #{type}
+    </if>
+    <!-- 最新 -->
+    <if test="idGreaterThan != null" >
+      and comment.id > #{idGreaterThan}
+    </if>
+    <!-- 历史 -->
+    <if test="idLessThan != null" >
+      <![CDATA[
+        and comment.id < #{idLessThan}
+      ]]>
+    </if>
+
+  </sql>
+  <select id="queryCommentList" resultMap="BaseResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+    select
+    <include refid="commentSelectSQL"></include>
+    ,
+    <include refid="userInfoSelectSQL"></include>
+
+    from root_comment comment
+    left join root_user userInfo on comment.phone = userInfo.phone
+
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+
+   <!-- <if test="orderByClause != null" >
+      order by #{orderByClause}
+    </if>-->
+
+    order by comment.id desc
+    limit #{limit}
+
+    <if test="offset != null" >
+      offset #{offset}
+    </if>
+  </select>
+
+  <select id="queryCommentCount" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+    select count(*)
+    from root_comment comment
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+  </select>
+</mapper>

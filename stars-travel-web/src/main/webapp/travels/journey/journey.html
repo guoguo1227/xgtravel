@@ -1,0 +1,232 @@
+<div class="col-xs-12" id="journeyApp"  ng-app="journeyApp"  ng-controller="journeyCtrl" ng-init="init()">
+
+    <div class="form-group row">
+        <div class="col-xs-2 lagou-margin-top-10">
+            <button type="button" class="btn btn-info btn-flat lagou-searchBut" ng-click="addJourney()">添加行程</button>
+        </div>
+    </div>
+    <lg-data-table table-data="tableData"></lg-data-table>
+    <lg-paginator   on-change="onChangePage(page)"
+                    total-pages="pagesNumber"
+                    visible-pages="10"
+                    total-entries="totalEntries">
+    </lg-paginator>
+
+    <lg-modal open = "journeyFlagObj.showAddJourneyPannel">
+
+        <div class="modal-header">
+            <h1>
+                行程分享
+                <small>添加行程</small>
+            </h1>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <!-- 添加行程 -->
+                <div class="box box-primary" ng-show="journeyFlagObj.showAddJourneyFlag">
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">标题</label> <input type="text" name="title" ng-model="journey.title"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述</label> <input type="text" name="description" ng-model="journey.description"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">预算(整数)</label> <input type="text" name="budget" ng-model="journey.budget"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">天数(整数)</label> <input type="text" name="totalday" ng-model="journey.totalday"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">目的地</label> <input type="text" name="destination" ng-model="journey.destination"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">内容</label>
+                                <textarea class="form-control" name="content" ng-model="journey.content" rows="3" placeholder=" 请输入内容...">内容</textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary"  ng-click="saveJourneyVo()">保存</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 显示行程详情 -->
+                <div class="box box-primary" ng-show="journeyFlagObj.showJourneyFlag">
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="box box-success">
+                            <div class="box-header ui-sortable-handle" style="cursor: move;">
+                                <i class="fa fa-comments-o"></i>
+                                <h3 class="box-title">{{journeyVo.title}}</h3>
+                            </div>
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; height: 250px;">
+                                <!-- chat item -->
+                                <div class="item">
+                                    <img src="dist/img/user4-128x128.jpg" alt="user image" class="online">
+
+                                    <p class="message">
+                                        <a href="#" class="name">
+                                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{journeyVo.createtime}}</small>
+                                         ID:{{journeyVo.id}}
+                                        </a>
+                                    <p>{{journeyVo.content}}</p>
+                                    </p>
+                                    <div class="attachment">
+                                        <h4>共计: {{journeyVo.totalday}} 天</h4>
+
+                                        <p class="filename">
+                                            预算 {{journeyVo.budget}}元
+                                        </p>
+
+                                    </div>
+                                    <!-- /.attachment -->
+                                </div>
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-primary btn-sm btn-flat" ng-click="addJourneyDayItem()">添加每天行程</button>
+                                </div>
+                                <!-- /.item -->
+                            </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 184.911px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="box box-primary" ng-show = "journeyFlagObj.showJourneyDayFlag" ng-repeat="day in addJourneyVo.journeyDays">
+                    <div class="box box-success">
+                        <h3 class="box-title">第 :{{day.currentDay}} 天</h3>
+                    </div>
+                    <div class="form-group" ng-repeat="item in day.journeyItemList">
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-4 control-label">【事件】</label>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="title" ng-model="item.title"></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">内容</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="content" ng-model="item.content"></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">预算</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="budget" ng-model="item.budget"></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">时间（8:00-12:00）</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="time" ng-model="item.time"></div>
+                        </div>
+                    </div>
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                        <button type="button" style="float: left;margin-left: 15px;" class="btn btn-success" ng-click="addJourneyItemForm(day.currentDay)"><i class="fa fa-plus"></i></button>
+                        <p style="margin-left:15px;margin-top: 10px;">添加更多的行程事件</p>
+                    </div>
+                    <div class="box box-primary">
+                        <button style="width:100px;float:right;margin-bottom: 10px;margin-right:10px;" type="button" class="btn btn-block btn-info btn-sm" ng-click="saveJourneyItem()">保存</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </lg-modal>
+
+
+    <lg-modal open = "journeyFlagObj.showAddJourneyDetail">
+
+        <div class="modal-header">
+            <h1>
+                行程分享
+                <small>添加行程</small>
+            </h1>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <!-- 添加行程 -->
+                <div class="box box-primary">
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">标题</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.title"  class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.description"  class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">预算</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.budget"  class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">天数</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.totalday"  class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">目的地</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.destination"  class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">内容</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="phone" ng-model="journeyDetail.content"  class="form-control" disabled>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="box box-primary" ng-repeat="day in journeyDetail.journeyDayVoList">
+                    <div class="box box-success">
+                        <h3 class="box-title">第 :{{day.current_day}} 天</h3>
+                    </div>
+                    <div class="form-group" ng-repeat="item in day.journeyItemVoList">
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-4 control-label">【事件】</label>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="title" ng-model="item.title" disabled></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">内容</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="content" ng-model="item.content" disabled></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">预算</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="budget" ng-model="item.budget" disabled></div>
+                        </div>
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
+                            <label class="col-sm-2 control-label">时间</label>
+                            <div class="col-sm-10"><input type="input" class="form-control" name="time" ng-model="item.time" disabled></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </lg-modal>
+
+</div>
+

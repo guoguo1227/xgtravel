@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stars.travel.dao.ext.mapper.MicroblogVoMapper" >
+
+  <resultMap id="BaseResultMap" type="com.lagou.auction.model.ext.MicroblogVo" extends="ResultMapWithBLOBs" >
+    <association property="userInfo" resultMap="userInfoMap"></association>
+  </resultMap>
+
+  <resultMap id="MicroblogMap" type="com.lagou.auction.model.base.Microblog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="funPicture" property="funPicture" jdbcType="VARCHAR" />
+    <result column="foodPicture" property="foodPicture" jdbcType="VARCHAR" />
+    <result column="sceneryPicture" property="sceneryPicture" jdbcType="VARCHAR" />
+    <result column="newnessPicture" property="newnessPicture" jdbcType="VARCHAR" />
+    <result column="destDescription" property="destDescription" jdbcType="VARCHAR" />
+    <result column="novelDescription" property="novelDescription" jdbcType="VARCHAR" />
+    <result column="endDescription" property="endDescription" jdbcType="VARCHAR" />
+    <result column="sceneryDescription" property="sceneryDescription" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="isEnable" property="isEnable" jdbcType="BIT" />
+    <result column="isShared" property="isShared" jdbcType="BIT" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lagou.auction.model.base.MicroblogWithBLOBs" extends="MicroblogMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="userInfoMap" type="com.lagou.auction.model.ext.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nikename" jdbcType="VARCHAR" property="nikename" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="portrait" jdbcType="VARCHAR" property="portrait" />
+  </resultMap>
+
+  <!-- microblog -->
+  <sql id="microblogSelectSQL">
+    microblog.id as id,
+    microblog.phone as phone,
+    microblog.picture as picture,
+    microblog.fun_picture as funPicture,
+    microblog.food_picture as foodPicture,
+    microblog.scenery_picture as sceneryPicture,
+    microblog.newness_picture as newnessPicture,
+    microblog.dest_Description as destDescription,
+    microblog.novel_Description as novelDescription,
+    microblog.end_Description as endDescription,
+    microblog.scenery_Description as sceneryDescription,
+    microblog.createtime as createtime,
+    microblog.updatetime as updatetime,
+    microblog.is_enable as isEnable,
+    microblog.is_shared as isShared,
+    microblog.top as top,
+    microblog.status as status,
+    microblog.title as title,
+    microblog.destination as destination,
+    microblog.sharetimes as sharetimes,
+    microblog.description as description,
+    microblog.content as content
+  </sql>
+  <!-- user -->
+  <sql id="userInfoSelectSQL">
+    userInfo.id as id,
+    userInfo.nikename as nikename,
+    userInfo.email as email,
+    userInfo.portrait as portrait
+  </sql>
+
+  <!-- 公共查询条件sql -->
+  <sql id="whereBaseSQL" >
+    <!-- 微游记id -->
+    <if test="id != null" >
+      and microblog.id = #{id}
+    </if>
+
+    <!-- 用户手机 -->
+    <if test="phone != null" >
+      and microblog.phone = #{phone}
+    </if>
+
+    <!-- 是否可用 -->
+    <if test="ifEnable != null" >
+      and microblog.is_enable = #{ifEnable}
+    </if>
+    <!-- 是否分享 -->
+    <if test="ifShared != null" >
+      and microblog.is_shared = #{ifShared}
+    </if>
+    <!-- 目的地 -->
+    <if test="destination != null" >
+      and microblog.destination = #{destination}
+    </if>
+    <!-- 最新 -->
+    <if test="idGreaterThan != null" >
+      and microblog.id > #{idGreaterThan}
+    </if>
+    <!-- 历史 -->
+    <if test="idLessThan != null" >
+      <![CDATA[
+        and microblog.id < #{idLessThan}
+      ]]>
+    </if>
+  </sql>
+  <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+    select
+    <include refid="microblogSelectSQL"></include>
+    ,
+    <include refid="userInfoSelectSQL"></include>
+
+    from root_microblog microblog
+    left join root_user userInfo on microblog.phone = userInfo.phone
+
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+
+  <!--  <if test="orderByClause != null" >
+      order by #{orderByClause}
+    </if>
+-->
+    order by microblog.id desc
+    limit #{limit}
+
+    <if test="offset != null" >
+      offset #{offset}
+    </if>
+  </select>
+
+  <select id="countSharedMicroblogList" resultType="java.lang.Integer"  parameterType="com.lagou.auction.model.condition.AuctionSearchCondition" >
+    select count(*)
+    from root_microblog microblog
+    <where >
+      <include refid="whereBaseSQL"></include>
+    </where>
+  </select>
+</mapper>

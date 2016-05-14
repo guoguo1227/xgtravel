@@ -1,0 +1,75 @@
+@import '../customize';
+
+@keyframes lg-modal-in-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes lg-modal-dialog-in-anim {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes lg-modal-out-anim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes lg-modal-dialog-out-anim {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.lg-modal {
+  background-color: rgba(0,0,0,.5);
+  overflow-y: auto;
+
+  &.lg-modal-in {
+    animation: lg-modal-in-anim .2s ease-in-out forwards;
+    .lg-modal-dialog {
+      animation: lg-modal-dialog-in-anim .5s ease-in-out forwards;
+    }
+  }
+  &.lg-modal-out {
+    animation: lg-modal-out-anim .2s ease-in-out forwards;
+    .lg-modal-dialog {
+      animation: lg-modal-dialog-out-anim .5s ease-in-out forwards;
+    }
+  }
+  
+  .lg-modal-dialog {
+    background-color: white;
+    border-radius: 5px;
+
+    .dialog-content {
+      position: relative;
+    }
+    .close {
+      opacity: .4;
+      display: block;
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      color: #fff;
+      font-size: 20px;
+      transform: translateX(100%) translateY(-100%);
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+<div class="col-xs-12" id="customizationApp"  ng-app="customizationApp"  ng-controller="customizationCtrl" ng-init="init()">
+    <form class="lagou-form-search lagou-auction-offer" role="form">
+        <div class="box-body">
+            <div class="form-group row">
+                <div class="col-xs-2 lagou-margin-top-10">
+                    <button type="button" class="btn btn-info btn-flat lagou-searchBut" ng-click="addCustom()">添加定制</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <lg-data-table table-data="tableData"></lg-data-table>
+    <lg-paginator   on-change="onChangePage(page)"
+                    total-pages="pagesNumber"
+                    visible-pages="10"
+                    total-entries="totalEntries">
+    </lg-paginator>
+
+    <!-- 添加定制 -->
+    <lg-modal open = "customFlagObj.addCustomOpen">
+        <div class="form-group">
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加定制</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form name="imageForm"  >
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">旅行时间</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.traveltime"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">往返城市</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.city"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">外部交通</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.outTraffic"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">内部交通</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.innerTraffic"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">酒店类型</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.hotel"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">酒店选择因素</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.hotelFactors"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">景点偏好</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.featureHobby"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">美食偏好</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.foodHobby"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">备注</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.remark"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">单人预算</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.budget"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">人数</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.peopleday"  class="form-control">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">目的地</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addCustomInfo.destination"  class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" ng-click="saveCustom()">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </lg-modal>
+</div>

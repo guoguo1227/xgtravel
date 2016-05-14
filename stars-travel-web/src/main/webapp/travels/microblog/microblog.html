@@ -1,0 +1,144 @@
+<div class="col-xs-12" id="microblogApp"  ng-app="microblogApp"  ng-controller="microblogCtrl" ng-init="init()">
+    <form class="lagou-form-search lagou-auction-offer" role="form">
+        <div class="box-body">
+            <div class="form-group row">
+                <div class="col-xs-2 lagou-margin-top-10">
+                    <button type="button" class="btn btn-info btn-flat lagou-searchBut" ng-click="addMicroblog()">添加微游记</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <lg-data-table table-data="tableData"></lg-data-table>
+    <lg-paginator   on-change="onChangePage(page)"
+                    total-pages="pagesNumber"
+                    visible-pages="10"
+                    total-entries="totalEntries">
+    </lg-paginator>
+
+    <!-- 添加微游记 -->
+    <lg-modal open = "microblogFlagObj.showAddMicroblog">
+        <div class="form-group">
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加微游记</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form name="imageForm"  >
+                        <div class="box-body">
+                            <div class="col-sm-10 lagou-center">
+                                <img src="{{microblogInfo.picture}}" class="img-circle" style="width:90px;height:90px;"/>
+                                <input class="lagou-center" type="file" ngf-select="" ng-model="picture" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                <button type="button" ng-click="uploadPicture(picture,1)">上传封面图</button>
+                            </div>
+                            <div class="col-sm-10 lagou-center">
+                                <img src="{{microblogInfo.funPicture}}" class="img-circle" style="width:90px;height:90px;"/>
+                                <input class="lagou-center" type="file" ngf-select="" ng-model="funPicture" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                <button type="button" ng-click="uploadPicture(funPicture,2)">上传玩趣图</button>
+                            </div>
+                            <div class="col-sm-10 lagou-center">
+                                <img src="{{microblogInfo.foodPicture}}" class="img-circle" style="width:90px;height:90px;"/>
+                                <input class="lagou-center" type="file" ngf-select="" ng-model="foodPicture" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                <button type="button" ng-click="uploadPicture(foodPicture,3)">上传美食图</button>
+                            </div>
+                            <div class="col-sm-10 lagou-center">
+                                <img src="{{microblogInfo.sceneryPicture}}" class="img-circle" style="width:90px;height:90px;"/>
+                                <input class="lagou-center" type="file" ngf-select="" ng-model="sceneryPicture" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                <button type="button" ng-click="uploadPicture(sceneryPicture,4)">上传风景图</button>
+                            </div>
+                            <div class="col-sm-10 lagou-center">
+                                <img src="{{microblogInfo.newnessPicture}}" class="img-circle" style="width:90px;height:90px;"/>
+                                <input class="lagou-center" type="file" ngf-select="" ng-model="newnessPicture" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                <button type="button" ng-click="uploadPicture(newnessPicture,5)">上传新奇图</button>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">标题</label>
+                                    <input type="text" name="title" ng-model="microblogInfo.title"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">描述</label>
+                                    <input type="text" name="description" ng-model="microblogInfo.description"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">内容</label>
+                                    <input type="text" name="content" ng-model="microblogInfo.content"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">目的地</label>
+                                    <input type="text" name="destination" ng-model="microblogInfo.destination"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3 control-label">目的地描述</label>
+                                    <input type="text" name="destDescription" ng-model="microblogInfo.destDescription"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3-2 control-label">味道描述</label>
+                                    <input type="text" name="novelDescription" ng-model="microblogInfo.novelDescription"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3-2 control-label">结尾描述</label>
+                                    <input type="text" name="endDescription" ng-model="microblogInfo.endDescription"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">风景描述</label>
+                                    <input type="text" name="sceneryDescription" ng-model="microblogInfo.sceneryDescription"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" ng-click="saveMicroblog()">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </lg-modal>
+
+    <!-- 添加评论 -->
+    <lg-modal open = "microblogFlagObj.showAddCommentFlag">
+        <div class="form-group">
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加评论</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form name="imageForm"  >
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">评论内容</label>
+                                    <input type="text" name="sceneryDescription" ng-model="addComment.recommend"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" ng-click="saveComment()">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </lg-modal>
+</div>

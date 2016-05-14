@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/stars-travel.iml" filepath="$PROJECT_DIR$/.idea/stars-travel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stars-travel-dao/stars-travel-dao.iml" filepath="$PROJECT_DIR$/stars-travel-dao/stars-travel-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stars-travel-parent/stars-travel-parent.iml" filepath="$PROJECT_DIR$/stars-travel-parent/stars-travel-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stars-travel-service/stars-travel-service.iml" filepath="$PROJECT_DIR$/stars-travel-service/stars-travel-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stars-travel-web/stars-travel-web.iml" filepath="$PROJECT_DIR$/stars-travel-web/stars-travel-web.iml" />
+    </modules>
+  </component>
+</project>

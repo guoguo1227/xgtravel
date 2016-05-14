@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"  xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:db.properties" />
+    <aop:aspectj-autoproxy/>
+    <!-- lagou-offer master-->
+    <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
+
+        <property name="url" value="${master.jdbc.url}" />
+        <property name="username" value="${master.jdbc.username}" />
+        <property name="password" value="${master.jdbc.password}" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="initialSize" value="1" />
+        <property name="maxActive" value="20" />
+        <property name="minIdle" value="0" />
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="select date" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="1800" />
+        <property name="logAbandoned" value="true" />
+        <property name="filters" value="mergeStat" />
+    </bean>
+
+    <!-- lagou-offer slaver-->
+    <bean id="parentSlaveDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
+        <property name="url" value="${master.jdbc.url}" />
+        <property name="username" value="${master.jdbc.username}" />
+        <property name="password" value="${master.jdbc.password}" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="initialSize" value="1" />
+        <property name="maxActive" value="20" />
+        <property name="minIdle" value="0" />
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="select date" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="1800" />
+        <property name="logAbandoned" value="true" />
+        <property name="filters" value="mergeStat" />
+    </bean>
+
+    <!-- lagou-offer slaver 1-->
+    <bean id="slaveDataSource1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" init-method="init" parent="parentSlaveDataSource">
+        <property name="url" value="${master.jdbc.url}" />
+        <property name="username" value="${master.jdbc.username}" />
+        <property name="password" value="${master.jdbc.password}" />
+    </bean>
+
+    <!-- mybaits 数据工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:com/lagou/auction/dao/*/mapper/*.xml" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lagou.auction.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
+    <bean id="dataSource" class="com.lagou.auction.datasource.MasterSlaveDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry key-ref="masterDataSource" value-ref="masterDataSource"/>
+                <entry key-ref="slaveDataSource1" value-ref="slaveDataSource1"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="masterDataSource"/>
+        <property name="masterSlaveSelector" ref="dataSelector"/>
+    </bean>
+
+    <!-- 数据源选择器 -->
+    <bean id="dataSelector" class="com.lagou.auction.datasource.MasterSlaveSelectorByPoll">
+        <property name="masters">
+            <list>
+                <ref bean="masterDataSource"/>
+            </list>
+        </property>
+        <property name="slaves">
+            <list>
+                <ref bean="slaveDataSource1"/>
+            </list>
+        </property>
+        <property name="defaultDataSource" ref="masterDataSource"/>
+    </bean>
+
+    <!-- 数据库切面 -->
+    <bean id="masterSlaveAspect" class="com.lagou.auction.datasource.MasterSlaveAspect">
+        <property name="prefixMasters">
+            <list>
+                <value>update</value>
+                <value>create</value>
+                <value>edit</value>
+                <value>delete</value>
+                <value>clear</value>
+                <value>cancel</value>
+                <value>active</value>
+                <value>change</value>
+                <value>confirm</value>
+                <value>mark</value>
+                <value>save</value>
+                <value>set</value>
+                <value>regist</value>
+                <value>insert</value>
+            </list>
+        </property>
+    </bean>
+
+    <aop:config>
+        <aop:aspect id="c" ref="masterSlaveAspect">
+            <aop:pointcut id="tx" expression="execution(* com.lagou.auction..dao..*.*(..))"/>
+            <aop:before pointcut-ref="tx" method="before"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
