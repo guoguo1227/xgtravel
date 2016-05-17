@@ -1,6 +1,6 @@
 package com.stars.travel.controller;
 
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.base.JourneyWithBLOBs;
 import com.stars.travel.model.condition.AuctionSearchCondition;

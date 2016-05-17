@@ -18,7 +18,7 @@ public class Generator {
 
         List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
-        File configFile = new File("H:/stars-travel/stars-travel-dao/src/test/resources/generatorConfig.xml");
+        File configFile = new File("H:/stars-travel/xgtravel/stars-travel-dao/src/test/resources/generatorConfig.xml");
         System.out.println(configFile.getAbsoluteFile());
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);

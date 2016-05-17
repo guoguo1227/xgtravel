@@ -1,6 +1,5 @@
 package com.stars.travel.dao.ext.mapper;
 
-import com.lagou.common.base.result.Page;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 

@@ -10,6 +10,7 @@ com\stars\travel\service\impl\JourneyServiceImpl.class
 com\stars\travel\service\impl\UserServiceImpl.class
 com\stars\common\service\HttpResponse.class
 com\stars\common\utils\EncryptUtil.class
+com\stars\common\utils\Page.class
 com\stars\travel\service\impl\CommentServiceImpl.class
 com\stars\travel\service\MicroblogVoService.class
 com\stars\common\enums\CommentTypeEnum.class
@@ -27,5 +28,5 @@ com\stars\common\service\HttpRequestService.class
 com\stars\common\service\impl\CommonOptionsServiceImpl.class
 com\stars\common\utils\UuidGenerator.class
 com\stars\travel\service\MicroblogService.class
-com\stars\common\utils\BeanUtilExt.class
 com\stars\travel\service\LoginService.class
+com\stars\common\utils\BeanUtilExt.class

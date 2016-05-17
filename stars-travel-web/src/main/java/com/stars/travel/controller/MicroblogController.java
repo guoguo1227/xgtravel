@@ -1,5 +1,5 @@
 package com.stars.travel.controller;
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;

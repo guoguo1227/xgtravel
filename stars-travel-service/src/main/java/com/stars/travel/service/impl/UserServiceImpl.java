@@ -1,6 +1,6 @@
 package com.stars.travel.service.impl;
 
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.common.utils.BeanUtilExt;
 import com.stars.common.utils.EncryptUtil;
 import com.stars.travel.dao.base.mapper.*;
@@ -141,6 +141,58 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean modifyUserInfo(UserInfo userInfo) {
+        if(null != userInfo && !StringUtils.isBlank(userInfo.getPhone())){
+
+            User user = queryUserByPhoneNumber(userInfo.getPhone());
+            if(null != user){
+                if(!StringUtils.isBlank(userInfo.getName())){
+                    user.setName(userInfo.getName());
+                }
+                if(!StringUtils.isBlank(userInfo.getEmail())){
+                    user.setEmail(userInfo.getEmail());
+                }
+                if(!StringUtils.isBlank(userInfo.getPortrait())){
+                    user.setPortrait(userInfo.getPortrait());
+                }
+                if(!StringUtils.isBlank(userInfo.getSummary())){
+                    user.setSummary(userInfo.getSummary());
+                }
+                if(!StringUtils.isBlank(userInfo.getIntroduceImage())){
+                    user.setIntroduceImage(userInfo.getIntroduceImage());
+                }
+                if(!StringUtils.isBlank(userInfo.getIntroduction())){
+                    user.setIntroduction(userInfo.getIntroduction());
+                }
+                if(!StringUtils.isBlank(userInfo.getName())){
+                    user.setName(userInfo.getName());
+                }
+                if(!StringUtils.isBlank(userInfo.getAddress())){
+                    user.setAddress(userInfo.getAddress());
+                }
+                if(!StringUtils.isBlank(userInfo.getProfession())){
+                    user.setProfession(userInfo.getProfession());
+                }
+                if(!StringUtils.isBlank(userInfo.getSignature())){
+                    user.setSignature(userInfo.getSignature());
+                }
+                if(!StringUtils.isBlank(userInfo.getStrategyInfo())){
+                    user.setStrategyInfo(userInfo.getStrategyInfo());
+                }
+                user.setPassword(null); //不可修改密码
+                int i = userMapper.updateByPrimaryKeySelective(user);
+                if(i>0){
+                    return true;
+                }
+            }else{
+                logger.info("用户phone:"+userInfo.getPhone()+"不存在");
+            }
+
+        }
+        return false;
+    }
+
+    @Override
     public boolean modifyUser(User user) {
         if(null != user && !StringUtils.isBlank(user.getPhone())){
             user.setPassword(null); //不可修改密码
@@ -151,7 +203,6 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
     @Override
     public User queryUserById(Integer userId) {
         User user = null;

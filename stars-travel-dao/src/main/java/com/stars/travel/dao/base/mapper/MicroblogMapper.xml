@@ -4,10 +4,14 @@
   <resultMap id="BaseResultMap" type="com.stars.travel.model.base.Microblog" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="picture_description" property="pictureDescription" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
     <result column="fun_picture" property="funPicture" jdbcType="VARCHAR" />
+    <result column="fun_picture_description" property="funPictureDescription" jdbcType="VARCHAR" />
+    <result column="food_picture_description" property="foodPictureDescription" jdbcType="VARCHAR" />
     <result column="food_picture" property="foodPicture" jdbcType="VARCHAR" />
     <result column="scenery_picture" property="sceneryPicture" jdbcType="VARCHAR" />
+    <result column="newness_picture_description" property="newnessPictureDescription" jdbcType="VARCHAR" />
     <result column="newness_picture" property="newnessPicture" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
@@ -86,8 +90,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, picture, fun_picture, food_picture, scenery_picture, newness_picture, 
-    createtime, updatetime, is_enable, is_shared, top, status, title, destination, dest_Description, 
+    id, phone, picture_description, picture, fun_picture, fun_picture_description, food_picture_description, 
+    food_picture, scenery_picture, newness_picture_description, newness_picture, createtime, 
+    updatetime, is_enable, is_shared, top, status, title, destination, dest_Description, 
     novel_Description, end_Description, scenery_Description, sharetimes
   </sql>
   <sql id="Blob_Column_List" >
@@ -153,18 +158,20 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT @@IDENTITY
     </selectKey>
-    insert into root_microblog (phone, picture, fun_picture, 
-      food_picture, scenery_picture, newness_picture, 
-      createtime, updatetime, is_enable, 
-      is_shared, top, status, 
+    insert into root_microblog (phone, picture_description, picture, 
+      fun_picture, fun_picture_description, food_picture_description, 
+      food_picture, scenery_picture, newness_picture_description, 
+      newness_picture, createtime, updatetime, 
+      is_enable, is_shared, top, status, 
       title, destination, dest_Description, 
       novel_Description, end_Description, scenery_Description, 
       sharetimes, description, content
       )
-    values (#{phone,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, #{funPicture,jdbcType=VARCHAR}, 
-      #{foodPicture,jdbcType=VARCHAR}, #{sceneryPicture,jdbcType=VARCHAR}, #{newnessPicture,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, 
-      #{isShared,jdbcType=BIT}, #{top,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, 
+    values (#{phone,jdbcType=VARCHAR}, #{pictureDescription,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{funPicture,jdbcType=VARCHAR}, #{funPictureDescription,jdbcType=VARCHAR}, #{foodPictureDescription,jdbcType=VARCHAR}, 
+      #{foodPicture,jdbcType=VARCHAR}, #{sceneryPicture,jdbcType=VARCHAR}, #{newnessPictureDescription,jdbcType=VARCHAR}, 
+      #{newnessPicture,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, #{top,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, 
       #{title,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, #{destDescription,jdbcType=VARCHAR}, 
       #{novelDescription,jdbcType=VARCHAR}, #{endDescription,jdbcType=VARCHAR}, #{sceneryDescription,jdbcType=VARCHAR}, 
       #{sharetimes,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
@@ -179,17 +186,29 @@
       <if test="phone != null" >
         phone,
       </if>
+      <if test="pictureDescription != null" >
+        picture_description,
+      </if>
       <if test="picture != null" >
         picture,
       </if>
       <if test="funPicture != null" >
         fun_picture,
       </if>
+      <if test="funPictureDescription != null" >
+        fun_picture_description,
+      </if>
+      <if test="foodPictureDescription != null" >
+        food_picture_description,
+      </if>
       <if test="foodPicture != null" >
         food_picture,
       </if>
       <if test="sceneryPicture != null" >
         scenery_picture,
+      </if>
+      <if test="newnessPictureDescription != null" >
+        newness_picture_description,
       </if>
       <if test="newnessPicture != null" >
         newness_picture,
@@ -244,17 +263,29 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="pictureDescription != null" >
+        #{pictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="picture != null" >
         #{picture,jdbcType=VARCHAR},
       </if>
       <if test="funPicture != null" >
         #{funPicture,jdbcType=VARCHAR},
       </if>
+      <if test="funPictureDescription != null" >
+        #{funPictureDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPictureDescription != null" >
+        #{foodPictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="foodPicture != null" >
         #{foodPicture,jdbcType=VARCHAR},
       </if>
       <if test="sceneryPicture != null" >
         #{sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="newnessPictureDescription != null" >
+        #{newnessPictureDescription,jdbcType=VARCHAR},
       </if>
       <if test="newnessPicture != null" >
         #{newnessPicture,jdbcType=VARCHAR},
@@ -321,17 +352,29 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.pictureDescription != null" >
+        picture_description = #{record.pictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="record.picture != null" >
         picture = #{record.picture,jdbcType=VARCHAR},
       </if>
       <if test="record.funPicture != null" >
         fun_picture = #{record.funPicture,jdbcType=VARCHAR},
       </if>
+      <if test="record.funPictureDescription != null" >
+        fun_picture_description = #{record.funPictureDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPictureDescription != null" >
+        food_picture_description = #{record.foodPictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="record.foodPicture != null" >
         food_picture = #{record.foodPicture,jdbcType=VARCHAR},
       </if>
       <if test="record.sceneryPicture != null" >
         scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newnessPictureDescription != null" >
+        newness_picture_description = #{record.newnessPictureDescription,jdbcType=VARCHAR},
       </if>
       <if test="record.newnessPicture != null" >
         newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
@@ -390,10 +433,14 @@
     update root_microblog
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
+      picture_description = #{record.pictureDescription,jdbcType=VARCHAR},
       picture = #{record.picture,jdbcType=VARCHAR},
       fun_picture = #{record.funPicture,jdbcType=VARCHAR},
+      fun_picture_description = #{record.funPictureDescription,jdbcType=VARCHAR},
+      food_picture_description = #{record.foodPictureDescription,jdbcType=VARCHAR},
       food_picture = #{record.foodPicture,jdbcType=VARCHAR},
       scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      newness_picture_description = #{record.newnessPictureDescription,jdbcType=VARCHAR},
       newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
@@ -418,10 +465,14 @@
     update root_microblog
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
+      picture_description = #{record.pictureDescription,jdbcType=VARCHAR},
       picture = #{record.picture,jdbcType=VARCHAR},
       fun_picture = #{record.funPicture,jdbcType=VARCHAR},
+      fun_picture_description = #{record.funPictureDescription,jdbcType=VARCHAR},
+      food_picture_description = #{record.foodPictureDescription,jdbcType=VARCHAR},
       food_picture = #{record.foodPicture,jdbcType=VARCHAR},
       scenery_picture = #{record.sceneryPicture,jdbcType=VARCHAR},
+      newness_picture_description = #{record.newnessPictureDescription,jdbcType=VARCHAR},
       newness_picture = #{record.newnessPicture,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
@@ -446,17 +497,29 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="pictureDescription != null" >
+        picture_description = #{pictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="picture != null" >
         picture = #{picture,jdbcType=VARCHAR},
       </if>
       <if test="funPicture != null" >
         fun_picture = #{funPicture,jdbcType=VARCHAR},
       </if>
+      <if test="funPictureDescription != null" >
+        fun_picture_description = #{funPictureDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPictureDescription != null" >
+        food_picture_description = #{foodPictureDescription,jdbcType=VARCHAR},
+      </if>
       <if test="foodPicture != null" >
         food_picture = #{foodPicture,jdbcType=VARCHAR},
       </if>
       <if test="sceneryPicture != null" >
         scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="newnessPictureDescription != null" >
+        newness_picture_description = #{newnessPictureDescription,jdbcType=VARCHAR},
       </if>
       <if test="newnessPicture != null" >
         newness_picture = #{newnessPicture,jdbcType=VARCHAR},
@@ -512,10 +575,14 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stars.travel.model.base.MicroblogWithBLOBs" >
     update root_microblog
     set phone = #{phone,jdbcType=VARCHAR},
+      picture_description = #{pictureDescription,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR},
       fun_picture = #{funPicture,jdbcType=VARCHAR},
+      fun_picture_description = #{funPictureDescription,jdbcType=VARCHAR},
+      food_picture_description = #{foodPictureDescription,jdbcType=VARCHAR},
       food_picture = #{foodPicture,jdbcType=VARCHAR},
       scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      newness_picture_description = #{newnessPictureDescription,jdbcType=VARCHAR},
       newness_picture = #{newnessPicture,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
@@ -537,10 +604,14 @@
   <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.Microblog" >
     update root_microblog
     set phone = #{phone,jdbcType=VARCHAR},
+      picture_description = #{pictureDescription,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR},
       fun_picture = #{funPicture,jdbcType=VARCHAR},
+      fun_picture_description = #{funPictureDescription,jdbcType=VARCHAR},
+      food_picture_description = #{foodPictureDescription,jdbcType=VARCHAR},
       food_picture = #{foodPicture,jdbcType=VARCHAR},
       scenery_picture = #{sceneryPicture,jdbcType=VARCHAR},
+      newness_picture_description = #{newnessPictureDescription,jdbcType=VARCHAR},
       newness_picture = #{newnessPicture,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},

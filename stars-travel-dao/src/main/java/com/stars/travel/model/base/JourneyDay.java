@@ -1,6 +1,5 @@
 package com.stars.travel.model.base;
 
-import com.lagou.common.base.bean.BaseBean;
 import java.util.Date;
 
 public class JourneyDay implements BaseBean {

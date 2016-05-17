@@ -1,6 +1,6 @@
 package com.stars.travel.service.impl;
 
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.common.enums.CommentTypeEnum;
 import com.stars.travel.dao.base.mapper.CommentMapper;
 import com.stars.travel.dao.ext.mapper.CommentVoMapper;

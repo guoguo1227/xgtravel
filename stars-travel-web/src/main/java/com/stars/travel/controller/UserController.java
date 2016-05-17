@@ -1,5 +1,6 @@
 package com.stars.travel.controller;
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.BeanUtils;
+import com.stars.common.utils.Page;
 import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.RequestResult;
@@ -141,18 +142,28 @@ public class UserController extends BaseController{
 
     /**
      * @Description : 更新个人信息
-     * @param user
+     * @param userInfo
      * @return
      */
     @RequestMapping(value = "update" , method = RequestMethod.POST)
     @ResponseBody
-    public Object update(User user) {
+    public Object update(UserInfo userInfo) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
-        if(null != user){
-            boolean flag  = userService.modifyUser(user);
+        if(null != userInfo && !StringUtils.isBlank(userInfo.getToken())){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(userInfo.getToken())){
+                phone = userService.queryPhoneByToken(userInfo.getToken());
+            }
+            if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+            userInfo.setPhone(phone);
+            boolean flag  = userService.modifyUserInfo(userInfo);
             result.setSuccess(flag);
-            logger.info("更新用户信息,用户phone为:"+user.getPhone());
+            logger.info("更新用户信息,用户phone为:"+phone);
         }
         return gson.toJson(result);
     }

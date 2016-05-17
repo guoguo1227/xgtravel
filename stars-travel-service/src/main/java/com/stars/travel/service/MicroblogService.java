@@ -1,6 +1,4 @@
 package com.stars.travel.service;
-
-
 import com.stars.travel.model.base.MicroblogWithBLOBs;
 
 import java.util.List;

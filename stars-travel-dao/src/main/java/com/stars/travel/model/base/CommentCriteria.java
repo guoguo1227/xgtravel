@@ -1,6 +1,5 @@
 package com.stars.travel.model.base;
 
-import com.lagou.common.base.bean.BaseCriteria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

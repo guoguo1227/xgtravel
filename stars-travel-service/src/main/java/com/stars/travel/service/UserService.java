@@ -1,6 +1,6 @@
 package com.stars.travel.service;
 
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Permission;
 import com.stars.travel.model.base.Role;
 import com.stars.travel.model.base.User;
@@ -19,7 +19,9 @@ public interface UserService {
 
     public boolean deleteUserById(Integer id);
 
-    public boolean modifyUser(User user) ;
+    public boolean modifyUserInfo(UserInfo userInfo) ;
+
+    public boolean modifyUser(User user);
 
     public User queryUserById(Integer userId) ;
 

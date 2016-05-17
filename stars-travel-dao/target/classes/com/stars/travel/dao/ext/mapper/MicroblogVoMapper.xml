@@ -10,10 +10,14 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="pictureDescription" property="pictureDescription" jdbcType="VARCHAR" />
     <result column="funPicture" property="funPicture" jdbcType="VARCHAR" />
+    <result column="funPictureDescription" property="funPictureDescription" jdbcType="VARCHAR" />
     <result column="foodPicture" property="foodPicture" jdbcType="VARCHAR" />
+    <result column="foodPictureDescription" property="foodPictureDescription" jdbcType="VARCHAR" />
     <result column="sceneryPicture" property="sceneryPicture" jdbcType="VARCHAR" />
     <result column="newnessPicture" property="newnessPicture" jdbcType="VARCHAR" />
+    <result column="newnessPictureDescription" property="newnessPictureDescription" jdbcType="VARCHAR" />
     <result column="destDescription" property="destDescription" jdbcType="VARCHAR" />
     <result column="novelDescription" property="novelDescription" jdbcType="VARCHAR" />
     <result column="endDescription" property="endDescription" jdbcType="VARCHAR" />
@@ -45,10 +49,14 @@
     microblog.id as id,
     microblog.phone as phone,
     microblog.picture as picture,
+    microblog.picture_description as pictureDescription,
     microblog.fun_picture as funPicture,
+    microblog.fun_picture_description as funPictureDescription,
     microblog.food_picture as foodPicture,
+    microblog.food_picture_description as foodPictureDescription,
     microblog.scenery_picture as sceneryPicture,
     microblog.newness_picture as newnessPicture,
+    microblog.newness_picture_description as newnessPictureDescription,
     microblog.dest_Description as destDescription,
     microblog.novel_Description as novelDescription,
     microblog.end_Description as endDescription,

@@ -1,7 +1,7 @@
 package com.stars.travel.service;
 
 
-import com.lagou.platform.common.Page;
+import com.stars.common.utils.Page;
 import com.stars.travel.model.base.JourneyWithBLOBs;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.JourneyDayVo;

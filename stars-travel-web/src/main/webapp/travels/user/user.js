@@ -45,7 +45,7 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     //初始化变量
     function ready(){
         $scope.search = {limit:15, currentPage:1,searchContent:''};
-        $scope.userFlag = {localuserOpen:false,userLoginOpen:false,userRegisterOpen:false,showAddCommentFlag:false}
+        $scope.userFlag = {localuserOpen:false,userLoginOpen:false,userRegisterOpen:false,showAddCommentFlag:false,edituserOpen:false}
         $scope.userInfo = {phone:'',password:'',portrait:'upload/user/201603/13001322e8fx.jpg'};
         $scope.journey = {};
         $scope.imageType = 1;
@@ -90,6 +90,10 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             localUser : function(row){
                 $scope.localuserInfo = {id:row.id,phone:row.phone,type:1};
                 $scope.userFlag.localuserOpen = true;
+            },
+            editUser : function(row){
+                $scope.edituserInfo = {introduction:row.introduction,address:row.address,profession:row.profession};
+                $scope.userFlag.edituserOpen = true;
             },
             addComment : function(row){
                 $scope.addCommentInfo = {relateId:row.id,type:3};
@@ -221,6 +225,24 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     toastr.success("添加成功");
                 }else{
                     toastr.error("添加失败");
+                }
+            });
+    }
+
+    //取消编辑用户信息
+    $scope.edituserCancle = function(){
+        $scope.userFlag.edituserOpen = false;
+    }
+    //保存编辑用户信息
+    $scope.edituserSave = function(){
+        $http.post("/user/update.json",$scope.edituserInfo,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.userFlag.edituserOpen = false;
+                    $scope.searchLoad();
+                    return toastr.success("修改成功");
+                }else{
+                    return toastr.error("修改失败");
                 }
             });
     }

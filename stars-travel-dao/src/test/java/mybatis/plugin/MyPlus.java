@@ -83,7 +83,7 @@ public class MyPlus extends PluginAdapter implements Plugin {
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
                                                  IntrospectedTable introspectedTable) {
         // 实体类添加统一父接口
-        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.lagou.common.base.bean.BaseBean");
+        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.stars.travel.model.base.BaseBean");
         topLevelClass.addImportedType(ptype);
         topLevelClass.addSuperInterface(ptype);
 
@@ -226,7 +226,7 @@ public class MyPlus extends PluginAdapter implements Plugin {
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass,
                                               IntrospectedTable introspectedTable) {
         // 所有类条件类添加统一父接口
-        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.lagou.common.base.bean.BaseCriteria");
+        FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("com.stars.travel.model.base.BaseCriteria");
         topLevelClass.addImportedType(ptype);
         topLevelClass.addSuperInterface(ptype);
         //cobra add

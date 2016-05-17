@@ -1,6 +1,5 @@
 package com.stars.travel.model.base;
 
-import com.lagou.common.base.bean.BaseBean;
 import java.util.Date;
 
 public class Microblog implements BaseBean {
@@ -10,13 +9,21 @@ public class Microblog implements BaseBean {
 
     private String phone;
 
+    private String pictureDescription;
+
     private String picture;
 
     private String funPicture;
 
+    private String funPictureDescription;
+
+    private String foodPictureDescription;
+
     private String foodPicture;
 
     private String sceneryPicture;
+
+    private String newnessPictureDescription;
 
     private String newnessPicture;
 
@@ -62,6 +69,14 @@ public class Microblog implements BaseBean {
         this.phone = phone == null ? null : phone.trim();
     }
 
+    public String getPictureDescription() {
+        return pictureDescription;
+    }
+
+    public void setPictureDescription(String pictureDescription) {
+        this.pictureDescription = pictureDescription == null ? null : pictureDescription.trim();
+    }
+
     public String getPicture() {
         return picture;
     }
@@ -78,6 +93,22 @@ public class Microblog implements BaseBean {
         this.funPicture = funPicture == null ? null : funPicture.trim();
     }
 
+    public String getFunPictureDescription() {
+        return funPictureDescription;
+    }
+
+    public void setFunPictureDescription(String funPictureDescription) {
+        this.funPictureDescription = funPictureDescription == null ? null : funPictureDescription.trim();
+    }
+
+    public String getFoodPictureDescription() {
+        return foodPictureDescription;
+    }
+
+    public void setFoodPictureDescription(String foodPictureDescription) {
+        this.foodPictureDescription = foodPictureDescription == null ? null : foodPictureDescription.trim();
+    }
+
     public String getFoodPicture() {
         return foodPicture;
     }
@@ -92,6 +123,14 @@ public class Microblog implements BaseBean {
 
     public void setSceneryPicture(String sceneryPicture) {
         this.sceneryPicture = sceneryPicture == null ? null : sceneryPicture.trim();
+    }
+
+    public String getNewnessPictureDescription() {
+        return newnessPictureDescription;
+    }
+
+    public void setNewnessPictureDescription(String newnessPictureDescription) {
+        this.newnessPictureDescription = newnessPictureDescription == null ? null : newnessPictureDescription.trim();
     }
 
     public String getNewnessPicture() {
@@ -214,10 +253,14 @@ public class Microblog implements BaseBean {
     public  <T extends Microblog> T copy(T bean) {
         bean.setId(getId());
         bean.setPhone(getPhone());
+        bean.setPictureDescription(getPictureDescription());
         bean.setPicture(getPicture());
         bean.setFunPicture(getFunPicture());
+        bean.setFunPictureDescription(getFunPictureDescription());
+        bean.setFoodPictureDescription(getFoodPictureDescription());
         bean.setFoodPicture(getFoodPicture());
         bean.setSceneryPicture(getSceneryPicture());
+        bean.setNewnessPictureDescription(getNewnessPictureDescription());
         bean.setNewnessPicture(getNewnessPicture());
         bean.setCreatetime(getCreatetime());
         bean.setUpdatetime(getUpdatetime());
@@ -243,10 +286,14 @@ public class Microblog implements BaseBean {
         return "{" + 
         	"id:" + getId() + 
         	", phone:" + getPhone() + 
+        	", pictureDescription:" + getPictureDescription() + 
         	", picture:" + getPicture() + 
         	", funPicture:" + getFunPicture() + 
+        	", funPictureDescription:" + getFunPictureDescription() + 
+        	", foodPictureDescription:" + getFoodPictureDescription() + 
         	", foodPicture:" + getFoodPicture() + 
         	", sceneryPicture:" + getSceneryPicture() + 
+        	", newnessPictureDescription:" + getNewnessPictureDescription() + 
         	", newnessPicture:" + getNewnessPicture() + 
         	", createtime:" + getCreatetime() + 
         	", updatetime:" + getUpdatetime() + 

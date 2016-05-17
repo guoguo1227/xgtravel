@@ -1,6 +1,5 @@
 package com.stars.travel.model.base;
 
-import com.lagou.common.base.bean.BaseBean;
 
 public class Role implements BaseBean {
     private static final long serialVersionUID = 1L;

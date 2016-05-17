@@ -14,16 +14,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>com.lagou.common</groupId>
-            <artifactId>lagou-common-base</artifactId>
-            <version>0.0.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lagou.platform</groupId>
-            <artifactId>common-utils</artifactId>
-        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>

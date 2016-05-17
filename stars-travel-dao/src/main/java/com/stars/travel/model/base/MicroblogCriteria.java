@@ -1,6 +1,5 @@
 package com.stars.travel.model.base;
 
-import com.lagou.common.base.bean.BaseCriteria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -261,6 +260,76 @@ public class MicroblogCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andPictureDescriptionIsNull() {
+            addCriterion("picture_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionIsNotNull() {
+            addCriterion("picture_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionEqualTo(String value) {
+            addCriterion("picture_description =", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionNotEqualTo(String value) {
+            addCriterion("picture_description <>", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionGreaterThan(String value) {
+            addCriterion("picture_description >", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("picture_description >=", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionLessThan(String value) {
+            addCriterion("picture_description <", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("picture_description <=", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionLike(String value) {
+            addCriterion("picture_description like", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionNotLike(String value) {
+            addCriterion("picture_description not like", value, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionIn(List<String> values) {
+            addCriterion("picture_description in", values, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionNotIn(List<String> values) {
+            addCriterion("picture_description not in", values, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionBetween(String value1, String value2) {
+            addCriterion("picture_description between", value1, value2, "pictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andPictureDescriptionNotBetween(String value1, String value2) {
+            addCriterion("picture_description not between", value1, value2, "pictureDescription");
+            return (Criteria) this;
+        }
+
         public Criteria andPictureIsNull() {
             addCriterion("picture is null");
             return (Criteria) this;
@@ -401,6 +470,146 @@ public class MicroblogCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andFunPictureDescriptionIsNull() {
+            addCriterion("fun_picture_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionIsNotNull() {
+            addCriterion("fun_picture_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionEqualTo(String value) {
+            addCriterion("fun_picture_description =", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionNotEqualTo(String value) {
+            addCriterion("fun_picture_description <>", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionGreaterThan(String value) {
+            addCriterion("fun_picture_description >", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("fun_picture_description >=", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionLessThan(String value) {
+            addCriterion("fun_picture_description <", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("fun_picture_description <=", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionLike(String value) {
+            addCriterion("fun_picture_description like", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionNotLike(String value) {
+            addCriterion("fun_picture_description not like", value, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionIn(List<String> values) {
+            addCriterion("fun_picture_description in", values, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionNotIn(List<String> values) {
+            addCriterion("fun_picture_description not in", values, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionBetween(String value1, String value2) {
+            addCriterion("fun_picture_description between", value1, value2, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFunPictureDescriptionNotBetween(String value1, String value2) {
+            addCriterion("fun_picture_description not between", value1, value2, "funPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionIsNull() {
+            addCriterion("food_picture_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionIsNotNull() {
+            addCriterion("food_picture_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionEqualTo(String value) {
+            addCriterion("food_picture_description =", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionNotEqualTo(String value) {
+            addCriterion("food_picture_description <>", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionGreaterThan(String value) {
+            addCriterion("food_picture_description >", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("food_picture_description >=", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionLessThan(String value) {
+            addCriterion("food_picture_description <", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("food_picture_description <=", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionLike(String value) {
+            addCriterion("food_picture_description like", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionNotLike(String value) {
+            addCriterion("food_picture_description not like", value, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionIn(List<String> values) {
+            addCriterion("food_picture_description in", values, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionNotIn(List<String> values) {
+            addCriterion("food_picture_description not in", values, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionBetween(String value1, String value2) {
+            addCriterion("food_picture_description between", value1, value2, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andFoodPictureDescriptionNotBetween(String value1, String value2) {
+            addCriterion("food_picture_description not between", value1, value2, "foodPictureDescription");
+            return (Criteria) this;
+        }
+
         public Criteria andFoodPictureIsNull() {
             addCriterion("food_picture is null");
             return (Criteria) this;
@@ -538,6 +747,76 @@ public class MicroblogCriteria implements BaseCriteria {
 
         public Criteria andSceneryPictureNotBetween(String value1, String value2) {
             addCriterion("scenery_picture not between", value1, value2, "sceneryPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionIsNull() {
+            addCriterion("newness_picture_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionIsNotNull() {
+            addCriterion("newness_picture_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionEqualTo(String value) {
+            addCriterion("newness_picture_description =", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionNotEqualTo(String value) {
+            addCriterion("newness_picture_description <>", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionGreaterThan(String value) {
+            addCriterion("newness_picture_description >", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("newness_picture_description >=", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionLessThan(String value) {
+            addCriterion("newness_picture_description <", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("newness_picture_description <=", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionLike(String value) {
+            addCriterion("newness_picture_description like", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionNotLike(String value) {
+            addCriterion("newness_picture_description not like", value, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionIn(List<String> values) {
+            addCriterion("newness_picture_description in", values, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionNotIn(List<String> values) {
+            addCriterion("newness_picture_description not in", values, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionBetween(String value1, String value2) {
+            addCriterion("newness_picture_description between", value1, value2, "newnessPictureDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewnessPictureDescriptionNotBetween(String value1, String value2) {
+            addCriterion("newness_picture_description not between", value1, value2, "newnessPictureDescription");
             return (Criteria) this;
         }
 
