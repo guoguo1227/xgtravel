@@ -194,13 +194,18 @@ public class UserController extends BaseController{
      * @param phone
      * @return
      */
-    @RequestMapping("collection")
+    @RequestMapping("collect")
     @ResponseBody
-    public String collectionUser(String phone){
+    public String collectionUser(String phone,String token){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(!StringUtils.isBlank(phone)){
             String  currentPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(token)){
+                currentPhone = userService.queryPhoneByToken(token);
+            }
+
             if(StringUtils.isBlank(currentPhone)){
                 result.setMessage("请先登录");
                 return gson.toJson(result);
@@ -222,7 +227,7 @@ public class UserController extends BaseController{
      * @param phone
      * @return
      */
-    @RequestMapping("uncollection")
+    @RequestMapping("uncollect")
     @ResponseBody
     public String uncollectionUser(String phone){
         RequestResult result = new RequestResult();

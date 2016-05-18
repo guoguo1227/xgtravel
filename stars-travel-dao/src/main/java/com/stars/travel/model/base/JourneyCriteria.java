@@ -260,73 +260,73 @@ public class JourneyCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andNikenameIsNull() {
-            addCriterion("nikename is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameIsNotNull() {
-            addCriterion("nikename is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameEqualTo(String value) {
-            addCriterion("nikename =", value, "nikename");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameNotEqualTo(String value) {
-            addCriterion("nikename <>", value, "nikename");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameGreaterThan(String value) {
-            addCriterion("nikename >", value, "nikename");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameGreaterThanOrEqualTo(String value) {
-            addCriterion("nikename >=", value, "nikename");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameLessThan(String value) {
-            addCriterion("nikename <", value, "nikename");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameLessThanOrEqualTo(String value) {
-            addCriterion("nikename <=", value, "nikename");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameLike(String value) {
-            addCriterion("nikename like", value, "nikename");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameNotLike(String value) {
-            addCriterion("nikename not like", value, "nikename");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameIn(List<String> values) {
-            addCriterion("nikename in", values, "nikename");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameNotIn(List<String> values) {
-            addCriterion("nikename not in", values, "nikename");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameBetween(String value1, String value2) {
-            addCriterion("nikename between", value1, value2, "nikename");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andNikenameNotBetween(String value1, String value2) {
-            addCriterion("nikename not between", value1, value2, "nikename");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
 
@@ -960,6 +960,66 @@ public class JourneyCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andSharetimesIsNull() {
+            addCriterion("sharetimes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesIsNotNull() {
+            addCriterion("sharetimes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesEqualTo(Integer value) {
+            addCriterion("sharetimes =", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesNotEqualTo(Integer value) {
+            addCriterion("sharetimes <>", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesGreaterThan(Integer value) {
+            addCriterion("sharetimes >", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sharetimes >=", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesLessThan(Integer value) {
+            addCriterion("sharetimes <", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesLessThanOrEqualTo(Integer value) {
+            addCriterion("sharetimes <=", value, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesIn(List<Integer> values) {
+            addCriterion("sharetimes in", values, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesNotIn(List<Integer> values) {
+            addCriterion("sharetimes not in", values, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesBetween(Integer value1, Integer value2) {
+            addCriterion("sharetimes between", value1, value2, "sharetimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andSharetimesNotBetween(Integer value1, Integer value2) {
+            addCriterion("sharetimes not between", value1, value2, "sharetimes");
+            return (Criteria) this;
+        }
+
         public Criteria andCoverImageIsNull() {
             addCriterion("cover_image is null");
             return (Criteria) this;
@@ -1027,66 +1087,6 @@ public class JourneyCriteria implements BaseCriteria {
 
         public Criteria andCoverImageNotBetween(String value1, String value2) {
             addCriterion("cover_image not between", value1, value2, "coverImage");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesIsNull() {
-            addCriterion("sharetimes is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesIsNotNull() {
-            addCriterion("sharetimes is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesEqualTo(Integer value) {
-            addCriterion("sharetimes =", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesNotEqualTo(Integer value) {
-            addCriterion("sharetimes <>", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesGreaterThan(Integer value) {
-            addCriterion("sharetimes >", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesGreaterThanOrEqualTo(Integer value) {
-            addCriterion("sharetimes >=", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesLessThan(Integer value) {
-            addCriterion("sharetimes <", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesLessThanOrEqualTo(Integer value) {
-            addCriterion("sharetimes <=", value, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesIn(List<Integer> values) {
-            addCriterion("sharetimes in", values, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesNotIn(List<Integer> values) {
-            addCriterion("sharetimes not in", values, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesBetween(Integer value1, Integer value2) {
-            addCriterion("sharetimes between", value1, value2, "sharetimes");
-            return (Criteria) this;
-        }
-
-        public Criteria andSharetimesNotBetween(Integer value1, Integer value2) {
-            addCriterion("sharetimes not between", value1, value2, "sharetimes");
             return (Criteria) this;
         }
     }

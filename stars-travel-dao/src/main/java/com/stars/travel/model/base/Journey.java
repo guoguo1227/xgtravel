@@ -9,7 +9,7 @@ public class Journey implements BaseBean {
 
     private String phone;
 
-    private String nikename;
+    private String name;
 
     private Date createtime;
 
@@ -31,9 +31,9 @@ public class Journey implements BaseBean {
 
     private String destination;
 
-    private String coverImage;
-
     private Integer sharetimes;
+
+    private String coverImage;
 
     public Integer getId() {
         return id;
@@ -51,12 +51,12 @@ public class Journey implements BaseBean {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getNikename() {
-        return nikename;
+    public String getName() {
+        return name;
     }
 
-    public void setNikename(String nikename) {
-        this.nikename = nikename == null ? null : nikename.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Date getCreatetime() {
@@ -139,20 +139,20 @@ public class Journey implements BaseBean {
         this.destination = destination == null ? null : destination.trim();
     }
 
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage == null ? null : coverImage.trim();
-    }
-
     public Integer getSharetimes() {
         return sharetimes;
     }
 
     public void setSharetimes(Integer sharetimes) {
         this.sharetimes = sharetimes;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage == null ? null : coverImage.trim();
     }
 
     /** 
@@ -163,7 +163,7 @@ public class Journey implements BaseBean {
     public  <T extends Journey> T copy(T bean) {
         bean.setId(getId());
         bean.setPhone(getPhone());
-        bean.setNikename(getNikename());
+        bean.setName(getName());
         bean.setCreatetime(getCreatetime());
         bean.setUpdatetime(getUpdatetime());
         bean.setIsEnable(getIsEnable());
@@ -174,8 +174,8 @@ public class Journey implements BaseBean {
         bean.setBudget(getBudget());
         bean.setTotalday(getTotalday());
         bean.setDestination(getDestination());
-        bean.setCoverImage(getCoverImage());
         bean.setSharetimes(getSharetimes());
+        bean.setCoverImage(getCoverImage());
         return bean;
     }
 
@@ -187,7 +187,7 @@ public class Journey implements BaseBean {
         return "{" + 
         	"id:" + getId() + 
         	", phone:" + getPhone() + 
-        	", nikename:" + getNikename() + 
+        	", name:" + getName() + 
         	", createtime:" + getCreatetime() + 
         	", updatetime:" + getUpdatetime() + 
         	", isEnable:" + getIsEnable() + 
@@ -198,8 +198,8 @@ public class Journey implements BaseBean {
         	", budget:" + getBudget() + 
         	", totalday:" + getTotalday() + 
         	", destination:" + getDestination() + 
-        	", coverImage:" + getCoverImage() + 
         	", sharetimes:" + getSharetimes() + 
+        	", coverImage:" + getCoverImage() + 
         "}";
     }
 }

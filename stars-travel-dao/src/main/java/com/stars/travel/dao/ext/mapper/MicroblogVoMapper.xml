@@ -40,6 +40,7 @@
   <resultMap id="userInfoMap" type="com.stars.travel.model.ext.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nikename" jdbcType="VARCHAR" property="nikename" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="portrait" jdbcType="VARCHAR" property="portrait" />
   </resultMap>
@@ -77,6 +78,7 @@
   <sql id="userInfoSelectSQL">
     userInfo.id as id,
     userInfo.nikename as nikename,
+    userInfo.name as name,
     userInfo.email as email,
     userInfo.portrait as portrait
   </sql>

@@ -48,6 +48,9 @@ public class CommentServiceImpl implements CommentService {
             if(!StringUtils.isBlank(condition.getType())){
                 if(condition.getType().equals(CommentTypeEnum.JOURNEYTYPE.getCode().toString())){
                     condition.setType(CommentTypeEnum.JOURNEYTYPE.getDescription());
+                }else if(condition.getType().equals(CommentTypeEnum.LOCALUSER.getCode().toString())){
+                    //当地人
+                    condition.setType(CommentTypeEnum.LOCALUSER.getDescription());
                 }else if(condition.getType().equals(CommentTypeEnum.MICROBLOG.getCode().toString())){
                     condition.setType(CommentTypeEnum.MICROBLOG.getDescription());
                 }
@@ -73,9 +76,14 @@ public class CommentServiceImpl implements CommentService {
             condition.setOrderByClause("  id desc ");
             if(!StringUtils.isBlank(condition.getType())){
                 if(condition.getType().equals(CommentTypeEnum.JOURNEYTYPE.getCode().toString())){
+                    //行程
                     condition.setType(CommentTypeEnum.JOURNEYTYPE.getDescription());
                 }else if(condition.getType().equals(CommentTypeEnum.MICROBLOG.getCode().toString())){
+                    //微游记
                     condition.setType(CommentTypeEnum.MICROBLOG.getDescription());
+                }else if(condition.getType().equals(CommentTypeEnum.LOCALUSER.getCode().toString())){
+                    //当地人
+                    condition.setType(CommentTypeEnum.LOCALUSER.getDescription());
                 }
 
             }

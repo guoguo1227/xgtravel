@@ -1,10 +1,4 @@
 /**
- * Created by guo on 2016/3/20.
- */
-/**
- * Created by guo on 2016/3/18.
- */
-/**
  * Created by samuel on 15-12-25.
  */
 var app = angular.module('commentApp',['angular-constants']);
@@ -41,7 +35,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             }
         };
 
-        var headerArray = ['评论ID','赞','评论详情','是否审核通过','关联ID','评论用户ID','用户昵称','操作'];
+        var headerArray = ['评论ID','赞','评论详情','是否审核通过','关联ID','评论用户ID','用户昵称','类型','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
@@ -49,7 +43,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="查看记录" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看详情</a>';
             return pg;
-        }), ['id','commentUps','commentRecommend','commentChecked','relateId','commentUserId','userInfo.nikename','action']);
+        }), ['id','ups','recommend','checked','relateId','userInfo.id','userInfo.name','type','action']);
     };
     //格式化表格数据
     $scope.formatUserPageData = function(pageData){
@@ -57,10 +51,10 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].commentChecked == 1){
-                    pageData[i].commentChecked = '<font color="green">通过</font>';
+                if(pageData[i].checked == 1){
+                    pageData[i].checked = '<font color="green">通过</font>';
                 }else{
-                    pageData[i].commentChecked = "未通过";
+                    pageData[i].checked = "未通过";
                 }
             }
         }

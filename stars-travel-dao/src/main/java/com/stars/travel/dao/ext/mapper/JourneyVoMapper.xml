@@ -4,7 +4,7 @@
   <resultMap id="JourneyResultMap" type="com.stars.travel.model.base.Journey" >
     <id column="jId" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="nikename" property="nikename" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="isEnable" property="isEnable" jdbcType="BIT" />
@@ -61,7 +61,7 @@
   <sql id="JourneySQL">
     journey.id as jId,
     journey.phone as phone,
-    journey.nikename as nikename,
+    journey.name as name,
     journey.createtime as createtime,
     journey.updatetime as updatetime,
     journey.is_enable as isEnable,

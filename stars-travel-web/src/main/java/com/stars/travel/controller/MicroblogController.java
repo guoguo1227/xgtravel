@@ -201,7 +201,7 @@ public class MicroblogController extends BaseController{
             phone = userService.queryPhoneByToken(token);
         }
 
-        if(!StringUtils.isBlank(phone)){
+        if(StringUtils.isBlank(phone)){
             result.setMessage("收藏失败,请先登录。");
             return gson.toJson(result);
         }
@@ -243,7 +243,7 @@ public class MicroblogController extends BaseController{
         if(!StringUtils.isBlank(token)){
             phone = userService.queryPhoneByToken(token);
         }
-        if(!StringUtils.isBlank(phone)){
+        if(StringUtils.isBlank(phone)){
             result.setMessage("取消收藏,请先登录。");
             return gson.toJson(result);
         }
@@ -279,7 +279,7 @@ public class MicroblogController extends BaseController{
         if(!StringUtils.isBlank(token)){
             userPhone = userService.queryPhoneByToken(token);
         }
-        if(!StringUtils.isBlank(userPhone)){
+        if(StringUtils.isBlank(userPhone)){
             result.setMessage("顶赞失败,请先登录。");
             return gson.toJson(result);
         }
@@ -316,7 +316,7 @@ public class MicroblogController extends BaseController{
         if(!StringUtils.isBlank(token)){
             userPhone = userService.queryPhoneByToken(token);
         }
-        if(!StringUtils.isBlank(userPhone)){
+        if(StringUtils.isBlank(userPhone)){
             result.setMessage("取消顶赞,请先登录。");
             return gson.toJson(result);
         }

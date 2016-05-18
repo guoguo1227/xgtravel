@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.stars.travel.model.base.Journey" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="nikename" property="nikename" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
@@ -15,8 +15,8 @@
     <result column="budget" property="budget" jdbcType="VARCHAR" />
     <result column="totalday" property="totalday" jdbcType="INTEGER" />
     <result column="destination" property="destination" jdbcType="VARCHAR" />
-    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
     <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.stars.travel.model.base.JourneyWithBLOBs" extends="BaseResultMap" >
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
@@ -81,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, nikename, createtime, updatetime, is_enable, is_shared, top, status, title, 
-    budget, totalday, destination, cover_image, sharetimes
+    id, phone, name, createtime, updatetime, is_enable, is_shared, top, status, title, 
+    budget, totalday, destination, sharetimes, cover_image
   </sql>
   <sql id="Blob_Column_List" >
     description, content
@@ -147,17 +147,17 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT @@IDENTITY
     </selectKey>
-    insert into root_journey (phone, nikename, createtime, 
+    insert into root_journey (phone, name, createtime, 
       updatetime, is_enable, is_shared, 
       top, status, title, 
       budget, totalday, destination, 
-      cover_image, sharetimes, description, 
+      sharetimes, cover_image, description, 
       content)
-    values (#{phone,jdbcType=VARCHAR}, #{nikename,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+    values (#{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, 
       #{top,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
       #{budget,jdbcType=VARCHAR}, #{totalday,jdbcType=INTEGER}, #{destination,jdbcType=VARCHAR}, 
-      #{coverImage,jdbcType=VARCHAR}, #{sharetimes,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, 
+      #{sharetimes,jdbcType=INTEGER}, #{coverImage,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.JourneyWithBLOBs" >
@@ -169,8 +169,8 @@
       <if test="phone != null" >
         phone,
       </if>
-      <if test="nikename != null" >
-        nikename,
+      <if test="name != null" >
+        name,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -202,11 +202,11 @@
       <if test="destination != null" >
         destination,
       </if>
-      <if test="coverImage != null" >
-        cover_image,
-      </if>
       <if test="sharetimes != null" >
         sharetimes,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
       </if>
       <if test="description != null" >
         description,
@@ -219,8 +219,8 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="nikename != null" >
-        #{nikename,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -252,11 +252,11 @@
       <if test="destination != null" >
         #{destination,jdbcType=VARCHAR},
       </if>
-      <if test="coverImage != null" >
-        #{coverImage,jdbcType=VARCHAR},
-      </if>
       <if test="sharetimes != null" >
         #{sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=LONGVARCHAR},
@@ -281,8 +281,8 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.nikename != null" >
-        nikename = #{record.nikename,jdbcType=VARCHAR},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
@@ -314,11 +314,11 @@
       <if test="record.destination != null" >
         destination = #{record.destination,jdbcType=VARCHAR},
       </if>
-      <if test="record.coverImage != null" >
-        cover_image = #{record.coverImage,jdbcType=VARCHAR},
-      </if>
       <if test="record.sharetimes != null" >
         sharetimes = #{record.sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.coverImage != null" >
+        cover_image = #{record.coverImage,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=LONGVARCHAR},
@@ -335,7 +335,7 @@
     update root_journey
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
-      nikename = #{record.nikename,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
@@ -346,8 +346,8 @@
       budget = #{record.budget,jdbcType=VARCHAR},
       totalday = #{record.totalday,jdbcType=INTEGER},
       destination = #{record.destination,jdbcType=VARCHAR},
-      cover_image = #{record.coverImage,jdbcType=VARCHAR},
       sharetimes = #{record.sharetimes,jdbcType=INTEGER},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=LONGVARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -358,7 +358,7 @@
     update root_journey
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
-      nikename = #{record.nikename,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
@@ -369,8 +369,8 @@
       budget = #{record.budget,jdbcType=VARCHAR},
       totalday = #{record.totalday,jdbcType=INTEGER},
       destination = #{record.destination,jdbcType=VARCHAR},
-      cover_image = #{record.coverImage,jdbcType=VARCHAR},
-      sharetimes = #{record.sharetimes,jdbcType=INTEGER}
+      sharetimes = #{record.sharetimes,jdbcType=INTEGER},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -381,8 +381,8 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="nikename != null" >
-        nikename = #{nikename,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -414,11 +414,11 @@
       <if test="destination != null" >
         destination = #{destination,jdbcType=VARCHAR},
       </if>
-      <if test="coverImage != null" >
-        cover_image = #{coverImage,jdbcType=VARCHAR},
-      </if>
       <if test="sharetimes != null" >
         sharetimes = #{sharetimes,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=LONGVARCHAR},
@@ -432,7 +432,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stars.travel.model.base.JourneyWithBLOBs" >
     update root_journey
     set phone = #{phone,jdbcType=VARCHAR},
-      nikename = #{nikename,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
@@ -443,8 +443,8 @@
       budget = #{budget,jdbcType=VARCHAR},
       totalday = #{totalday,jdbcType=INTEGER},
       destination = #{destination,jdbcType=VARCHAR},
-      cover_image = #{coverImage,jdbcType=VARCHAR},
       sharetimes = #{sharetimes,jdbcType=INTEGER},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -452,7 +452,7 @@
   <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.Journey" >
     update root_journey
     set phone = #{phone,jdbcType=VARCHAR},
-      nikename = #{nikename,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
@@ -463,8 +463,8 @@
       budget = #{budget,jdbcType=VARCHAR},
       totalday = #{totalday,jdbcType=INTEGER},
       destination = #{destination,jdbcType=VARCHAR},
-      cover_image = #{coverImage,jdbcType=VARCHAR},
-      sharetimes = #{sharetimes,jdbcType=INTEGER}
+      sharetimes = #{sharetimes,jdbcType=INTEGER},
+      cover_image = #{coverImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
