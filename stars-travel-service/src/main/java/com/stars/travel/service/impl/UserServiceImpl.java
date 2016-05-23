@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
     public User queryUserByPhoneNumber(String phone) {
         User user = null;
         if(!StringUtils.isBlank(phone)){
-            //user = userVoMapper.queryUserByPhone(phone);
             UserCriteria criteria = new UserCriteria();
             criteria.createCriteria().andPhoneEqualTo(phone).andIsEnableEqualTo(true);
             List<User> userList = userMapper.selectByExample(criteria);

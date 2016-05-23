@@ -14,6 +14,7 @@ import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,9 +156,17 @@ public class JourneyServiceImpl implements JourneyService {
                 List<JourneyWithBLOBs> list = journeyMapper.selectByExampleWithBLOBs(criteria);
                 if(null != list && list.size()>0){
                     for(JourneyWithBLOBs j: list){
-                        //添加属性
-                        JourneyVo journeyVo = addJourneyVoExtAttr(j,currentPhone);
-                        journeyVos.add(journeyVo);
+                        JourneyVo vo = new JourneyVo();
+                        try {
+                            BeanUtilExt.copyProperties(vo,j);
+                            //添加属性
+                            addJourneyVoExtAttr(vo,currentPhone);
+                            journeyVos.add(vo);
+                        } catch (InvocationTargetException e) {
+                            logger.info("拷贝行程id:"+j.getId()+"对象属性失败");
+                        } catch (IllegalAccessException e) {
+                            logger.info("拷贝行程id:"+j.getId()+"对象属性失败");
+                        }
                     }
                 }
                 page.setTotalCount(count);
@@ -431,52 +440,42 @@ public class JourneyServiceImpl implements JourneyService {
 
     /**
      * @Description :添加行程扩展属性
-     * @param j
+     * @param vo
      * @param currentPhone
      * @return
      */
-    private JourneyVo addJourneyVoExtAttr(Journey j,String currentPhone){
-        JourneyVo journeyVo = new JourneyVo();
+    private JourneyVo addJourneyVoExtAttr(JourneyVo vo,String currentPhone){
         //是否收藏
-        boolean ifCollection = false;
+        Boolean ifCollection = false;
         //是否评论
-        boolean isComment = false;
+        Boolean isComment = false;
         //是否顶赞
-        boolean isTop = false;
+        Boolean isTop = false;
         if(!StringUtils.isBlank(currentPhone)){
-            ifCollection = ifCollection(j.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
-            isComment = ifComment(j.getId(),currentPhone);
-            isTop = ifCollection(j.getId(),currentPhone,CollectionTopType.TOP.getCode());
+            ifCollection = ifCollection(vo.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
+            isComment = ifComment(vo.getId(),currentPhone);
+            isTop = ifCollection(vo.getId(),currentPhone,CollectionTopType.TOP.getCode());
         }
 
-        //评论数
-        journeyVo.setCommentCount(queryCommentCount(j.getId()).toString());
-        journeyVo.setTopCount(queryTopCount(j.getId()).toString());
-        try {
-            BeanUtilExt.copyProperties(journeyVo,j);
-        } catch (InvocationTargetException e) {
-            logger.info("拷贝行程属性失败。");
-        } catch (IllegalAccessException e) {
-            logger.info("拷贝行程属性失败。");
-        }
+        vo.setCollection(ifCollection);
+        vo.setComment(isComment);
+        vo.setHasTop(isTop);
         //查询用户
-        User user = userService.queryUserByPhoneNumber(j.getPhone());
+        User user = userService.queryUserByPhoneNumber(vo.getPhone());
         if(null != user){
             UserInfo userInfo = new UserInfo();
             try {
                 BeanUtilExt.copyProperties(userInfo,user);
-                journeyVo.setUserInfo(userInfo);
+                vo.setUserInfo(userInfo);
             } catch (InvocationTargetException e) {
                 logger.info("拷贝用户属性失败。"+e.toString());
             } catch (IllegalAccessException e) {
                 logger.info("拷贝用户属性失败。"+e.toString());
             }
         }
-        journeyVo.setCollection(ifCollection);
-        journeyVo.setComment(isComment);
-        journeyVo.setHasTop(isTop);
         //评论数
-        journeyVo.setCommentCount(queryCommentCount(journeyVo.getId()).toString());
-        return journeyVo;
+        vo.setCommentCount(queryCommentCount(vo.getId()).toString());
+        vo.setTopCount(queryTopCount(vo.getId()).toString());
+        return vo;
     }
 }

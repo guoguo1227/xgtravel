@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 /**
@@ -60,7 +58,7 @@ public class CustomizationController extends BaseController{
      */
     @RequestMapping("list")
     @ResponseBody
-    public String queryCustomizationListApp(HttpServletRequest request,AuctionSearchCondition condition){
+    public String queryCustomizationListApp(AuctionSearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
 

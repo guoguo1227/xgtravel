@@ -1,5 +1,4 @@
 package com.stars.travel.controller;
-import com.stars.common.utils.BeanUtils;
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.AuctionSearchCondition;
@@ -16,12 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 
 import java.util.List;
-
-import static com.stars.common.utils.TravelsUtils.USER_KEY;
 
 /**
  * Description : 用户管理控制器
@@ -71,18 +66,22 @@ public class UserController extends BaseController{
 
     /**
      * @Description : 用户,当地人列表,移动端
-     * @param searchCondition
-     * @param request
+     * @param condition
      * @return
      */
     @RequestMapping("user-list")
     @ResponseBody
-    public Object queryUserListAPP(AuctionSearchCondition searchCondition, HttpServletRequest request){
+    public Object queryUserListAPP(AuctionSearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         String  userPhone = HttpSessionProvider.getSessionUserPhone();
 
-        List<UserInfo> list = userService.queryUserListApp(searchCondition,userPhone);
+        //获取APP的token
+        if(!StringUtils.isBlank(condition.getToken())){
+            userPhone = userService.queryPhoneByToken(condition.getToken());
+        }
+
+        List<UserInfo> list = userService.queryUserListApp(condition,userPhone);
         if(null != list && list.size()>0){
             result.setSuccess(true);
             result.setData(list);
@@ -93,18 +92,22 @@ public class UserController extends BaseController{
 
     /**
      * @Description : 查询用户详情信息
-     * @param searchCondition
+     * @param condition
      * @return
      */
     @RequestMapping("detail")
     @ResponseBody
-    public Object queryUserDetailList(AuctionSearchCondition searchCondition,HttpServletRequest request){
+    public Object queryUserDetailList(AuctionSearchCondition condition){
         RequestResult result = new RequestResult();
-        if(null != searchCondition && null != searchCondition.getUserId()){
+        if(null != condition && null != condition.getUserId()){
             result.setSuccess(true);
             String  userPhone = HttpSessionProvider.getSessionUserPhone();
 
-            Page<UserInfo> page = userService.queryUserInfo(searchCondition,userPhone);
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
+            Page<UserInfo> page = userService.queryUserInfo(condition,userPhone);
             if(null != page && null != page.getPageData() && page.getPageData().size()>0){
                 result.setData(page.getPageData().get(0));
             }
@@ -229,12 +232,15 @@ public class UserController extends BaseController{
      */
     @RequestMapping("uncollect")
     @ResponseBody
-    public String uncollectionUser(String phone){
+    public String uncollectionUser(String phone,String token){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(!StringUtils.isBlank(phone)){
             String  userPhone = HttpSessionProvider.getSessionUserPhone();
-
+            //获取APP的token
+            if(!StringUtils.isBlank(token)){
+                userPhone = userService.queryPhoneByToken(token);
+            }
             boolean success = userService.uncollectionUser(phone,userPhone);
             result.setSuccess(success);
         }else{

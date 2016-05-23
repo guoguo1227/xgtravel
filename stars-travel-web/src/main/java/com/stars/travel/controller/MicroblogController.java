@@ -4,7 +4,6 @@ import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.RequestResult;
-import com.stars.travel.service.MicroblogService;
 import com.stars.travel.service.MicroblogVoService;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
@@ -31,9 +30,6 @@ public class MicroblogController extends BaseController{
     private Logger logger = Logger.getLogger(MicroblogController.class);
 
     @Autowired
-    private MicroblogService microblogService;
-
-    @Autowired
     private MicroblogVoService microblogVoService;
 
     @Autowired
@@ -52,7 +48,10 @@ public class MicroblogController extends BaseController{
         result.setSuccess(false);
         if(null != condition){
             String userPhone = HttpSessionProvider.getSessionUserPhone();
-
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
             Page<MicroblogVo> page = microblogVoService.querySharedMicroblogVoPage(condition,userPhone);
             if(null != page && page.getPageData().size()>0){
                 result.setSuccess(true);
@@ -76,7 +75,10 @@ public class MicroblogController extends BaseController{
         result.setSuccess(false);
         if(null != condition){
             String userPhone = HttpSessionProvider.getSessionUserPhone();
-
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
             List<MicroblogVo> list = microblogVoService.querySharedMicroblogVoApp(condition,userPhone);
             if(null != list && list.size()>0){
                 result.setSuccess(true);
@@ -99,7 +101,10 @@ public class MicroblogController extends BaseController{
         result.setSuccess(true);
         if(null != condition && null != condition.getId()){
             String userPhone = HttpSessionProvider.getSessionUserPhone();
-
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
             Page<MicroblogVo> page = microblogVoService.querySharedMicroblogVoPage(condition,userPhone);
             if(null != page && null != page.getPageData() && page.getPageData().size()>0){
                 result.setData(page.getPageData().get(0));
