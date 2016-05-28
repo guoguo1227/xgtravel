@@ -21,7 +21,7 @@ public class UserInfo implements Serializable {
     private String portrait = ""; //头像
     private String summary = ""; //个人简介
 
-    private String token = ""; //app登录授权码
+    private String token ; //app登录授权码
 
     private String introduceImage = ""; //标题图
 
@@ -30,8 +30,6 @@ public class UserInfo implements Serializable {
     private String address = ""; //地址
 
     private String profession = ""; //职业
-
-    private String customNumuber = "0" ; //定制数量
 
     private String journeyNumber = "0" ; //行程分享数量
 
@@ -49,10 +47,11 @@ public class UserInfo implements Serializable {
 
     private String attentionCount = "0" ; //关注人数
 
-    private boolean ifCollection = false; //是否收藏
+    private boolean ifCollection; //是否收藏
 
     public UserInfo() {
     }
+
 
     public String getToken() {
         return token;
@@ -188,14 +187,6 @@ public class UserInfo implements Serializable {
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
-    }
-
-    public String getCustomNumuber() {
-        return customNumuber;
-    }
-
-    public void setCustomNumuber(String customNumuber) {
-        this.customNumuber = customNumuber;
     }
 
     public String getJourneyNumber() {

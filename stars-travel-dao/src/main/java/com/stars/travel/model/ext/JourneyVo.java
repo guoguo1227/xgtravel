@@ -13,19 +13,41 @@ import java.util.List;
  */
 public class JourneyVo extends JourneyWithBLOBs {
 
-    private boolean isComment = false ; //该用户是否对该行程评论
+    private boolean ifComment = false ; //该用户是否对该行程评论
 
-    private boolean isCollection = false ; //该用户是否收藏
+    private boolean ifCollection = false ; //该用户是否收藏
 
-    private boolean hasTop  = false ; //该用户是否顶赞
+    private boolean ifTop  = false ; //该用户是否顶赞
 
     private String commentCount = "0" ; //评论数
-
-    private String topCount = "0"; //点赞数
 
     private UserInfo userInfo = new UserInfo(); //行程所属用户
 
     private String token;  //APP授权token
+
+    public boolean isIfComment() {
+        return ifComment;
+    }
+
+    public void setIfComment(boolean ifComment) {
+        this.ifComment = ifComment;
+    }
+
+    public boolean isIfCollection() {
+        return ifCollection;
+    }
+
+    public void setIfCollection(boolean ifCollection) {
+        this.ifCollection = ifCollection;
+    }
+
+    public boolean isIfTop() {
+        return ifTop;
+    }
+
+    public void setIfTop(boolean ifTop) {
+        this.ifTop = ifTop;
+    }
 
     List<JourneyDayVo> journeyDayVoList = new ArrayList<>();
 
@@ -35,14 +57,6 @@ public class JourneyVo extends JourneyWithBLOBs {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public boolean isHasTop() {
-        return hasTop;
-    }
-
-    public void setHasTop(boolean hasTop) {
-        this.hasTop = hasTop;
     }
 
     public UserInfo getUserInfo() {
@@ -69,27 +83,4 @@ public class JourneyVo extends JourneyWithBLOBs {
         this.commentCount = commentCount;
     }
 
-    public boolean isComment() {
-        return isComment;
-    }
-
-    public void setComment(boolean comment) {
-        isComment = comment;
-    }
-
-    public boolean isCollection() {
-        return isCollection;
-    }
-
-    public void setCollection(boolean collection) {
-        isCollection = collection;
-    }
-
-    public String getTopCount() {
-        return topCount;
-    }
-
-    public void setTopCount(String topCount) {
-        this.topCount = topCount;
-    }
 }

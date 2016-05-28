@@ -3,10 +3,12 @@
 <mapper namespace="com.stars.travel.dao.base.mapper.UserCollectionMapper" >
   <resultMap id="BaseResultMap" type="com.stars.travel.model.base.UserCollection" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="phone_collection_key" property="phoneCollectionKey" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
     <result column="collection_phone" property="collectionPhone" jdbcType="VARCHAR" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, createtime, user_phone, collection_phone, is_enable
+    id, phone_collection_key, createtime, user_phone, collection_phone, is_enable, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.UserCollectionCriteria" >
     select
@@ -91,15 +93,17 @@
       </when>
     </choose>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.UserCollectionKey" >
     select 
     <include refid="Base_Column_List" />
     from root_user_collection
     where id = #{id,jdbcType=INTEGER}
+      and phone_collection_key = #{phoneCollectionKey,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="com.stars.travel.model.base.UserCollectionKey" >
     delete from root_user_collection
     where id = #{id,jdbcType=INTEGER}
+      and phone_collection_key = #{phoneCollectionKey,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.stars.travel.model.base.UserCollectionCriteria" >
     delete from root_user_collection
@@ -111,10 +115,12 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT @@IDENTITY
     </selectKey>
-    insert into root_user_collection (createtime, user_phone, collection_phone, 
-      is_enable)
-    values (#{createtime,jdbcType=TIMESTAMP}, #{userPhone,jdbcType=VARCHAR}, #{collectionPhone,jdbcType=VARCHAR}, 
-      #{isEnable,jdbcType=BIT})
+    insert into root_user_collection (phone_collection_key, createtime, 
+      user_phone, collection_phone, is_enable, 
+      updatetime)
+    values (#{phoneCollectionKey,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{userPhone,jdbcType=VARCHAR}, #{collectionPhone,jdbcType=VARCHAR}, #{isEnable,jdbcType=BIT}, 
+      #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.UserCollection" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -122,6 +128,9 @@
     </selectKey>
     insert into root_user_collection
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phoneCollectionKey != null" >
+        phone_collection_key,
+      </if>
       <if test="createtime != null" >
         createtime,
       </if>
@@ -134,8 +143,14 @@
       <if test="isEnable != null" >
         is_enable,
       </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phoneCollectionKey != null" >
+        #{phoneCollectionKey,jdbcType=VARCHAR},
+      </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
@@ -147,6 +162,9 @@
       </if>
       <if test="isEnable != null" >
         #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -162,6 +180,9 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.phoneCollectionKey != null" >
+        phone_collection_key = #{record.phoneCollectionKey,jdbcType=VARCHAR},
+      </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
@@ -174,6 +195,9 @@
       <if test="record.isEnable != null" >
         is_enable = #{record.isEnable,jdbcType=BIT},
       </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -182,10 +206,12 @@
   <update id="updateByExample" parameterType="map" >
     update root_user_collection
     set id = #{record.id,jdbcType=INTEGER},
+      phone_collection_key = #{record.phoneCollectionKey,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       user_phone = #{record.userPhone,jdbcType=VARCHAR},
       collection_phone = #{record.collectionPhone,jdbcType=VARCHAR},
-      is_enable = #{record.isEnable,jdbcType=BIT}
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,15 +231,21 @@
       <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=BIT},
       </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+      and phone_collection_key = #{phoneCollectionKey,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.UserCollection" >
     update root_user_collection
     set createtime = #{createtime,jdbcType=TIMESTAMP},
       user_phone = #{userPhone,jdbcType=VARCHAR},
       collection_phone = #{collectionPhone,jdbcType=VARCHAR},
-      is_enable = #{isEnable,jdbcType=BIT}
+      is_enable = #{isEnable,jdbcType=BIT},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
+      and phone_collection_key = #{phoneCollectionKey,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -2,10 +2,8 @@ package com.stars.travel.model.base;
 
 import java.util.Date;
 
-public class JourneyCollection implements BaseBean {
+public class JourneyCollection extends JourneyCollectionKey implements BaseBean {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     private Integer type;
 
@@ -17,13 +15,7 @@ public class JourneyCollection implements BaseBean {
 
     private Boolean isEnable;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Date updatetime;
 
     public Integer getType() {
         return type;
@@ -65,18 +57,26 @@ public class JourneyCollection implements BaseBean {
         this.isEnable = isEnable;
     }
 
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
      * @return 拷贝完成后的子类
      */ 
     public  <T extends JourneyCollection> T copy(T bean) {
-        bean.setId(getId());
         bean.setType(getType());
         bean.setCreatetime(getCreatetime());
         bean.setPhone(getPhone());
         bean.setRelateId(getRelateId());
         bean.setIsEnable(getIsEnable());
+        bean.setUpdatetime(getUpdatetime());
         return bean;
     }
 
@@ -86,12 +86,12 @@ public class JourneyCollection implements BaseBean {
     @Override
     public String toString() {
         return "{" + 
-        	"id:" + getId() + 
-        	", type:" + getType() + 
+        	"type:" + getType() + 
         	", createtime:" + getCreatetime() + 
         	", phone:" + getPhone() + 
         	", relateId:" + getRelateId() + 
         	", isEnable:" + getIsEnable() + 
+        	", updatetime:" + getUpdatetime() + 
         "}";
     }
 }

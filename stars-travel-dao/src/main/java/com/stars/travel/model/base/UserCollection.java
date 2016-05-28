@@ -2,10 +2,8 @@ package com.stars.travel.model.base;
 
 import java.util.Date;
 
-public class UserCollection implements BaseBean {
+public class UserCollection extends UserCollectionKey implements BaseBean {
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
 
     private Date createtime;
 
@@ -15,13 +13,7 @@ public class UserCollection implements BaseBean {
 
     private Boolean isEnable;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Date updatetime;
 
     public Date getCreatetime() {
         return createtime;
@@ -55,17 +47,25 @@ public class UserCollection implements BaseBean {
         this.isEnable = isEnable;
     }
 
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
     /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
      * @return 拷贝完成后的子类
      */ 
     public  <T extends UserCollection> T copy(T bean) {
-        bean.setId(getId());
         bean.setCreatetime(getCreatetime());
         bean.setUserPhone(getUserPhone());
         bean.setCollectionPhone(getCollectionPhone());
         bean.setIsEnable(getIsEnable());
+        bean.setUpdatetime(getUpdatetime());
         return bean;
     }
 
@@ -75,11 +75,11 @@ public class UserCollection implements BaseBean {
     @Override
     public String toString() {
         return "{" + 
-        	"id:" + getId() + 
-        	", createtime:" + getCreatetime() + 
+        	"createtime:" + getCreatetime() + 
         	", userPhone:" + getUserPhone() + 
         	", collectionPhone:" + getCollectionPhone() + 
         	", isEnable:" + getIsEnable() + 
+        	", updatetime:" + getUpdatetime() + 
         "}";
     }
 }

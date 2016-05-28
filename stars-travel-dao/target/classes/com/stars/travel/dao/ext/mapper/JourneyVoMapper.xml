@@ -9,7 +9,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="isEnable" property="isEnable" jdbcType="BIT" />
     <result column="isShared" property="isShared" jdbcType="BIT" />
-    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="topcount" property="topcount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     journey.updatetime as updatetime,
     journey.is_enable as isEnable,
     journey.is_shared as isShared,
-    journey.top as top,
+    journey.topcount as topcount,
     journey.status as status,
     journey.title as title,
     journey.budget as budget,

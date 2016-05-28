@@ -190,6 +190,76 @@ public class UserCollectionCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andPhoneCollectionKeyIsNull() {
+            addCriterion("phone_collection_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyIsNotNull() {
+            addCriterion("phone_collection_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyEqualTo(String value) {
+            addCriterion("phone_collection_key =", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyNotEqualTo(String value) {
+            addCriterion("phone_collection_key <>", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyGreaterThan(String value) {
+            addCriterion("phone_collection_key >", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("phone_collection_key >=", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyLessThan(String value) {
+            addCriterion("phone_collection_key <", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyLessThanOrEqualTo(String value) {
+            addCriterion("phone_collection_key <=", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyLike(String value) {
+            addCriterion("phone_collection_key like", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyNotLike(String value) {
+            addCriterion("phone_collection_key not like", value, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyIn(List<String> values) {
+            addCriterion("phone_collection_key in", values, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyNotIn(List<String> values) {
+            addCriterion("phone_collection_key not in", values, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyBetween(String value1, String value2) {
+            addCriterion("phone_collection_key between", value1, value2, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneCollectionKeyNotBetween(String value1, String value2) {
+            addCriterion("phone_collection_key not between", value1, value2, "phoneCollectionKey");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatetimeIsNull() {
             addCriterion("createtime is null");
             return (Criteria) this;
@@ -447,6 +517,66 @@ public class UserCollectionCriteria implements BaseCriteria {
 
         public Criteria andIsEnableNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_enable not between", value1, value2, "isEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIsNull() {
+            addCriterion("updatetime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIsNotNull() {
+            addCriterion("updatetime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeEqualTo(Date value) {
+            addCriterion("updatetime =", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotEqualTo(Date value) {
+            addCriterion("updatetime <>", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThan(Date value) {
+            addCriterion("updatetime >", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("updatetime >=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThan(Date value) {
+            addCriterion("updatetime <", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThanOrEqualTo(Date value) {
+            addCriterion("updatetime <=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIn(List<Date> values) {
+            addCriterion("updatetime in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotIn(List<Date> values) {
+            addCriterion("updatetime not in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeBetween(Date value1, Date value2) {
+            addCriterion("updatetime between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotBetween(Date value1, Date value2) {
+            addCriterion("updatetime not between", value1, value2, "updatetime");
             return (Criteria) this;
         }
     }

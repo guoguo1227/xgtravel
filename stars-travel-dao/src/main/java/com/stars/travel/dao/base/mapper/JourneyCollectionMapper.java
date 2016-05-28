@@ -3,6 +3,7 @@ package com.stars.travel.dao.base.mapper;
 import com.stars.travel.dao.base.BaseMapper;
 import com.stars.travel.model.base.JourneyCollection;
 import com.stars.travel.model.base.JourneyCollectionCriteria;
+import com.stars.travel.model.base.JourneyCollectionKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,7 @@ public interface JourneyCollectionMapper extends BaseMapper {
 
     int deleteByExample(JourneyCollectionCriteria example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(JourneyCollectionKey key);
 
     int insert(JourneyCollection record);
 
@@ -19,7 +20,7 @@ public interface JourneyCollectionMapper extends BaseMapper {
 
     List<JourneyCollection> selectByExample(JourneyCollectionCriteria example);
 
-    JourneyCollection selectByPrimaryKey(Integer id);
+    JourneyCollection selectByPrimaryKey(JourneyCollectionKey key);
 
     int updateByExampleSelective(@Param("record") JourneyCollection record, @Param("example") JourneyCollectionCriteria example);
 

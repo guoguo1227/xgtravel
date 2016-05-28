@@ -3,11 +3,13 @@
 <mapper namespace="com.stars.travel.dao.base.mapper.MicroblogCollectionMapper" >
   <resultMap id="BaseResultMap" type="com.stars.travel.model.base.MicroblogCollection" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="phone_microblog_key" property="phoneMicroblogKey" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="relate_id" property="relateId" jdbcType="INTEGER" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, createtime, phone, relate_id, is_enable
+    id, phone_microblog_key, type, createtime, phone, relate_id, is_enable, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.MicroblogCollectionCriteria" >
     select
@@ -92,15 +94,17 @@
       </when>
     </choose>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.stars.travel.model.base.MicroblogCollectionKey" >
     select 
     <include refid="Base_Column_List" />
     from root_microblog_collection
     where id = #{id,jdbcType=INTEGER}
+      and phone_microblog_key = #{phoneMicroblogKey,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="com.stars.travel.model.base.MicroblogCollectionKey" >
     delete from root_microblog_collection
     where id = #{id,jdbcType=INTEGER}
+      and phone_microblog_key = #{phoneMicroblogKey,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.stars.travel.model.base.MicroblogCollectionCriteria" >
     delete from root_microblog_collection
@@ -112,10 +116,12 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT @@IDENTITY
     </selectKey>
-    insert into root_microblog_collection (type, createtime, phone, 
-      relate_id, is_enable)
-    values (#{type,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, 
-      #{relateId,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT})
+    insert into root_microblog_collection (phone_microblog_key, type, createtime, 
+      phone, relate_id, is_enable, 
+      updatetime)
+    values (#{phoneMicroblogKey,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{phone,jdbcType=VARCHAR}, #{relateId,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, 
+      #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.MicroblogCollection" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -123,6 +129,9 @@
     </selectKey>
     insert into root_microblog_collection
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phoneMicroblogKey != null" >
+        phone_microblog_key,
+      </if>
       <if test="type != null" >
         type,
       </if>
@@ -138,8 +147,14 @@
       <if test="isEnable != null" >
         is_enable,
       </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phoneMicroblogKey != null" >
+        #{phoneMicroblogKey,jdbcType=VARCHAR},
+      </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
       </if>
@@ -155,6 +170,9 @@
       <if test="isEnable != null" >
         #{isEnable,jdbcType=BIT},
       </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.stars.travel.model.base.MicroblogCollectionCriteria" resultType="java.lang.Integer" >
@@ -168,6 +186,9 @@
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneMicroblogKey != null" >
+        phone_microblog_key = #{record.phoneMicroblogKey,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
@@ -184,6 +205,9 @@
       <if test="record.isEnable != null" >
         is_enable = #{record.isEnable,jdbcType=BIT},
       </if>
+      <if test="record.updatetime != null" >
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,11 +216,13 @@
   <update id="updateByExample" parameterType="map" >
     update root_microblog_collection
     set id = #{record.id,jdbcType=INTEGER},
+      phone_microblog_key = #{record.phoneMicroblogKey,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       phone = #{record.phone,jdbcType=VARCHAR},
       relate_id = #{record.relateId,jdbcType=INTEGER},
-      is_enable = #{record.isEnable,jdbcType=BIT}
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,8 +245,12 @@
       <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=BIT},
       </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+      and phone_microblog_key = #{phoneMicroblogKey,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.stars.travel.model.base.MicroblogCollection" >
     update root_microblog_collection
@@ -228,7 +258,9 @@
       createtime = #{createtime,jdbcType=TIMESTAMP},
       phone = #{phone,jdbcType=VARCHAR},
       relate_id = #{relateId,jdbcType=INTEGER},
-      is_enable = #{isEnable,jdbcType=BIT}
+      is_enable = #{isEnable,jdbcType=BIT},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
+      and phone_microblog_key = #{phoneMicroblogKey,jdbcType=VARCHAR}
   </update>
 </mapper>

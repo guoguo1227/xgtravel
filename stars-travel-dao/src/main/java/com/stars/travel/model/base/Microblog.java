@@ -35,7 +35,7 @@ public class Microblog implements BaseBean {
 
     private Boolean isShared;
 
-    private Integer top;
+    private Integer topcount;
 
     private Short status;
 
@@ -173,12 +173,12 @@ public class Microblog implements BaseBean {
         this.isShared = isShared;
     }
 
-    public Integer getTop() {
-        return top;
+    public Integer getTopcount() {
+        return topcount;
     }
 
-    public void setTop(Integer top) {
-        this.top = top;
+    public void setTopcount(Integer topcount) {
+        this.topcount = topcount;
     }
 
     public Short getStatus() {
@@ -266,7 +266,7 @@ public class Microblog implements BaseBean {
         bean.setUpdatetime(getUpdatetime());
         bean.setIsEnable(getIsEnable());
         bean.setIsShared(getIsShared());
-        bean.setTop(getTop());
+        bean.setTopcount(getTopcount());
         bean.setStatus(getStatus());
         bean.setTitle(getTitle());
         bean.setDestination(getDestination());
@@ -299,7 +299,7 @@ public class Microblog implements BaseBean {
         	", updatetime:" + getUpdatetime() + 
         	", isEnable:" + getIsEnable() + 
         	", isShared:" + getIsShared() + 
-        	", top:" + getTop() + 
+        	", topcount:" + getTopcount() + 
         	", status:" + getStatus() + 
         	", title:" + getTitle() + 
         	", destination:" + getDestination() + 

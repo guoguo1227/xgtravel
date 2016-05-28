@@ -11,15 +11,13 @@ public class MicroblogVo extends MicroblogWithBLOBs {
 
     private UserInfo userInfo = new UserInfo();
 
-    private boolean isComment = false ; //该用户是否对该行程评论
+    private boolean ifComment = false ; //该用户是否对该行程评论
 
-    private boolean isCollection = false ; //该用户是否收藏
+    private boolean ifCollection = false ; //该用户是否收藏
 
-    private boolean hasTop = false ; //该用户是否顶赞
+    private boolean ifTop = false ; //该用户是否顶赞
 
     private String commentCount = "0" ; //评论数
-
-    private String topCount = "0"; //点赞数
 
     private String token = ""; //app登录授权码
 
@@ -31,28 +29,28 @@ public class MicroblogVo extends MicroblogWithBLOBs {
         this.token = token;
     }
 
-    public boolean isHasTop() {
-        return hasTop;
+    public boolean isIfComment() {
+        return ifComment;
     }
 
-    public void setHasTop(boolean hasTop) {
-        this.hasTop = hasTop;
+    public void setIfComment(boolean ifComment) {
+        this.ifComment = ifComment;
     }
 
-    public boolean isComment() {
-        return isComment;
+    public boolean isIfCollection() {
+        return ifCollection;
     }
 
-    public void setComment(boolean comment) {
-        isComment = comment;
+    public void setIfCollection(boolean ifCollection) {
+        this.ifCollection = ifCollection;
     }
 
-    public boolean isCollection() {
-        return isCollection;
+    public boolean isIfTop() {
+        return ifTop;
     }
 
-    public void setCollection(boolean collection) {
-        isCollection = collection;
+    public void setIfTop(boolean ifTop) {
+        this.ifTop = ifTop;
     }
 
     public String getCommentCount() {
@@ -69,13 +67,5 @@ public class MicroblogVo extends MicroblogWithBLOBs {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
-    }
-
-    public String getTopCount() {
-        return topCount;
-    }
-
-    public void setTopCount(String topCount) {
-        this.topCount = topCount;
     }
 }

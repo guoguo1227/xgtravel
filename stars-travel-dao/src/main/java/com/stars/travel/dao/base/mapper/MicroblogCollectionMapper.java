@@ -3,6 +3,7 @@ package com.stars.travel.dao.base.mapper;
 import com.stars.travel.dao.base.BaseMapper;
 import com.stars.travel.model.base.MicroblogCollection;
 import com.stars.travel.model.base.MicroblogCollectionCriteria;
+import com.stars.travel.model.base.MicroblogCollectionKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,7 @@ public interface MicroblogCollectionMapper extends BaseMapper {
 
     int deleteByExample(MicroblogCollectionCriteria example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(MicroblogCollectionKey key);
 
     int insert(MicroblogCollection record);
 
@@ -19,7 +20,7 @@ public interface MicroblogCollectionMapper extends BaseMapper {
 
     List<MicroblogCollection> selectByExample(MicroblogCollectionCriteria example);
 
-    MicroblogCollection selectByPrimaryKey(Integer id);
+    MicroblogCollection selectByPrimaryKey(MicroblogCollectionKey key);
 
     int updateByExampleSelective(@Param("record") MicroblogCollection record, @Param("example") MicroblogCollectionCriteria example);
 

@@ -26,7 +26,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="isEnable" property="isEnable" jdbcType="BIT" />
     <result column="isShared" property="isShared" jdbcType="BIT" />
-    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="topcount" property="topcount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="destination" property="destination" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     microblog.updatetime as updatetime,
     microblog.is_enable as isEnable,
     microblog.is_shared as isShared,
-    microblog.top as top,
+    microblog.topcount as topcount,
     microblog.status as status,
     microblog.title as title,
     microblog.destination as destination,

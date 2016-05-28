@@ -164,14 +164,32 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     @Override
     public boolean collectMicroblog(Integer id, String currentPhone) {
         boolean success = false;
+        Date nowDate = new Date();
+        int j = 0;
         if(null != id && !StringUtils.isBlank(currentPhone)){
-            MicroblogCollection collection= new MicroblogCollection();
-            collection.setCreatetime(new Date());
-            collection.setPhone(currentPhone);
-            collection.setRelateId(id);
-            collection.setType(CollectionTopType.COLLECTION.getCode());
-            int i = microblogCollectionMapper.insertSelective(collection);
-            if(i>0){
+            MicroblogCollectionCriteria criteria = new MicroblogCollectionCriteria();
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            List<MicroblogCollection> list = microblogCollectionMapper.selectByExample(criteria);
+            //记录存在
+            if(!list.isEmpty()){
+                MicroblogCollection microblogCollection = list.get(0);
+                microblogCollection.setIsEnable(true);
+                microblogCollection.setUpdatetime(nowDate);
+                j = microblogCollectionMapper.updateByPrimaryKeySelective(microblogCollection);
+            }else{
+                //记录不存在
+                String phoneMicroblogKey = id+"-"+currentPhone+"-"+CollectionTopType.COLLECTION.getDescription();
+                MicroblogCollection collection= new MicroblogCollection();
+                collection.setCreatetime(nowDate);
+                collection.setPhone(currentPhone);
+                collection.setRelateId(id);
+                collection.setPhoneMicroblogKey(phoneMicroblogKey);
+                collection.setIsEnable(true);
+                collection.setType(CollectionTopType.COLLECTION.getCode());
+                j = microblogCollectionMapper.insertSelective(collection);
+            }
+
+            if(j>0){
                 success = true;
             }
         }
@@ -181,17 +199,19 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     @Override
     public boolean uncollectMicroblog(Integer id, String currentPhone) {
         boolean success = false;
+        Date nowDate = new Date();
         if(null != id && !StringUtils.isBlank(currentPhone)){
             MicroblogCollectionCriteria criteria = new MicroblogCollectionCriteria();
-            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode()).andIsEnableEqualTo(true);
             List<MicroblogCollection> list = microblogCollectionMapper.selectByExample(criteria);
-            if(null != list && list.size()>0){
-                for(MicroblogCollection collection : list){
-                    int i = microblogCollectionMapper.deleteByPrimaryKey(collection.getId());
-                    if(i>0){
-                        success = true;
-                        logger.info("成功删除用户:"+currentPhone+"收藏的微游记:"+id);
-                    }
+            if(!list.isEmpty()){
+                MicroblogCollection collection = list.get(0);
+                collection.setUpdatetime(nowDate);
+                collection.setIsEnable(false);
+                int i = microblogCollectionMapper.updateByPrimaryKeySelective(collection);
+                if(i>0){
+                    success = true;
+                    logger.info("成功取消用户:"+currentPhone+"收藏的微游记:"+id);
                 }
             }
         }
@@ -223,20 +243,38 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     public RequestResult topMicroblog(Integer id, String currentPhone) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        Date nowDate = new Date();
+        int j = 0;
         if(null != id && !StringUtils.isBlank(currentPhone)){
-            MicroblogCollection collection= new MicroblogCollection();
-            collection.setCreatetime(new Date());
-            collection.setPhone(currentPhone);
-            collection.setRelateId(id);
-            collection.setType(CollectionTopType.TOP.getCode());
-            int i = microblogCollectionMapper.insertSelective(collection);
-            if(i>0){
+            MicroblogCollectionCriteria criteria = new MicroblogCollectionCriteria();
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.TOP.getCode());
+            List<MicroblogCollection> list = microblogCollectionMapper.selectByExample(criteria);
+            //记录存在
+            if(!list.isEmpty()){
+                MicroblogCollection microblogCollection = list.get(0);
+                microblogCollection.setUpdatetime(nowDate);
+                microblogCollection.setIsEnable(true);
+                j = microblogCollectionMapper.updateByPrimaryKeySelective(microblogCollection);
+            }else{
+                //记录不存在
+                String phoneMicroblogKey = id+"-"+currentPhone+"-"+CollectionTopType.TOP.getDescription();
+                MicroblogCollection collection= new MicroblogCollection();
+                collection.setCreatetime(nowDate);
+                collection.setPhone(currentPhone);
+                collection.setRelateId(id);
+                collection.setPhoneMicroblogKey(phoneMicroblogKey);
+                collection.setIsEnable(true);
+                collection.setType(CollectionTopType.TOP.getCode());
+                j = microblogCollectionMapper.insertSelective(collection);
+            }
+
+            if(j>0){
                 MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(id);
                 if(null != microblog){
-                    int count = microblog.getTop()+1;
-                    microblog.setTop(count);
-                    int j = microblogMapper.updateByPrimaryKeySelective(microblog);
-                    if(j>0){
+                    int count = microblog.getTopcount()+1;
+                    microblog.setTopcount(count);
+                    int i = microblogMapper.updateByPrimaryKeySelective(microblog);
+                    if(i>0){
                         result.setSuccess(true);
                         result.setData(count);
                     }
@@ -250,29 +288,31 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     public RequestResult untopMicroblog(Integer id, String currentPhone) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        Date nowDate = new Date();
         if(null != id && !StringUtils.isBlank(currentPhone)){
             MicroblogCollectionCriteria criteria = new MicroblogCollectionCriteria();
-            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.TOP.getCode());
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.TOP.getCode()).andIsEnableEqualTo(true);
             List<MicroblogCollection> list = microblogCollectionMapper.selectByExample(criteria);
-            if(null != list && list.size()>0){
-                for(MicroblogCollection collection : list){
-                    int i = microblogCollectionMapper.deleteByPrimaryKey(collection.getId());
-                    if(i>0){
-                        MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(id);
-                        if(null != microblog){
-                            int count = 0;
-                            if(microblog.getTop()-1 >0){
-                                microblog.setTop(count);
-                            }
-                            microblog.setTop(0);
-                            int j = microblogMapper.updateByPrimaryKeySelective(microblog);
-                            if(j>0){
-                                result.setSuccess(true);
-                                result.setData(count);
-                            }
+            if(!list.isEmpty()){
+                MicroblogCollection collection = list.get(0);
+                collection.setUpdatetime(nowDate);
+                collection.setIsEnable(false);
+                int i = microblogCollectionMapper.updateByPrimaryKeySelective(collection);
+                if(i>0){
+                    MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(id);
+                    if(null != microblog){
+                        int count = 0;
+                        if(microblog.getTopcount()-1 >0){
+                            microblog.setTopcount(count);
                         }
-                        logger.info("成功删除用户:"+currentPhone+"顶赞的微游记:"+id);
+                        microblog.setTopcount(0);
+                        int j = microblogMapper.updateByPrimaryKeySelective(microblog);
+                        if(j>0){
+                            result.setSuccess(true);
+                            result.setData(count);
+                        }
                     }
+                    logger.info("成功取消用户:"+currentPhone+"顶赞的微游记:"+id);
                 }
             }
         }
@@ -334,23 +374,21 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
      */
     private void addMicroblogExtAttr(MicroblogVo vo,String currentPhone){
         //该用户是否对该行程评论
-        boolean isComment = false;
+        boolean ifComment = false;
         //该用户是否收藏
-        boolean isCollection = false;
+        boolean ifCollection = false;
         //该用户是否顶赞
-        boolean isTop = false;
+        boolean ifTop = false;
         if(!StringUtils.isBlank(currentPhone)){
-            isComment = ifComment(vo.getId(),currentPhone);
-            isCollection = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
-            isTop = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.TOP.getCode());
+            ifComment = ifComment(vo.getId(),currentPhone);
+            ifCollection = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
+            ifTop = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.TOP.getCode());
         }
         //评论数
         vo.setCommentCount(queryCommentCount(vo.getId()).toString());
-        //点赞数
-        vo.setTopCount(queryTopCount(vo.getId()).toString());
-        vo.setCollection(isCollection);
-        vo.setComment(isComment);
-        vo.setHasTop(isTop);
+        vo.setIfCollection(ifCollection);
+        vo.setIfComment(ifComment);
+        vo.setIfTop(ifTop);
         //创建用户
         User user = userService.queryUserByPhoneNumber(vo.getPhone());
 

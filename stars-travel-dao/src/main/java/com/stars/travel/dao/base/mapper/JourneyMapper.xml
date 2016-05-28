@@ -9,7 +9,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
     <result column="is_shared" property="isShared" jdbcType="BIT" />
-    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="topCount" property="topcount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="VARCHAR" />
@@ -81,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, name, createtime, updatetime, is_enable, is_shared, top, status, title, 
-    budget, totalday, destination, sharetimes, cover_image
+    id, phone, name, createtime, updatetime, is_enable, is_shared, topCount, status, 
+    title, budget, totalday, destination, sharetimes, cover_image
   </sql>
   <sql id="Blob_Column_List" >
     description, content
@@ -149,13 +149,13 @@
     </selectKey>
     insert into root_journey (phone, name, createtime, 
       updatetime, is_enable, is_shared, 
-      top, status, title, 
+      topCount, status, title, 
       budget, totalday, destination, 
       sharetimes, cover_image, description, 
       content)
     values (#{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, 
-      #{top,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
+      #{topcount,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
       #{budget,jdbcType=VARCHAR}, #{totalday,jdbcType=INTEGER}, #{destination,jdbcType=VARCHAR}, 
       #{sharetimes,jdbcType=INTEGER}, #{coverImage,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
@@ -184,8 +184,8 @@
       <if test="isShared != null" >
         is_shared,
       </if>
-      <if test="top != null" >
-        top,
+      <if test="topcount != null" >
+        topCount,
       </if>
       <if test="status != null" >
         status,
@@ -234,8 +234,8 @@
       <if test="isShared != null" >
         #{isShared,jdbcType=BIT},
       </if>
-      <if test="top != null" >
-        #{top,jdbcType=INTEGER},
+      <if test="topcount != null" >
+        #{topcount,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=SMALLINT},
@@ -296,8 +296,8 @@
       <if test="record.isShared != null" >
         is_shared = #{record.isShared,jdbcType=BIT},
       </if>
-      <if test="record.top != null" >
-        top = #{record.top,jdbcType=INTEGER},
+      <if test="record.topcount != null" >
+        topCount = #{record.topcount,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=SMALLINT},
@@ -340,7 +340,7 @@
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
       is_shared = #{record.isShared,jdbcType=BIT},
-      top = #{record.top,jdbcType=INTEGER},
+      topCount = #{record.topcount,jdbcType=INTEGER},
       status = #{record.status,jdbcType=SMALLINT},
       title = #{record.title,jdbcType=VARCHAR},
       budget = #{record.budget,jdbcType=VARCHAR},
@@ -363,7 +363,7 @@
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
       is_shared = #{record.isShared,jdbcType=BIT},
-      top = #{record.top,jdbcType=INTEGER},
+      topCount = #{record.topcount,jdbcType=INTEGER},
       status = #{record.status,jdbcType=SMALLINT},
       title = #{record.title,jdbcType=VARCHAR},
       budget = #{record.budget,jdbcType=VARCHAR},
@@ -396,8 +396,8 @@
       <if test="isShared != null" >
         is_shared = #{isShared,jdbcType=BIT},
       </if>
-      <if test="top != null" >
-        top = #{top,jdbcType=INTEGER},
+      <if test="topcount != null" >
+        topCount = #{topcount,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=SMALLINT},
@@ -437,7 +437,7 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
       is_shared = #{isShared,jdbcType=BIT},
-      top = #{top,jdbcType=INTEGER},
+      topCount = #{topcount,jdbcType=INTEGER},
       status = #{status,jdbcType=SMALLINT},
       title = #{title,jdbcType=VARCHAR},
       budget = #{budget,jdbcType=VARCHAR},
@@ -457,7 +457,7 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
       is_shared = #{isShared,jdbcType=BIT},
-      top = #{top,jdbcType=INTEGER},
+      topCount = #{topcount,jdbcType=INTEGER},
       status = #{status,jdbcType=SMALLINT},
       title = #{title,jdbcType=VARCHAR},
       budget = #{budget,jdbcType=VARCHAR},

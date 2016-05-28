@@ -77,20 +77,13 @@ public interface JourneyService {
     public boolean uncollectionJourney(Integer id,String currentPhone);
 
     /**
-     * @Description : 验证该用户是否收藏该行程
+     * @Description : 验证该用户是否收藏，点赞该行程
      * @param id
      * @param currentPhone
      * @return
      */
-    public boolean ifCollection(Integer id,String currentPhone,Integer type);
+    public boolean ifCollectionTop(Integer id,String currentPhone,Integer type);
 
-    /**
-     * @Description : 是否顶赞
-     * @param id
-     * @param currentPhone
-     * @return
-     */
-    public boolean ifTop(Integer id,String currentPhone);
     /**
      * @Description : 顶，赞行程分享
      * @param id

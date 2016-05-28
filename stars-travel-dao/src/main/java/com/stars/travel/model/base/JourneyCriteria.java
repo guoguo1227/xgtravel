@@ -570,63 +570,63 @@ public class JourneyCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTopIsNull() {
-            addCriterion("top is null");
+        public Criteria andTopcountIsNull() {
+            addCriterion("topCount is null");
             return (Criteria) this;
         }
 
-        public Criteria andTopIsNotNull() {
-            addCriterion("top is not null");
+        public Criteria andTopcountIsNotNull() {
+            addCriterion("topCount is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTopEqualTo(Integer value) {
-            addCriterion("top =", value, "top");
+        public Criteria andTopcountEqualTo(Integer value) {
+            addCriterion("topCount =", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopNotEqualTo(Integer value) {
-            addCriterion("top <>", value, "top");
+        public Criteria andTopcountNotEqualTo(Integer value) {
+            addCriterion("topCount <>", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopGreaterThan(Integer value) {
-            addCriterion("top >", value, "top");
+        public Criteria andTopcountGreaterThan(Integer value) {
+            addCriterion("topCount >", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopGreaterThanOrEqualTo(Integer value) {
-            addCriterion("top >=", value, "top");
+        public Criteria andTopcountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("topCount >=", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopLessThan(Integer value) {
-            addCriterion("top <", value, "top");
+        public Criteria andTopcountLessThan(Integer value) {
+            addCriterion("topCount <", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopLessThanOrEqualTo(Integer value) {
-            addCriterion("top <=", value, "top");
+        public Criteria andTopcountLessThanOrEqualTo(Integer value) {
+            addCriterion("topCount <=", value, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopIn(List<Integer> values) {
-            addCriterion("top in", values, "top");
+        public Criteria andTopcountIn(List<Integer> values) {
+            addCriterion("topCount in", values, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopNotIn(List<Integer> values) {
-            addCriterion("top not in", values, "top");
+        public Criteria andTopcountNotIn(List<Integer> values) {
+            addCriterion("topCount not in", values, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopBetween(Integer value1, Integer value2) {
-            addCriterion("top between", value1, value2, "top");
+        public Criteria andTopcountBetween(Integer value1, Integer value2) {
+            addCriterion("topCount between", value1, value2, "topcount");
             return (Criteria) this;
         }
 
-        public Criteria andTopNotBetween(Integer value1, Integer value2) {
-            addCriterion("top not between", value1, value2, "top");
+        public Criteria andTopcountNotBetween(Integer value1, Integer value2) {
+            addCriterion("topCount not between", value1, value2, "topcount");
             return (Criteria) this;
         }
 

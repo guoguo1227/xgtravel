@@ -431,14 +431,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean collectionUser(String userPhone,String currentPhone) {
         boolean success = false;
+        Date nowDate = new Date();
+        int j = 0;
         if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
-            UserCollection userCollection = new UserCollection();
-            userCollection.setCreatetime(new Date());
-            userCollection.setCollectionPhone(currentPhone);
-            userCollection.setUserPhone(userPhone);
 
-            int i = userCollectionMapper.insertSelective(userCollection);
-            if(i>0){
+            UserCollectionCriteria criteria = new UserCollectionCriteria();
+            criteria.createCriteria().andCollectionPhoneEqualTo(userPhone).andUserPhoneEqualTo(currentPhone);
+            List<UserCollection> list = userCollectionMapper.selectByExample(criteria);
+            //记录存在
+            if(!list.isEmpty()){
+                UserCollection userCollection = list.get(0);
+                userCollection.setUpdatetime(nowDate);
+                userCollection.setIsEnable(true);
+                j = userCollectionMapper.updateByPrimaryKeySelective(userCollection);
+            }else{
+                //记录不存在
+                String phoneCollectionKey = userPhone+"-"+currentPhone;
+                UserCollection userCollection = new UserCollection();
+                userCollection.setCreatetime(nowDate);
+                userCollection.setCollectionPhone(currentPhone);
+                userCollection.setUserPhone(userPhone);
+                userCollection.setPhoneCollectionKey(phoneCollectionKey);
+                userCollection.setIsEnable(true);
+                j = userCollectionMapper.insertSelective(userCollection);
+            }
+            if(j>0){
                 success = true;
             }
         }
@@ -448,20 +465,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean uncollectionUser(String userPhone,String currentPhone) {
         boolean success = false;
+        Date nowDate = new Date();
         if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
             UserCollectionCriteria cri = new UserCollectionCriteria();
-            cri.createCriteria().andCollectionPhoneEqualTo(currentPhone).andUserPhoneEqualTo(userPhone).andIsEnableEqualTo(true);
+            cri.createCriteria().andCollectionPhoneEqualTo(userPhone).andUserPhoneEqualTo(currentPhone).andIsEnableEqualTo(true);
 
             List<UserCollection> list = userCollectionMapper.selectByExample(cri);
-            if(null != list && list.size()>0){
-                for(UserCollection userCollection : list){
-                    int i = userCollectionMapper.deleteByPrimaryKey(userCollection.getId());
-                    if(i>0){
-                        success = true;
-                    }
+            if(!list.isEmpty()){
+                UserCollection collection = list.get(0);
+                collection.setUpdatetime(nowDate);
+                collection.setIsEnable(false);
+                int i = userCollectionMapper.updateByPrimaryKeySelective(collection);
+                if(i>0){
+                    success = true;
                 }
             }
-
         }
         return success;
     }
@@ -471,7 +489,7 @@ public class UserServiceImpl implements UserService {
         boolean success = false;
         if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
             UserCollectionCriteria cri = new UserCollectionCriteria();
-            cri.createCriteria().andUserPhoneEqualTo(userPhone).andCollectionPhoneEqualTo(currentPhone).andIsEnableEqualTo(true);
+            cri.createCriteria().andUserPhoneEqualTo(currentPhone).andCollectionPhoneEqualTo(userPhone).andIsEnableEqualTo(true);
             int collectionCount = userCollectionMapper.countByExample(cri);
             if(collectionCount > 0){
                 success = true;
@@ -537,7 +555,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setMicroblogNumber(microbloCount+"");
         //定制数量
         int customCount = customizationService.countCustomization(journeyContion);
-        userInfo.setCustomNumuber(customCount+"");
+        userInfo.setCustomCount(customCount+"");
         //当前用户是否收藏
         if(!StringUtils.isBlank(currentPhone)){
             userInfo.setIfCollection(ifCollectionUser(u.getPhone(),currentPhone));

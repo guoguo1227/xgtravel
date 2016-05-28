@@ -14,7 +14,6 @@ import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,14 +240,31 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public boolean collectionJourney(Integer id, String userPhone) {
         boolean successs = false;
+        Date nowDate = new Date();
+        int j = 0;
         if(null != id && !StringUtils.isBlank(userPhone)){
-            JourneyCollection collection = new JourneyCollection();
-            collection.setCreatetime(new Date());
-            collection.setRelateId(id);
-            collection.setPhone(userPhone);
-            collection.setType(CollectionTopType.COLLECTION.getCode()); //收藏类型
-            int i = journeyCollectionMapper.insertSelective(collection);
-            if(i>0){
+            JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
+            criteria.createCriteria().andPhoneEqualTo(userPhone).andRelateIdEqualTo(id).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            List<JourneyCollection> list = journeyCollectionMapper.selectByExample(criteria);
+            //记录存在
+            if(!list.isEmpty()){
+                JourneyCollection journeyCollection = list.get(0);
+                journeyCollection.setUpdatetime(nowDate);
+                journeyCollection.setIsEnable(true);
+                j = journeyCollectionMapper.updateByPrimaryKeySelective(journeyCollection);
+            }else{
+                //记录不存在
+                String phoneJourneyKey = id+"-"+userPhone+"-"+CollectionTopType.COLLECTION.getDescription();
+                JourneyCollection collection = new JourneyCollection();
+                collection.setCreatetime(nowDate);
+                collection.setRelateId(id);
+                collection.setPhone(userPhone);
+                collection.setPhoneJourneyKey(phoneJourneyKey);
+                collection.setIsEnable(true);
+                collection.setType(CollectionTopType.COLLECTION.getCode()); //收藏类型
+                j = journeyCollectionMapper.insertSelective(collection);
+            }
+            if(j>0){
                 successs = true;
             }
         }
@@ -258,18 +274,20 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public boolean uncollectionJourney(Integer id, String userPhone) {
         boolean success = false;
+        Date nowDate = new Date();
         if(null != id && !StringUtils.isBlank(userPhone)){
             JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
-            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(userPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(userPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode()).andIsEnableEqualTo(true);
             List<JourneyCollection> list = journeyCollectionMapper.selectByExample(criteria);
 
-            if(null != list && list.size()>0){
-                for(JourneyCollection collection : list){
-                    int i = journeyCollectionMapper.deleteByPrimaryKey(collection.getId());
-                    if(i>0){
-                        logger.info("删除用户:"+userPhone+"收藏的行程id:"+id);
-                        success = true;
-                    }
+            if(!list.isEmpty()){
+                JourneyCollection collection = list.get(0);
+                collection.setIsEnable(false);
+                collection.setUpdatetime(nowDate);
+                int i = journeyCollectionMapper.updateByPrimaryKeySelective(collection);
+                if(i>0){
+                    logger.info("取消用户:"+userPhone+"收藏的行程id:"+id);
+                    success = true;
                 }
             }
         }
@@ -277,7 +295,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public boolean ifCollection(Integer id, String userPhone,Integer type) {
+    public boolean ifCollectionTop(Integer id, String userPhone,Integer type) {
         boolean success = false;
         if(null != id && !StringUtils.isBlank(userPhone)){
             JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
@@ -291,44 +309,52 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public boolean ifTop(Integer id, String userPhone) {
-        boolean success = false;
-        if(null != id && !StringUtils.isBlank(userPhone)){
-            JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
-            criteria.createCriteria().andIsEnableEqualTo(true).andPhoneEqualTo(userPhone).andRelateIdEqualTo(id).andTypeEqualTo(CollectionTopType.TOP.getCode());
-            int count = journeyCollectionMapper.countByExample(criteria);
-            if(count >0){
-                success = true;
-            }
-        }
-        return success;
-    }
-
-    @Override
     public RequestResult topJourney(Integer id, String userPhone) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        Date nowDate = new Date();
+        int j = 0;
         if(null != id && !StringUtils.isBlank(userPhone)){
-            JourneyCollection collection = new JourneyCollection();
-            collection.setCreatetime(new Date());
-            collection.setRelateId(id);
-            collection.setPhone(userPhone);
-            collection.setType(CollectionTopType.TOP.getCode()); //收藏类型
-            int j = journeyCollectionMapper.insertSelective(collection);
+            //记录存在
+            JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
+            criteria.createCriteria().andPhoneEqualTo(userPhone).andRelateIdEqualTo(id).andTypeEqualTo(CollectionTopType.TOP.getCode());
+            List<JourneyCollection> list = journeyCollectionMapper.selectByExample(criteria);
+            if(!list.isEmpty()){
+                JourneyCollection journeyCollection = list.get(0);
+                if(null != journeyCollection){
+                    // journeyCollection
+                    journeyCollection.setUpdatetime(nowDate);
+                    journeyCollection.setIsEnable(true);
+                    j = journeyCollectionMapper.updateByPrimaryKeySelective(journeyCollection);
+                }
+            }else{
+                //记录不存在
+                String phoneJourneyKey = id+"-"+userPhone+"-"+CollectionTopType.TOP.getDescription();
+                JourneyCollection collection = new JourneyCollection();
+                collection.setCreatetime(nowDate);
+                collection.setRelateId(id);
+                collection.setPhone(userPhone);
+                collection.setPhoneJourneyKey(phoneJourneyKey);
+                collection.setIsEnable(true);
+                collection.setType(CollectionTopType.TOP.getCode()); //点赞类型
+                j = journeyCollectionMapper.insertSelective(collection);
+            }
+
             if(j>0){
                 //行程顶，赞+1
                 JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(id);
                 if(null != journey){
-                    int count = journey.getTop()+1;
-                    journey.setTop(count);
+                    int count = journey.getTopcount()+1;
+                    journey.setTopcount(count);
                     int i = journeyMapper.updateByPrimaryKey(journey);
                     if(i>0){
                         result.setSuccess(true);
                         result.setData(count);
                     }
                 }
+            }else{
+                logger.info("用户phone:"+userPhone+"点赞行程id:"+id+"失败");
             }
-
         }
         return result;
     }
@@ -337,32 +363,33 @@ public class JourneyServiceImpl implements JourneyService {
     public RequestResult untopJourney(Integer id, String userPhone) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        Date nowDate = new Date();
         if(null != id && !StringUtils.isBlank(userPhone)){
             JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
-            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(userPhone).andTypeEqualTo(CollectionTopType.TOP.getCode());
+            criteria.createCriteria().andRelateIdEqualTo(id).andPhoneEqualTo(userPhone).andTypeEqualTo(CollectionTopType.TOP.getCode()).andIsEnableEqualTo(true);
             List<JourneyCollection> list = journeyCollectionMapper.selectByExample(criteria);
 
-            if(null != list && list.size()>0){
-                for(JourneyCollection collection : list){
-                    int i = journeyCollectionMapper.deleteByPrimaryKey(collection.getId());
-                    if(i>0){
-
-                        //行程顶，赞+1
-                        JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(id);
-                        if(null != journey){
-                            int count = 0;
-                            if(journey.getTop() -1>0){
-                                count = journey.getTop() -1;
-                            }
-                            journey.setTop(count);
-                            int j = journeyMapper.updateByPrimaryKey(journey);
-                            if(j>0){
-                                result.setSuccess(true);
-                                result.setData(count);
-                            }
+            if(!list.isEmpty()){
+                JourneyCollection collection = list.get(0);
+                collection.setUpdatetime(nowDate);
+                collection.setIsEnable(false);//标记删除
+                int i = journeyCollectionMapper.updateByPrimaryKeySelective(collection);
+                if(i>0){
+                    //行程顶，赞+1
+                    JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(id);
+                    if(null != journey){
+                        int count = 0;
+                        if(journey.getTopcount() -1>0){
+                            count = journey.getTopcount() -1;
                         }
-                        logger.info("删除用户:"+userPhone+"顶赞的行程id:"+id);
+                        journey.setTopcount(count);
+                        int j = journeyMapper.updateByPrimaryKey(journey);
+                        if(j>0){
+                            result.setSuccess(true);
+                            result.setData(count);
+                        }
                     }
+                    logger.info("取消用户:"+userPhone+"顶赞的行程id:"+id);
                 }
             }
         }
@@ -419,7 +446,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     /**
-     * @Description：根据行程id，用户id查询收藏记录
+     * @Description：根据行程id，用户id查询收藏,点赞记录
      * @param id 行程id
      * @param userPhone 用户手机
      * @param type 类型,1==收藏,2==赞
@@ -448,18 +475,18 @@ public class JourneyServiceImpl implements JourneyService {
         //是否收藏
         Boolean ifCollection = false;
         //是否评论
-        Boolean isComment = false;
+        Boolean ifComment = false;
         //是否顶赞
-        Boolean isTop = false;
+        Boolean ifTop = false;
         if(!StringUtils.isBlank(currentPhone)){
-            ifCollection = ifCollection(vo.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
-            isComment = ifComment(vo.getId(),currentPhone);
-            isTop = ifCollection(vo.getId(),currentPhone,CollectionTopType.TOP.getCode());
+            ifCollection = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.COLLECTION.getCode());
+            ifComment = ifComment(vo.getId(),currentPhone);
+            ifTop = ifCollectionTop(vo.getId(),currentPhone,CollectionTopType.TOP.getCode());
         }
 
-        vo.setCollection(ifCollection);
-        vo.setComment(isComment);
-        vo.setHasTop(isTop);
+        vo.setIfCollection(ifCollection);
+        vo.setIfComment(ifComment);
+        vo.setIfTop(ifTop);
         //查询用户
         User user = userService.queryUserByPhoneNumber(vo.getPhone());
         if(null != user){
@@ -475,7 +502,6 @@ public class JourneyServiceImpl implements JourneyService {
         }
         //评论数
         vo.setCommentCount(queryCommentCount(vo.getId()).toString());
-        vo.setTopCount(queryTopCount(vo.getId()).toString());
         return vo;
     }
 }
