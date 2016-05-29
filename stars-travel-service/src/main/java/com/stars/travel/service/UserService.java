@@ -66,27 +66,27 @@ public interface UserService {
 
     /**
      * @Description : 收藏当地人
-     * @param userPhone
+     * @param phone
      * @param currentPhone
      * @return
      */
-    public boolean collectionUser(String userPhone,String currentPhone);
+    public boolean collectionUser(String phone,String currentPhone);
 
     /**
      * @Description : 取消收藏当地人
-     * @param userPhone
+     * @param phone
      * @param currentPhone
      * @return
      */
-    public boolean uncollectionUser(String userPhone,String currentPhone);
+    public boolean uncollectionUser(String phone,String currentPhone);
 
     /**
      * @Description :　是否收藏该当地人
-     * @param userPhone
+     * @param phone
      * @param currentPhone
      * @return
      */
-    public boolean ifCollectionUser(String userPhone,String currentPhone);
+    public boolean ifCollectionUser(String phone,String currentPhone);
 
     /**
      * @Description : 根据token查询用户手机

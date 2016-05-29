@@ -429,14 +429,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean collectionUser(String userPhone,String currentPhone) {
+    public boolean collectionUser(String phone,String currentPhone) {
         boolean success = false;
         Date nowDate = new Date();
         int j = 0;
-        if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
+        if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(currentPhone)){
 
             UserCollectionCriteria criteria = new UserCollectionCriteria();
-            criteria.createCriteria().andCollectionPhoneEqualTo(userPhone).andUserPhoneEqualTo(currentPhone);
+            criteria.createCriteria().andCollectionPhoneEqualTo(phone).andUserPhoneEqualTo(currentPhone);
             List<UserCollection> list = userCollectionMapper.selectByExample(criteria);
             //记录存在
             if(!list.isEmpty()){
@@ -446,11 +446,11 @@ public class UserServiceImpl implements UserService {
                 j = userCollectionMapper.updateByPrimaryKeySelective(userCollection);
             }else{
                 //记录不存在
-                String phoneCollectionKey = userPhone+"-"+currentPhone;
+                String phoneCollectionKey = phone+"-"+currentPhone;
                 UserCollection userCollection = new UserCollection();
                 userCollection.setCreatetime(nowDate);
-                userCollection.setCollectionPhone(currentPhone);
-                userCollection.setUserPhone(userPhone);
+                userCollection.setCollectionPhone(phone);
+                userCollection.setUserPhone(currentPhone);
                 userCollection.setPhoneCollectionKey(phoneCollectionKey);
                 userCollection.setIsEnable(true);
                 j = userCollectionMapper.insertSelective(userCollection);
@@ -463,12 +463,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean uncollectionUser(String userPhone,String currentPhone) {
+    public boolean uncollectionUser(String phone,String currentPhone) {
         boolean success = false;
         Date nowDate = new Date();
-        if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
+        if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(currentPhone)){
             UserCollectionCriteria cri = new UserCollectionCriteria();
-            cri.createCriteria().andCollectionPhoneEqualTo(userPhone).andUserPhoneEqualTo(currentPhone).andIsEnableEqualTo(true);
+            cri.createCriteria().andCollectionPhoneEqualTo(phone).andUserPhoneEqualTo(currentPhone).andIsEnableEqualTo(true);
 
             List<UserCollection> list = userCollectionMapper.selectByExample(cri);
             if(!list.isEmpty()){
@@ -485,11 +485,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean ifCollectionUser(String userPhone,String currentPhone) {
+    public boolean ifCollectionUser(String phone,String currentPhone) {
         boolean success = false;
-        if(!StringUtils.isBlank(userPhone) && !StringUtils.isBlank(currentPhone)){
+        if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(currentPhone)){
             UserCollectionCriteria cri = new UserCollectionCriteria();
-            cri.createCriteria().andUserPhoneEqualTo(currentPhone).andCollectionPhoneEqualTo(userPhone).andIsEnableEqualTo(true);
+            cri.createCriteria().andUserPhoneEqualTo(currentPhone).andCollectionPhoneEqualTo(phone).andIsEnableEqualTo(true);
             int collectionCount = userCollectionMapper.countByExample(cri);
             if(collectionCount > 0){
                 success = true;

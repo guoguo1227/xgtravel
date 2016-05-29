@@ -456,9 +456,9 @@ public class JourneyServiceImpl implements JourneyService {
 
         if(null != id && !StringUtils.isBlank(userPhone)){
             JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
-            criteria.createCriteria().andPhoneEqualTo(userPhone).andRelateIdEqualTo(id).andTypeEqualTo(type);
-            List<JourneyCollection> list = journeyCollectionMapper.selectByExample(criteria);
-            if(null != list && list.size()>0){
+            criteria.createCriteria().andPhoneEqualTo(userPhone).andRelateIdEqualTo(id).andTypeEqualTo(type).andIsEnableEqualTo(true);
+            int count = journeyCollectionMapper.countByExample(criteria);
+            if(count>0){
                 return true;
             }
         }
