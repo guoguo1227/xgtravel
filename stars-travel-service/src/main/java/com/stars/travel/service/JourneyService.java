@@ -98,6 +98,14 @@ public interface JourneyService {
      * @return
      */
     public RequestResult untopJourney(Integer id, String currentPhone);
+
+    /**
+     * @Description : 查询我的收藏，行程收藏列表
+     * @param condition
+     * @param currentPhone
+     * @return
+     */
+    public List<JourneyVo> queryMyCollectList(AuctionSearchCondition condition, String currentPhone);
     /**
      * @Description : 根据行程id,用户id查询是否收藏
      * @param id

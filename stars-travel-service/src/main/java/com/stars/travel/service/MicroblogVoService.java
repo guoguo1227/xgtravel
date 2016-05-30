@@ -30,6 +30,13 @@ public interface MicroblogVoService {
     public List<MicroblogVo> querySharedMicroblogVoApp(AuctionSearchCondition condition,String currentPhone);
 
     /**
+     * @Description : 我的微游记收藏
+     * @param condition
+     * @param currentPhone
+     * @return
+     */
+    public List<MicroblogVo> queryMyCollection(AuctionSearchCondition condition,String currentPhone);
+    /**
      * @Description : 查询分享微游记总数
      * @param condition
      * @return

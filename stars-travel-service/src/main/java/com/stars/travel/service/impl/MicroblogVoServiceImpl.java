@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,6 +107,51 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     addMicroblogExtAttr(vo,currentPhone);
                 }
             }
+        }
+        return list;
+    }
+
+    @Override
+    public List<MicroblogVo> queryMyCollection(AuctionSearchCondition condition, String currentPhone) {
+        List<MicroblogVo> list = null;
+        List<Integer> ids = new ArrayList<>();
+        if(null != condition){
+
+            MicroblogCollectionCriteria collectionCriteria = new MicroblogCollectionCriteria();
+            collectionCriteria.createCriteria().andIsEnableEqualTo(true).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            List<MicroblogCollection> collections = microblogCollectionMapper.selectByExample(collectionCriteria);
+            //收藏列表
+            if(!collections.isEmpty()){
+                for(MicroblogCollection collection: collections){
+                    ids.add(collection.getRelateId());
+                }
+            }
+            //最新，历史
+            if(null != condition.getIfNew()){
+                if(condition.getIfNew()){
+                    if(null != condition.getfId()){
+                        condition.setIdGreaterThan(condition.getfId());
+                    }
+                }else{
+                    if(null != condition.getfId()){
+                        condition.setIdLessThan(condition.getfId());
+                    }
+                }
+            }
+            //排序
+            condition.setOrderByClause(" id desc");
+
+            if(ids.size()>0){
+                condition.setIdsIn(ids);
+                list = microblogVoMapper.querySharedMicroblogList(condition);
+                if(!list.isEmpty()){
+                    for(MicroblogVo vo : list){
+                        addMicroblogExtAttr(vo,currentPhone);
+                    }
+                }
+            }
+
+
         }
         return list;
     }
@@ -271,8 +317,8 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
             if(j>0){
                 MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(id);
                 if(null != microblog){
-                    int count = microblog.getTopcount()+1;
-                    microblog.setTopcount(count);
+                    int count = microblog.getTopCount()+1;
+                    microblog.setTopCount(count);
                     int i = microblogMapper.updateByPrimaryKeySelective(microblog);
                     if(i>0){
                         result.setSuccess(true);
@@ -302,10 +348,10 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(id);
                     if(null != microblog){
                         int count = 0;
-                        if(microblog.getTopcount()-1 >0){
-                            microblog.setTopcount(count);
+                        if(microblog.getTopCount()-1 >0){
+                            microblog.setTopCount(count);
                         }
-                        microblog.setTopcount(0);
+                        microblog.setTopCount(0);
                         int j = microblogMapper.updateByPrimaryKeySelective(microblog);
                         if(j>0){
                             result.setSuccess(true);

@@ -32,18 +32,6 @@ public class UserController extends BaseController{
     @Resource
     private UserService userService;
 
-    @RequestMapping("/*")
-    public String index(Model model) {
-        return "user/index";
-    }
-
-    @RequestMapping("query")
-    @ResponseBody
-    public Object querty(){
-        User user = userService.queryUserById(1);
-        return gson.toJson(user);
-    }
-
     /**
      * @Description : 用户分页列表
      * @param searchCondition
@@ -89,6 +77,30 @@ public class UserController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * @Description : 用户,当地人列表,移动端
+     * @param condition
+     * @return
+     */
+    @RequestMapping("mycollection")
+    @ResponseBody
+    public Object queryMyCollection(AuctionSearchCondition condition){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        String  userPhone = HttpSessionProvider.getSessionUserPhone();
+
+        //获取APP的token
+        if(!StringUtils.isBlank(condition.getToken())){
+            userPhone = userService.queryPhoneByToken(condition.getToken());
+        }
+
+        List<UserInfo> list = userService.queryMyCollection(condition,userPhone);
+        if(null != list && list.size()>0){
+            result.setSuccess(true);
+            result.setData(list);
+        }
+        return gson.toJson(result);
+    }
 
     /**
      * @Description : 查询用户详情信息

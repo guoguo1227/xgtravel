@@ -19,7 +19,7 @@ public class Journey implements BaseBean {
 
     private Boolean isShared;
 
-    private Integer topcount;
+    private Integer topCount;
 
     private Short status;
 
@@ -91,12 +91,12 @@ public class Journey implements BaseBean {
         this.isShared = isShared;
     }
 
-    public Integer getTopcount() {
-        return topcount;
+    public Integer getTopCount() {
+        return topCount;
     }
 
-    public void setTopcount(Integer topcount) {
-        this.topcount = topcount;
+    public void setTopCount(Integer topCount) {
+        this.topCount = topCount;
     }
 
     public Short getStatus() {
@@ -168,7 +168,7 @@ public class Journey implements BaseBean {
         bean.setUpdatetime(getUpdatetime());
         bean.setIsEnable(getIsEnable());
         bean.setIsShared(getIsShared());
-        bean.setTopcount(getTopcount());
+        bean.setTopCount(getTopCount());
         bean.setStatus(getStatus());
         bean.setTitle(getTitle());
         bean.setBudget(getBudget());
@@ -192,7 +192,7 @@ public class Journey implements BaseBean {
         	", updatetime:" + getUpdatetime() + 
         	", isEnable:" + getIsEnable() + 
         	", isShared:" + getIsShared() + 
-        	", topcount:" + getTopcount() + 
+        	", topCount:" + getTopCount() + 
         	", status:" + getStatus() + 
         	", title:" + getTitle() + 
         	", budget:" + getBudget() + 

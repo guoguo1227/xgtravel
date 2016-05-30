@@ -33,6 +33,8 @@ public interface UserService {
 
     public List<UserInfo> queryUserListApp(AuctionSearchCondition searchCondition, String currentPhone);
 
+    public List<UserInfo> queryMyCollection(AuctionSearchCondition searchCondition, String currentPhone);
+
     public List<Permission> queryPermissionListByRole(Integer roleId);
 
     /**

@@ -570,63 +570,63 @@ public class JourneyCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTopcountIsNull() {
-            addCriterion("topCount is null");
+        public Criteria andTopCountIsNull() {
+            addCriterion("top_count is null");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountIsNotNull() {
-            addCriterion("topCount is not null");
+        public Criteria andTopCountIsNotNull() {
+            addCriterion("top_count is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountEqualTo(Integer value) {
-            addCriterion("topCount =", value, "topcount");
+        public Criteria andTopCountEqualTo(Integer value) {
+            addCriterion("top_count =", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountNotEqualTo(Integer value) {
-            addCriterion("topCount <>", value, "topcount");
+        public Criteria andTopCountNotEqualTo(Integer value) {
+            addCriterion("top_count <>", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountGreaterThan(Integer value) {
-            addCriterion("topCount >", value, "topcount");
+        public Criteria andTopCountGreaterThan(Integer value) {
+            addCriterion("top_count >", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountGreaterThanOrEqualTo(Integer value) {
-            addCriterion("topCount >=", value, "topcount");
+        public Criteria andTopCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("top_count >=", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountLessThan(Integer value) {
-            addCriterion("topCount <", value, "topcount");
+        public Criteria andTopCountLessThan(Integer value) {
+            addCriterion("top_count <", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountLessThanOrEqualTo(Integer value) {
-            addCriterion("topCount <=", value, "topcount");
+        public Criteria andTopCountLessThanOrEqualTo(Integer value) {
+            addCriterion("top_count <=", value, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountIn(List<Integer> values) {
-            addCriterion("topCount in", values, "topcount");
+        public Criteria andTopCountIn(List<Integer> values) {
+            addCriterion("top_count in", values, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountNotIn(List<Integer> values) {
-            addCriterion("topCount not in", values, "topcount");
+        public Criteria andTopCountNotIn(List<Integer> values) {
+            addCriterion("top_count not in", values, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountBetween(Integer value1, Integer value2) {
-            addCriterion("topCount between", value1, value2, "topcount");
+        public Criteria andTopCountBetween(Integer value1, Integer value2) {
+            addCriterion("top_count between", value1, value2, "topCount");
             return (Criteria) this;
         }
 
-        public Criteria andTopcountNotBetween(Integer value1, Integer value2) {
-            addCriterion("topCount not between", value1, value2, "topcount");
+        public Criteria andTopCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("top_count not between", value1, value2, "topCount");
             return (Criteria) this;
         }
 

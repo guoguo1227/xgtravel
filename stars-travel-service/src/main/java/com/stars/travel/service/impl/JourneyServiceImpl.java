@@ -344,8 +344,8 @@ public class JourneyServiceImpl implements JourneyService {
                 //行程顶，赞+1
                 JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(id);
                 if(null != journey){
-                    int count = journey.getTopcount()+1;
-                    journey.setTopcount(count);
+                    int count = journey.getTopCount()+1;
+                    journey.setTopCount(count);
                     int i = journeyMapper.updateByPrimaryKey(journey);
                     if(i>0){
                         result.setSuccess(true);
@@ -379,10 +379,10 @@ public class JourneyServiceImpl implements JourneyService {
                     JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(id);
                     if(null != journey){
                         int count = 0;
-                        if(journey.getTopcount() -1>0){
-                            count = journey.getTopcount() -1;
+                        if(journey.getTopCount() -1>0){
+                            count = journey.getTopCount() -1;
                         }
-                        journey.setTopcount(count);
+                        journey.setTopCount(count);
                         int j = journeyMapper.updateByPrimaryKey(journey);
                         if(j>0){
                             result.setSuccess(true);
@@ -394,6 +394,50 @@ public class JourneyServiceImpl implements JourneyService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<JourneyVo> queryMyCollectList(AuctionSearchCondition condition, String currentPhone) {
+        List<JourneyVo> list = null;
+        List<Integer> ids = new ArrayList<>();
+        if(null != condition){
+            JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
+            criteria.createCriteria().andIsEnableEqualTo(true).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
+            criteria.setOrderByClause("id desc");
+            //收藏列表
+            List<JourneyCollection> collections = journeyCollectionMapper.selectByExample(criteria);
+            if(!collections.isEmpty()){
+                for(JourneyCollection j : collections){
+                    ids.add(j.getRelateId());
+                }
+            }
+
+            if(ids.size()>0){
+                //最新，历史
+                if(null != condition.getIfNew()){
+                    if(condition.getIfNew()){
+                        if(null != condition.getfId()){
+                            condition.setIdGreaterThan(condition.getfId());
+                        }
+                    }else{
+                        if(null != condition.getfId()){
+                            condition.setIdLessThan(condition.getfId());
+                        }
+                    }
+                }
+                condition.setIdsIn(ids);
+                //排序
+                condition.setOrderByClause(" id desc ");
+                list = journeyVoMapper.queryJourneyVoList(condition);
+                if(!list.isEmpty()){
+                    for(JourneyVo vo : list){
+                        addJourneyVoExtAttr(vo,currentPhone);
+                    }
+                }
+            }
+
+        }
+        return list ;
     }
 
     /**

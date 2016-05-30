@@ -364,6 +364,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserInfo> queryMyCollection(AuctionSearchCondition searchCondition, String currentPhone) {
+        List<UserInfo> userInfoList = new ArrayList<>();
+
+        Short state = 1;
+        Short type = 0;
+        List<String> phones = new ArrayList<>();
+        if(null != searchCondition){
+            UserCriteria userCriteria = new UserCriteria();
+            UserCriteria.Criteria criteria = userCriteria.createCriteria();
+            criteria.andStateEqualTo(state);
+            criteria.andIsEnableEqualTo(true); //可用
+            userCriteria.setOrderByClause(" id desc "); //按id降序
+
+            UserCollectionCriteria collectionCriteria = new UserCollectionCriteria();
+            collectionCriteria.createCriteria().andIsEnableEqualTo(true).andUserPhoneEqualTo(currentPhone);
+            List<UserCollection> collections = userCollectionMapper.selectByExample(collectionCriteria);
+
+            if(!collections.isEmpty()){
+                for(UserCollection c : collections){
+                    phones.add(c.getCollectionPhone());
+                }
+            }
+            //是否查询最新，历史
+            if(null != searchCondition.getIfNew()){
+                if(searchCondition.getIfNew()){
+                    if(null != searchCondition.getfId()){
+                        criteria.andIdGreaterThan(searchCondition.getfId());//大于该id
+                    }
+                }else{
+                    if(null != searchCondition.getfId()){
+                        criteria.andIdLessThan(searchCondition.getfId());//小于该id
+                    }
+                }
+            }
+
+            if(phones.size()>0){
+                Integer count = userMapper.countByExample(userCriteria);
+                if(count>0){
+                    userCriteria.setLimitStart(searchCondition.getOffset());
+                    userCriteria.setLimitEnd(searchCondition.getLimit());
+                    criteria.andPhoneIn(phones);
+                    List<User> userList = userMapper.selectByExample(userCriteria);
+                    if(!userList.isEmpty()){
+                        for(User u : userList){
+                            //封装用户属性
+                            UserInfo userInfo = addUserExtAtrr(u,currentPhone);
+                            userInfoList.add(userInfo);
+                        }
+                    }
+                }
+            }
+        }
+        return userInfoList;
+    }
+
+    @Override
     public List<Permission> queryPermissionListByRole(Integer roleId) {
         List<Permission> permissionList = null;
         if(null !=  roleId){

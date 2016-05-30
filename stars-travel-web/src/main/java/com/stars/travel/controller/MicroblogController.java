@@ -61,7 +61,6 @@ public class MicroblogController extends BaseController{
         return gson.toJson(result);
     }
 
-
     /**
      * @Description : 查询微游记列表 移动端
      * @param condition
@@ -88,6 +87,31 @@ public class MicroblogController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * @Description : 查询收藏微游记列表 移动端
+     * @param condition
+     * @return
+     */
+    @RequestMapping("mycollection")
+    @ResponseBody
+    public Object queryMyCollection(AuctionSearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            String userPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
+            List<MicroblogVo> list = microblogVoService.queryMyCollection(condition,userPhone);
+            if(null != list && list.size()>0){
+                result.setSuccess(true);
+                result.setData(list);
+            }
+        }
+        return gson.toJson(result);
+    }
     /**
      * @Description : 查询微游记详情
      * @param condition

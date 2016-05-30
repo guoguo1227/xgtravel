@@ -26,7 +26,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="isEnable" property="isEnable" jdbcType="BIT" />
     <result column="isShared" property="isShared" jdbcType="BIT" />
-    <result column="topcount" property="topcount" jdbcType="INTEGER" />
+    <result column="topCount" property="topCount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="destination" property="destination" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     microblog.updatetime as updatetime,
     microblog.is_enable as isEnable,
     microblog.is_shared as isShared,
-    microblog.topcount as topcount,
+    microblog.top_count as topCount,
     microblog.status as status,
     microblog.title as title,
     microblog.destination as destination,
@@ -88,6 +88,12 @@
     <!-- 微游记id -->
     <if test="id != null" >
       and microblog.id = #{id}
+    </if>
+    <!--微游记id列表-->
+    <if test="idsIn != null" >
+      and
+      microblog.id in <foreach collection="idsIn" item="item" index="index"
+                     open="(" separator="," close=")">#{item}</foreach>
     </if>
 
     <!-- 用户手机 -->

@@ -9,7 +9,7 @@
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
     <result column="isEnable" property="isEnable" jdbcType="BIT" />
     <result column="isShared" property="isShared" jdbcType="BIT" />
-    <result column="topcount" property="topcount" jdbcType="INTEGER" />
+    <result column="topCount" property="topCount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     journey.updatetime as updatetime,
     journey.is_enable as isEnable,
     journey.is_shared as isShared,
-    journey.topcount as topcount,
+    journey.top_count as topCount,
     journey.status as status,
     journey.title as title,
     journey.budget as budget,
@@ -102,6 +102,12 @@
     <!-- ID -->
     <if test="id != null" >
       and journey.id = #{id}
+    </if>
+    <!--ID列表-->
+    <if test="idsIn != null" >
+      and
+      journey.id in <foreach collection="idsIn" item="item" index="index"
+                     open="(" separator="," close=")">#{item}</foreach>
     </if>
     <!-- 用户手机 -->
     <if test="phone != null" >

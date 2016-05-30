@@ -91,6 +91,32 @@ public class JourneyController extends BaseController{
     }
 
     /**
+     * @Description : 查询我的收藏行程
+     * @param searchCondition
+     * @return
+     */
+    @RequestMapping("mycollection")
+    @ResponseBody
+    public Object queryMyCollectionListApp(AuctionSearchCondition searchCondition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        if(null != searchCondition){
+            String userPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(searchCondition.getToken())){
+                userPhone = userService.queryPhoneByToken(searchCondition.getToken());
+            }
+            List<JourneyVo> list = journeyService.queryMyCollectList(searchCondition,userPhone);
+            if(null != list && list.size()>0){
+                result.setSuccess(true);
+                result.setData(list);
+            }
+        }
+        return gson.toJson(result);
+    }
+    /**
      * @Description : 查询详情
      * @param id
      * @return

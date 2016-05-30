@@ -50,6 +50,16 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     private String token ; //授权token
 
+    private List<Integer> idsIn;  //符合要求的id
+
+    public List<Integer> getIdsIn() {
+        return idsIn;
+    }
+
+    public void setIdsIn(List<Integer> idsIn) {
+        this.idsIn = idsIn;
+    }
+
     public String getToken() {
         return token;
     }
