@@ -1,6 +1,5 @@
 package com.stars.travel.controller;
 import com.stars.common.utils.Page;
-import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
@@ -9,7 +8,7 @@ import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +44,7 @@ public class UserController extends BaseController{
         String  userPhone = HttpSessionProvider.getSessionUserPhone();
 
         Page<UserInfo> page = userService.queryUserInfo(searchCondition,userPhone);
-        if(null != page && page.getPageData().size()>0){
+        if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
             result.setSuccess(true);
             result.setData(page);
         }
@@ -132,15 +131,20 @@ public class UserController extends BaseController{
 
     /**
      * @Description : 修改密码
-     * @param phone
+     * @param token
      * @param password
      * @return
      */
     @RequestMapping(value = "updatePassword" , method = RequestMethod.POST)
     @ResponseBody
-    public Object updatePassword(String phone,String password) {
+    public Object updatePassword(String token,String password) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        String phone = "";
+        //获取APP的token
+        if(!StringUtils.isBlank(token)){
+            phone = userService.queryPhoneByToken(token);
+        }
         if(!StringUtils.isBlank(phone)){
             if(!StringUtils.isBlank(password)){
                 boolean flag  = userService.updatePassword(phone,password);
@@ -150,7 +154,7 @@ public class UserController extends BaseController{
             }
             logger.info("修改密码,用户phone为:"+phone);
         }else{
-            result.setMessage("手机号不可为空。");
+            result.setMessage("请先登录。");
         }
         return gson.toJson(result);
     }
@@ -190,9 +194,18 @@ public class UserController extends BaseController{
      */
     @RequestMapping(value = "delete")
     @ResponseBody
-    public String deleteUser(Integer userId){
+    public String deleteUser(String token,Integer userId){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
+        String phone = HttpSessionProvider.getSessionUserPhone();
+        //获取APP的token
+        if(!StringUtils.isBlank(token)){
+            phone = userService.queryPhoneByToken(token);
+        }
+        if(StringUtils.isBlank(phone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
         if(null != userId){
             boolean success = userService.deleteUserById(userId);
             if(success){
@@ -204,6 +217,36 @@ public class UserController extends BaseController{
         return gson.toJson(result);
     }
 
+    /**
+     * @Description : 恢复用户
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "restore")
+    @ResponseBody
+    public String restoreUser(String token ,Integer userId){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        String phone = HttpSessionProvider.getSessionUserPhone();
+        //获取APP的token
+        if(!StringUtils.isBlank(token)){
+            phone = userService.queryPhoneByToken(token);
+        }
+        if(StringUtils.isBlank(phone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
+        if(null != userId){
+            boolean success = userService.restoreUserById(userId);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("恢复失败!");
+            }
+        }
+        return gson.toJson(result);
+    }
     /**
      * @Description : 收藏该当地人
      * @param phone

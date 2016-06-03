@@ -13,13 +13,14 @@ public class UserInfo implements Serializable {
     private String nikename = ""; //昵称
     private String name = ""; //用户名
     private Date createTime;
-    private int type = 0;
-    private int isActive = 0;
+    private Short type;
+    private Short activated;
     private String email = "";
     private String password = "";
     private String phone = "";
     private String portrait = ""; //头像
     private String summary = ""; //个人简介
+    private Boolean isEnable; //是否可用
 
     private String token ; //app登录授权码
 
@@ -49,9 +50,16 @@ public class UserInfo implements Serializable {
 
     private boolean ifCollection; //是否收藏
 
-    public UserInfo() {
+    public Boolean getEnable() {
+        return isEnable;
     }
 
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
+    }
+
+    public UserInfo() {
+    }
 
     public String getToken() {
         return token;
@@ -141,20 +149,20 @@ public class UserInfo implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getType() {
-        return this.type;
+    public Short getActivated() {
+        return activated;
     }
 
-    public void setType(int type) {
+    public void setActivated(Short activated) {
+        this.activated = activated;
+    }
+
+    public Short getType() {
+        return type;
+    }
+
+    public void setType(Short type) {
         this.type = type;
-    }
-
-    public int getIsActive() {
-        return this.isActive;
-    }
-
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
     }
 
     public String getEmail() {

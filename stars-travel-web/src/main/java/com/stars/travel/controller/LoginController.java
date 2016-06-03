@@ -106,7 +106,7 @@ private Logger logger = Logger.getLogger(UserController.class);
         }catch (AuthenticationException e) {
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
             token.clear();
-            logger.info("用户登陆失败。",e);
+            logger.info("用户登陆失败。");
             return gson.toJson(result);
         }finally{
             //登录成功后，将当前用户设置为此用户

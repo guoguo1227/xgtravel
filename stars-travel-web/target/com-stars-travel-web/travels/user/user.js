@@ -31,6 +31,7 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             //上传失败
             console.log('error status: ' + status);
         });
+
     };
 
     $scope.onChangePage = function(page) {
@@ -40,6 +41,10 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     $scope.init = function() {
         ready();
         $scope.searchLoad();
+        $(".fancybox").fancybox({
+            openEffect	: 'none',
+            closeEffect	: 'none'
+        });
     };
 
     //初始化变量
@@ -62,10 +67,10 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     $scope.pagesNumber = data.data.totalPage;
                     $scope.totalEntries = data.data.totalCount;
                     $scope.initTableData(data.data.pageData);
-
                 }else{
                     $scope.pagesNumber = 0;
                     $scope.totalEntries = 0;
+                    $scope.initTableData([]);
                 }
             });
     };
@@ -82,7 +87,23 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             $scope.searchLoad(1);
                             return toastr.success("删除成功");
                         }else{
-                            return toastr.error("删除失败");
+                            if(data.msg){
+                                return toastr.error(data.msg);
+                            }else{
+                                return toastr.error("删除失败");
+                            }
+                        }
+                    });
+            },
+            //恢复用户
+            restoreUser : function(row){
+                $http.post("/user/restore.json",{userId:row.id},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad(1);
+                            return toastr.success("恢复成功");
+                        }else{
+                            return toastr.error("恢复失败");
                         }
                     });
             },
@@ -101,21 +122,22 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             }
         };
 
-        var headerArray = ['用户ID','用户姓名','头像','注册时间','手机号','邮箱','标题图','介绍','所在地','职业','注册账号激活状态','操作'];
+        var headerArray = ['用户ID','用户姓名','头像','注册时间','手机号','邮箱','标题图','介绍','所在地','职业','激活状态','是否删除','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
         pageData = $scope.formatUserPageData(pageData);
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.userPortrait = "<img src={{$row.portrait}} style='width:100px;height: 100px;'></img>";
-            pg.userIntroduceImage = "<img src={{$row.introduceImage}} style='width:100px;height: 100px;'></img>";
+            pg.userPortrait = "<a class='fancybox' rel='group' href={{$row.portrait}}><img src={{$row.portrait}} style='width:100px;height: 100px;' /></a>";
+            pg.userIntroduceImage = "<a class='fancybox' rel='group' href={{$row.introduceImage}}><img src={{$row.introduceImage}} style='width:100px;height: 100px;' /></a>";
 
             pg.action = '<a title="删除" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.deleteUser($row)">删除</a>'+
+                '<a title="恢复" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.restoreUser($row)">恢复</a>'+
                 '<a title="认证为当地人" class="btn bg-orange btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.localUser($row)">认证为当地人</a>'+
                 '<a title="添加评论" class="btn bg-info btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>';
 
             return pg;
-        }), ['id', 'nikename','userPortrait','createTime','phone','email','userIntroduceImage','introduction','address','profession','isActive','action']);
+        }), ['id', 'nikename','userPortrait','createTime','phone','email','userIntroduceImage','introduction','address','profession','activated','isEnable','action']);
     };
 
     //打开上传图片窗口
@@ -189,10 +211,16 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(pageData != undefined && pageData != "" && pageData.length>0){
             for(var i in pageData){
                 //注册账号激活状态
-                if(pageData[i].type == 1){
-                    pageData[i].isActive = '<font color="green">激活</font>';
+                if(pageData[i].activated == 1){
+                    pageData[i].activated = '<font color="green">激活</font>';
                 }else{
-                    pageData[i].isActive = "未激活";
+                    pageData[i].activated = "未激活";
+                }
+                //是否删除
+                if(pageData[i].isEnable == 0){
+                    pageData[i].isEnable = '<font color="red">已删除</font>';
+                }else{
+                    pageData[i].isEnable = '<font color="green">未删除</font>';
                 }
 
             }

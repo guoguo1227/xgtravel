@@ -25,7 +25,6 @@ public class LogController extends BaseController{
     @Autowired
     private LogService logService;
 
-
     /**
      * @Description : 根据类型查询日志数量
      * @param typeId

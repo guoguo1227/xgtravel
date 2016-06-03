@@ -11,6 +11,13 @@
                     </select>
                 </div>
 
+                <div class="col-xs-2 ">
+                    <select class="form-control lagou-margin-top-10" name = "serviceUserId" ng-model="search.ifEnable" ng-change="searchLoad()">
+                        <option value="">删除状态</option>
+                        <option value="0">已删除</option>
+                        <option value="1">未删除</option>
+                    </select>
+                </div>
                 <!-- 注册时间 -->
                 <div class="input-group lagou-margin-top-10">
                     <div class="input-group-btn">

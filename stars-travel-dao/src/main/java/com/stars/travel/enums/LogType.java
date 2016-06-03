@@ -8,7 +8,9 @@ package com.stars.travel.enums;
 public enum LogType {
 
     USER_LOGIN(LogTypeConstanst.USER_LOGIN_ID,"用户登录"),
-    USER_REGISTER(LogTypeConstanst.USER_REGISTER_ID,"用户注册");
+    USER_REGISTER(LogTypeConstanst.USER_REGISTER_ID,"用户注册"),
+    USER_DELETE(LogTypeConstanst.USER_DELETE_ID,"删除用户"),
+    USER_RESTORE(LogTypeConstanst.USER_RESTORE_ID,"恢复用户");
 
     Integer code;
     String description;
@@ -54,5 +56,7 @@ public enum LogType {
     final static class LogTypeConstanst{
         public static final Integer USER_LOGIN_ID = 1;
         public static final Integer USER_REGISTER_ID = 2;
+        public static final Integer USER_DELETE_ID = 3;
+        public static final Integer USER_RESTORE_ID = 4;
     }
 }

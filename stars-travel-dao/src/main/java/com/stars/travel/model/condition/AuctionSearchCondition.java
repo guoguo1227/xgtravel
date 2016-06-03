@@ -35,6 +35,7 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     private String destination; //目的地
 
+    private Short activated; //是否激活
     //phone
     private String phone ;
     //email
@@ -49,6 +50,14 @@ public class AuctionSearchCondition extends BaseSearchCondition {
     private Integer idLessThan; //小于某id
 
     private String token ; //授权token
+
+    public Short getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Short activated) {
+        this.activated = activated;
+    }
 
     private List<Integer> idsIn;  //符合要求的id
 

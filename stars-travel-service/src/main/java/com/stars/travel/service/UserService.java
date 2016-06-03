@@ -19,6 +19,8 @@ public interface UserService {
 
     public boolean deleteUserById(Integer id);
 
+    public boolean restoreUserById(Integer id);
+
     public boolean modifyUserInfo(UserInfo userInfo) ;
 
     public boolean modifyUser(User user);

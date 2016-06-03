@@ -147,6 +147,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 					this.setSession(USER_KEY, userInfo);
 					return  new SimpleAuthenticationInfo(token.getUsername(),token.getPassword(), getName());
 				}
+			}else{
+				throw new UnknownAccountException();//没找到帐号
 			}
 		}
 		return null;

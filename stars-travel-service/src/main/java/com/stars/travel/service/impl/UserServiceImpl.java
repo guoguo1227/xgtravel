@@ -5,13 +5,11 @@ import com.stars.common.utils.BeanUtilExt;
 import com.stars.common.utils.EncryptUtil;
 import com.stars.travel.dao.base.mapper.*;
 import com.stars.travel.dao.ext.mapper.UserVoMapper;
+import com.stars.travel.enums.LogType;
 import com.stars.travel.model.base.*;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.UserInfo;
-import com.stars.travel.service.CustomizationService;
-import com.stars.travel.service.JourneyService;
-import com.stars.travel.service.MicroblogVoService;
-import com.stars.travel.service.UserService;
+import com.stars.travel.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +30,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    public static final Short  USER_ENABLE = 1; //用户状态 不受限
 
     @Autowired
     private UserMapper userMapper; //用户服务
@@ -59,6 +59,9 @@ public class UserServiceImpl implements UserService {
     private MicroblogMapper microblogMapper; //微游记
     @Autowired
     private CustomizationMapper customizationMapper; //定制dao层服务
+
+    @Autowired
+    private LogService logService;
 
     @Override
     public User queryUserByPhoneNumber(String phone) {
@@ -130,6 +133,21 @@ public class UserServiceImpl implements UserService {
                 }
 
                 user.setIsEnable(false); //标记删除
+                int i = userMapper.updateByPrimaryKeySelective(user);
+                if(i>0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean restoreUserById(Integer id) {
+        if(null != id){
+            User user = userMapper.selectByPrimaryKey(id);
+            if(null != user){
+                user.setIsEnable(true); //恢复
                 int i = userMapper.updateByPrimaryKeySelective(user);
                 if(i>0){
                     return true;
@@ -246,12 +264,10 @@ public class UserServiceImpl implements UserService {
         List<UserInfo> userInfoList = new ArrayList<>();
 
         userInfoPage.setPageSize(searchCondition.getLimit());
-        Short state = 1;
         Short type = 0;
         if(null != searchCondition){
             UserCriteria userCriteria = new UserCriteria();
             UserCriteria.Criteria criteria = userCriteria.createCriteria();
-            criteria.andStateEqualTo(state);//
             //用户id, 查询详情
             if(null != searchCondition.getUserId()){
                 criteria.andIdEqualTo(searchCondition.getUserId());
@@ -273,12 +289,20 @@ public class UserServiceImpl implements UserService {
                 criteria.andPhoneEqualTo(searchCondition.getPhone());
             }
 
+            //是否可用
+            if(null != searchCondition.getIfEnable()){
+                criteria.andIsEnableEqualTo(searchCondition.getIfEnable());
+            }
+            //是否激活
+            if(null != searchCondition.getActivated()){
+                criteria.andActivatedEqualTo(searchCondition.getActivated());
+            }
             //邮箱
             if(!StringUtils.isBlank(searchCondition.getEmail())){
                 criteria.andEmailEqualTo(searchCondition.getEmail());
             }
 
-            criteria.andIsEnableEqualTo(true); //可用
+            //criteria.andIsEnableEqualTo(true); //可用
             userCriteria.setOrderByClause(" createtime desc ");
             Integer count = userMapper.countByExample(userCriteria);
             if(count>0){
@@ -303,12 +327,10 @@ public class UserServiceImpl implements UserService {
     public List<UserInfo> queryUserListApp(AuctionSearchCondition searchCondition,String currentPhone) {
         List<UserInfo> userInfoList = new ArrayList<>();
 
-        Short state = 1;
         Short type = 0;
         if(null != searchCondition){
             UserCriteria userCriteria = new UserCriteria();
             UserCriteria.Criteria criteria = userCriteria.createCriteria();
-            criteria.andStateEqualTo(state);
 
             //是否查询最新，历史
             if(null != searchCondition.getIfNew()){
@@ -447,7 +469,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(EncryptUtil.md5(user.getPassword()));
             user.setCreatetime(new Date());
             user.setIsEnable(true);
-            user.setState(Short.parseShort("1"));
+            user.setState(USER_ENABLE);
             int i = userMapper.insert(user);
             if(i>0){
                 //给用户添加角色
@@ -476,6 +498,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updatePassword(String phone, String password) {
         if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(password)) {
+            password = EncryptUtil.md5(password);
             int i = userVoMapper.updatePassword(phone,password);
             if(i>0){
                 return true;
@@ -595,6 +618,7 @@ public class UserServiceImpl implements UserService {
         try {
             BeanUtilExt.copyProperties(userInfo,u);
             userInfo.setCreateTime(u.getCreatetime());
+            userInfo.setEnable(u.getIsEnable());
         } catch (InvocationTargetException e) {
             logger.info("属性拷贝异常,"+e.toString());
         } catch (IllegalAccessException e) {
@@ -621,4 +645,14 @@ public class UserServiceImpl implements UserService {
         return userInfo;
     }
 
+    /**
+     * @Description : 记录日志
+     */
+    private void addLog(String type,String title){
+        Log log = new Log();
+        log.setLogCategory(type);
+        log.setLogTime(new Date());
+        log.setTitle(title);
+        logService.addLog(log);
+    }
 }
