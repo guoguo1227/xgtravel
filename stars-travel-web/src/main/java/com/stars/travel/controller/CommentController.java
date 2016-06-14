@@ -11,6 +11,7 @@ import com.stars.travel.service.CommentService;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +89,43 @@ public class CommentController extends BaseController{
         }
         return gson.toJson(result);
     }
+
+    /**
+     * @Deescription : 查询我发布的评论列表
+     * @param condition
+     * @return
+     */
+    @RequestMapping("mylist")
+    @ResponseBody
+    public String queryMyCommentListApp(AuctionSearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        if(null != condition){
+            String userPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
+            if(StringUtils.isBlank(userPhone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+            condition.setPhone(userPhone);//当前用户
+            List<CommentVo> commentVos = commentService.queryMyCommentList(condition);
+            if(!CollectionUtils.isEmpty(commentVos)){
+                result.setSuccess(true);
+                result.setData(commentVos);
+            }
+
+        }else{
+            result.setMessage("参数不可为空");
+        }
+
+        return gson.toJson(result);
+    }
+
     /**
      * @Description : 添加评论
      * @param comment

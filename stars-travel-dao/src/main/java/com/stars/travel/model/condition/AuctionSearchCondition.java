@@ -19,8 +19,6 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     private Integer userId ; //用户Id
 
-    private String userPhone; //用户手机
-
     private Boolean ifEnable; //是否可用
 
     private Boolean ifShared; //是否分享
@@ -51,6 +49,16 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     private String token ; //授权token
 
+    private Boolean my; //我的
+
+    public Boolean getMy() {
+        return my;
+    }
+
+    public void setMy(Boolean my) {
+        this.my = my;
+    }
+
     public Short getActivated() {
         return activated;
     }
@@ -75,14 +83,6 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
     }
 
     public Integer getIdGreaterThan() {

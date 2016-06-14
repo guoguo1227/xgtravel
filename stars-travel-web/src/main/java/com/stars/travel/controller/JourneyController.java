@@ -58,7 +58,7 @@ public class JourneyController extends BaseController{
             if(null != page && page.getPageData().size()>0){
                 result.setSuccess(true);
                 result.setData(page);
-            }
+        }
         }
         return gson.toJson(result);
     }

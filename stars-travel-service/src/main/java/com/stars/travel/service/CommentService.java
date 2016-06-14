@@ -28,6 +28,13 @@ public interface CommentService {
      */
     public List<CommentVo> queryCommentListApp(AuctionSearchCondition condition);
 
+    /**
+     * @Description :　查询我的评论列表
+     * @param condition
+     * @return
+     */
+    public List<CommentVo> queryMyCommentList(AuctionSearchCondition condition);
+
      /**
      * @Description : 查询评论数量
      * @param condition

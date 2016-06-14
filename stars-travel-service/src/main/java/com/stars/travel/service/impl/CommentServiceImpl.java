@@ -1,22 +1,28 @@
 package com.stars.travel.service.impl;
 
+import com.stars.common.utils.BeanUtilExt;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CommentTypeEnum;
 import com.stars.travel.dao.base.mapper.CommentMapper;
+import com.stars.travel.dao.base.mapper.JourneyMapper;
+import com.stars.travel.dao.base.mapper.MicroblogMapper;
+import com.stars.travel.dao.base.mapper.UserMapper;
 import com.stars.travel.dao.ext.mapper.CommentVoMapper;
-import com.stars.travel.model.base.Comment;
-import com.stars.travel.model.base.CommentCriteria;
+import com.stars.travel.model.base.*;
 import com.stars.travel.model.condition.AuctionSearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.service.CommentService;
 import com.stars.travel.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +39,12 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private CommentVoMapper commentVoMapper;
+    @Autowired
+    private JourneyMapper journeyMapper;
+    @Autowired
+    private MicroblogMapper microblogMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
@@ -103,6 +115,67 @@ public class CommentServiceImpl implements CommentService {
             condition.setOrderByClause(" id desc");
             list = commentVoMapper.queryCommentList(condition);
 
+        }
+        return list;
+    }
+
+    @Override
+    public List<CommentVo> queryMyCommentList(AuctionSearchCondition condition) {
+        List<CommentVo> list = new ArrayList<>();
+        CommentCriteria criteria = new CommentCriteria();
+        CommentCriteria.Criteria cri = criteria.createCriteria();
+        if(null != condition){
+            condition.setIfEnable(true); //可用
+            //最新，历史
+            if(null != condition.getIfNew()){
+                if(condition.getIfNew()){
+                    if(null != condition.getfId()){
+                        cri.andIdGreaterThan(condition.getfId());
+                    }
+                }else{
+                    if(null != condition.getfId()){
+                        cri.andIdLessThan(condition.getfId());
+                    }
+                }
+            }
+            if(!StringUtils.isBlank(condition.getPhone())){
+                cri.andPhoneEqualTo(condition.getPhone());
+            }
+            //排序
+            condition.setOrderByClause(" id desc");
+            List<Comment> comments = commentMapper.selectByExample(criteria);
+            if(!CollectionUtils.isEmpty(comments)){
+                for(Comment c : comments){
+                    CommentVo vo = new CommentVo();
+                    try {
+                        BeanUtilExt.copyProperties(vo,c);
+                    } catch (InvocationTargetException e) {
+                        logger.info("拷贝评论对象属性失败,评论id:"+c.getId());
+                    } catch (IllegalAccessException e) {
+                        logger.info("拷贝评论对象属性失败,评论id:"+c.getId());
+                    }
+                    if(c.getType().equals(CommentTypeEnum.JOURNEYTYPE.getDescription())){
+                        //行程
+                        JourneyWithBLOBs journey = journeyMapper.selectByPrimaryKey(c.getRelateId());
+                        if(null != journey){
+                            vo.setTitle(journey.getTitle());
+                        }
+                    }else if(c.getType().equals(CommentTypeEnum.MICROBLOG.getDescription())){
+                        //微游记
+                        MicroblogWithBLOBs microblog = microblogMapper.selectByPrimaryKey(c.getRelateId());
+                        if(null != microblog){
+                            vo.setTitle(microblog.getTitle());
+                        }
+                    }else{
+                        //当地人
+                        User user = userMapper.selectByPrimaryKey(c.getRelateId());
+                        if(null != user){
+                            vo.setTitle(user.getName());
+                        }
+                    }
+                    list.add(vo);
+                }
+            }
         }
         return list;
     }

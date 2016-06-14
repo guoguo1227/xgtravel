@@ -9,7 +9,17 @@ import com.stars.travel.model.base.Comment;
  */
 public class CommentVo extends Comment {
 
+    public String title; //关联标题
+
     public UserInfo userInfo = new UserInfo();
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public UserInfo getUserInfo() {
         return userInfo;

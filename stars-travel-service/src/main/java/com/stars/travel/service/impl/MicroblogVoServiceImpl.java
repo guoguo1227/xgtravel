@@ -98,6 +98,13 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     }
                 }
             }
+
+            //我的
+            if(null != condition.getMy()){
+                if(condition.getMy()){
+                    condition.setPhone(currentPhone);
+                }
+            }
             //排序
             condition.setOrderByClause(" id desc");
 

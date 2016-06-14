@@ -194,6 +194,12 @@ public class JourneyServiceImpl implements JourneyService {
                     }
                 }
             }
+            //我的
+            if(null != condition.getMy()){
+                if(condition.getMy()){
+                    condition.setPhone(currentPhone);
+                }
+            }
             //排序
             condition.setOrderByClause(" id desc ");
             list = journeyVoMapper.queryJourneyVoList(condition);
