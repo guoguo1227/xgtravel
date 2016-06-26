@@ -1,10 +1,34 @@
 /**
  * Created by samuel on 15-12-25.
  */
-var app = angular.module('journeyApp',['angular-constants']);
+var app = angular.module('journeyApp',['angular-constants','ngFileUpload']);
 app.controller('journeyCtrl',journeyCtrl);
 
-function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
+function journeyCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
+    //提交
+    $scope.uploadImage = function (userImage) {
+        $scope.fileInfo = userImage;
+        Upload.upload({
+            //服务端接收
+            url: '/image/upload.json',
+            //上传的同时带的参数
+            data: { 'imageType': 3 },
+            file: userImage
+        }).progress(function (evt) {
+            //进度条
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progess:' + progressPercentage + '%' + evt.config.file.name);
+        }).success(function (data, status, headers, config) {
+            //上传成功
+            console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+            $scope.journey.coverImage = data.data.uploadPath;
+
+        }).error(function (data, status, headers, config) {
+            //上传失败
+            console.log('error status: ' + status);
+        });
+
+    };
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -27,7 +51,7 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
 
     $scope.ready = function(){
         $scope.startTime = "";
-        $scope.search = {limit:15, currentPage:0,searchContent:'',userId:1,isEnable:true,isShared:true};
+        $scope.search = {limit:15, currentPage:0,searchContent:'',userId:1,isShared:true};
 
         $http.post("/journey/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
@@ -104,22 +128,47 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
                             return toastr.error(data.message);
                         }
                     });
+            },
+            //添加评论
+            addComment : function(row){
+                $scope.journeyFlagObj.showAddCommentFlag = true;
+                $scope.addComment = {relateId: row.id,type:1};
+            },
+            //删除
+            deleteJourney : function (row) {
+                $http.post("/journey/delete.json",{id:row.id},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            return toastr.success("删除成功");
+                        }else{
+                            return toastr.error(data.message);
+                        }
+                    });
+            },
+            //更新
+            updateJourney : function(row){
+
             }
         };
 
-        var headerArray = ['行程ID','标题','内容','预算','天数','目的地','分享次数','被赞次数','创建时间','操作'];
+        var headerArray = ['行程ID','标题','封面图','内容','预算','天数','目的地','分享次数','被赞次数','创建时间','是否删除','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
+        pageData = $scope.formatUserPageData(pageData);
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
             pg.action =  '<a title="查看记录" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看详情</a>'+
                 '<a title="收藏" ng-if="$row.isCollection == false" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.collect($row)">收藏</a>'+
                 '<a title="取消收藏" ng-if="$row.isCollection == true" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.uncollect($row)">取消收藏</a>'+
                 '<a title="顶" ng-if="$row.isTop == false" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.top($row)">顶</a>'+
-                '<a title="踩" ng-if="$row.isTop == true" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.untop($row)">踩</a>';
+                '<a title="踩" ng-if="$row.isTop == true" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.untop($row)">踩</a>'+
+                '<a title="删除" class="btn bg-red btn-xs lagou-margin-top-3" ng-click="$table.deleteJourney($row)">删除</a>'+
+                '<a title="添加评论" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>';
+            pg.img = "<a class='fancybox' rel='group' href={{$row.coverImage}}><img src={{$row.coverImage}} style='width:100px;height: 100px;' /></a>";
 
             return pg;
-        }), ['id', 'title','content','budget','totalday','destination','sharetimes','top','createtime','action']);
+        }), ['id', 'title','img','content','budget','totalday','destination','sharetimes','top','createtime','isEnableStr','action']);
     };
 
     //按条件查询
@@ -127,18 +176,37 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
         if(page != undefined){
             $scope.search.currentPage = page ;
         }
-        $http.post("/journey/list.json",$scope.search)
+
+        $http.post("/journey/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
+                    $scope.pagesNumber = data.data.totalPage;
+                    $scope.totalEntries = data.data.totalCount;
                     $scope.initTableData(data.data.pageData);
+                }else{
+                    $scope.pagesNumber = 0;
+                    $scope.totalEntries = 0;
+                    $scope.initTableData(null);
                 }
             });
     };
-
+    //添加评论
+    $scope.saveComment = function(){
+        $http.post("/comment/add.json",$scope.addComment,angularMeta.postCfg)
+            .success(function(data){
+                if(data.success){
+                    $scope.journeyFlagObj.showAddCommentFlag = false;
+                    return toastr.success("添加成功");
+                }else{
+                    return toastr.error("添加失败");
+                }
+            });
+    }
     //添加行程
     $scope.addJourney = function(){
         $scope.journeyFlagObj.showAddJourneyPannel = true;
         $scope.journeyFlagObj.showAddJourneyFlag = true;
+
         //$scope.journeyFlagObj.showJourneyFlag = true;
         //$scope.journeyFlagObj.showJourneyDayFlag = true;
 
@@ -159,6 +227,22 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
                     return toastr.error("添加失败");
                 }
             });
+    }
+    //格式化表格数据
+    $scope.formatUserPageData = function(pageData){
+
+        if(pageData != undefined && pageData != "" && pageData.length>0){
+            for(var i in pageData){
+                //是否删除
+                if(pageData[i].isEnable == 0){
+                    pageData[i].isEnableStr = '<font color="red">已删除</font>';
+                }else{
+                    pageData[i].isEnableStr = '<font color="green">未删除</font>';
+                }
+
+            }
+        }
+        return pageData;
     }
     //添加每天行程
     $scope.addJourneyDayItem = function(){
@@ -197,6 +281,8 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService){
                     });
             }
             $scope.searchLoad();
+        }else{
+            return toastr.error("行程不可为空");
         }
     }
 }

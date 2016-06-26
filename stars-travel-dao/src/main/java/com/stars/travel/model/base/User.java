@@ -33,7 +33,7 @@ public class User implements BaseBean {
 
     private String strategyInfo;
 
-    private String score;
+    private Integer score;
 
     private String summary;
 
@@ -193,12 +193,12 @@ public class User implements BaseBean {
         this.strategyInfo = strategyInfo == null ? null : strategyInfo.trim();
     }
 
-    public String getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(String score) {
-        this.score = score == null ? null : score.trim();
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public String getSummary() {

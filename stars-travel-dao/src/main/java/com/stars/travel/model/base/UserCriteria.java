@@ -1080,62 +1080,52 @@ public class UserCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andScoreEqualTo(String value) {
+        public Criteria andScoreEqualTo(Integer value) {
             addCriterion("score =", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotEqualTo(String value) {
+        public Criteria andScoreNotEqualTo(Integer value) {
             addCriterion("score <>", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThan(String value) {
+        public Criteria andScoreGreaterThan(Integer value) {
             addCriterion("score >", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThanOrEqualTo(String value) {
+        public Criteria andScoreGreaterThanOrEqualTo(Integer value) {
             addCriterion("score >=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThan(String value) {
+        public Criteria andScoreLessThan(Integer value) {
             addCriterion("score <", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThanOrEqualTo(String value) {
+        public Criteria andScoreLessThanOrEqualTo(Integer value) {
             addCriterion("score <=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLike(String value) {
-            addCriterion("score like", value, "score");
-            return (Criteria) this;
-        }
-
-        public Criteria andScoreNotLike(String value) {
-            addCriterion("score not like", value, "score");
-            return (Criteria) this;
-        }
-
-        public Criteria andScoreIn(List<String> values) {
+        public Criteria andScoreIn(List<Integer> values) {
             addCriterion("score in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotIn(List<String> values) {
+        public Criteria andScoreNotIn(List<Integer> values) {
             addCriterion("score not in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreBetween(String value1, String value2) {
+        public Criteria andScoreBetween(Integer value1, Integer value2) {
             addCriterion("score between", value1, value2, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotBetween(String value1, String value2) {
+        public Criteria andScoreNotBetween(Integer value1, Integer value2) {
             addCriterion("score not between", value1, value2, "score");
             return (Criteria) this;
         }

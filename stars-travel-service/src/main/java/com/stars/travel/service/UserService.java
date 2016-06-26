@@ -23,6 +23,8 @@ public interface UserService {
 
     public boolean modifyUserInfo(UserInfo userInfo) ;
 
+    public boolean saveUser(User user);
+
     public boolean modifyUser(User user);
 
     public User queryUserById(Integer userId) ;

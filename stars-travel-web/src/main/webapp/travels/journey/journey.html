@@ -12,12 +12,41 @@
                     total-entries="totalEntries">
     </lg-paginator>
 
+    <!-- 添加评论 -->
+    <lg-modal open = "journeyFlagObj.showAddCommentFlag">
+        <div class="form-group">
+            <div class="modal-body">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加评论</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form name="imageForm"  >
+                        <div class="box-body">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="col-sm-32 control-label">评论内容</label>
+                                    <textarea   rows="3" cols="20" name="sceneryDescription" ng-model="addComment.recommend"  class="form-control" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right" ng-click="saveComment()">确定</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </lg-modal>
+
     <lg-modal open = "journeyFlagObj.showAddJourneyPannel">
 
         <div class="modal-header">
             <h1>
                 行程分享
                 <small>添加行程</small>
+                <small ng-if="journey.id">编辑行程</small>
             </h1>
         </div>
 
@@ -29,16 +58,24 @@
                     <form role="form">
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">标题</label> <input type="text" name="title" ng-model="journey.title"  class="form-control">
+                                <div class="col-sm-10 lagou-center">
+                                    <img src="{{journey.coverImage}}" class="img-circle" style="width:90px;height:90px;"/>
+                                    <input class="lagou-center" type="file" ngf-select="" ng-model="coverImage" name="file" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" required="">
+                                    <button type="button" ng-click="uploadImage(coverImage)">上传封面图</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">标题</label> <input type="text" name="title" ng-model="journey.title"  class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">描述</label> <input type="text" name="description" ng-model="journey.description"  class="form-control">
+                                <label class="col-sm-3 control-label">描述</label> <input type="text" name="description" ng-model="journey.description"  class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">预算(整数)</label> <input type="text" name="budget" ng-model="journey.budget"  class="form-control">
+                                <label class="col-sm-3 control-label">预算(整数)</label> <input type="text" name="budget" ng-model="journey.budget"  class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">天数(整数)</label> <input type="text" name="totalday" ng-model="journey.totalday"  class="form-control">
+                                <label class="col-sm-3 control-label">天数(整数)</label> <input type="text" name="totalday" ng-model="journey.totalday"  class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">目的地</label> <input type="text" name="destination" ng-model="journey.destination"  class="form-control">
@@ -119,7 +156,7 @@
                             <div class="col-sm-10"><input type="input" class="form-control" name="budget" ng-model="item.budget"></div>
                         </div>
                         <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;margin-top: 10px;">
-                            <label class="col-sm-2 control-label">时间（8:00-12:00）</label>
+                            <label class="col-sm-2 control-label">时间（00:00:00-23:59:59）</label>
                             <div class="col-sm-10"><input type="input" class="form-control" name="time" ng-model="item.time"></div>
                         </div>
                     </div>
@@ -127,13 +164,12 @@
                         <button type="button" style="float: left;margin-left: 15px;" class="btn btn-success" ng-click="addJourneyItemForm(day.currentDay)"><i class="fa fa-plus"></i></button>
                         <p style="margin-left:15px;margin-top: 10px;">添加更多的行程事件</p>
                     </div>
-                    <div class="box box-primary">
-                        <button style="width:100px;float:right;margin-bottom: 10px;margin-right:10px;" type="button" class="btn btn-block btn-info btn-sm" ng-click="saveJourneyItem()">保存</button>
-                    </div>
                 </div>
 
             </div>
-
+            <div class="box box-primary" ng-if="journeyFlagObj.showJourneyDayFlag">
+                <button style="width:100px;float:right;margin-bottom: 10px;margin-right:10px;" type="button" class="btn btn-block btn-info btn-sm" ng-click="saveJourneyItem()">保存</button>
+            </div>
         </div>
     </lg-modal>
 
@@ -167,13 +203,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">预算</label>
+                                <label class="col-sm-3 control-label">预算</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="phone" ng-model="journeyDetail.budget"  class="form-control" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">天数</label>
+                                <label class="col-sm-3 control-label">天数</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="phone" ng-model="journeyDetail.totalday"  class="form-control" disabled>
                                 </div>

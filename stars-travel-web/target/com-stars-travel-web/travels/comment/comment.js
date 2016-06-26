@@ -4,7 +4,7 @@
 var app = angular.module('commentApp',['angular-constants']);
 app.controller('commentCtrl',commentCtrl);
 
-function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
+function commentCtrl($scope,$http,angularMeta,lgDataTableService){
     //初始化table
     $scope.init = function() {
         $scope.ready();
@@ -12,6 +12,7 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
     $scope.ready = function(){
         $scope.search = {limit:15, currentPage:0,searchContent:''};
+        $scope.commentFlagObj = {showDetail:false};
         $http.post("/comment/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
@@ -28,22 +29,35 @@ function commentCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
     //初始化表格数据
     $scope.initTableData = function(pageData){
-
         $scope.tableData = {
             //查看详情
             openDetail : function(row){
+                $scope.commentObj = row;
+                $scope.commentFlagObj.showDetail = true;
+            },
+            delete : function(row){
+                $http.post("/comment/delete.json",{id:row.id},angularMeta.postCfg)
+                    .success(function(data){
+                        if(data.success){
+                            $scope.searchLoad();
+                            return toastr.success("删除成功");
+                        }else{
+                            return toastr.error("删除失败");
+                        }
+                    });
             }
         };
 
-        var headerArray = ['评论ID','赞','评论详情','是否审核通过','关联ID','评论用户ID','用户昵称','类型','操作'];
+        var headerArray = ['评论ID','赞','评论详情','是否审核通过','关联ID','评论用户ID','用户昵称','类型','创建时间','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
 
         lgDataTableService.setBodyWithObjects($scope.tableData, _.map(pageData, function(pg) {
-            pg.action =  '<a title="查看记录" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看详情</a>';
+            pg.action =  '<a title="查看记录" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.openDetail($row)">查看详情</a>'+
+                '<a title="删除" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.delete($row)">删除</a>';
             return pg;
-        }), ['id','ups','recommend','checked','relateId','userInfo.id','userInfo.name','type','action']);
+        }), ['id','ups','recommend','checked','relateId','userInfo.id','userInfo.name','type','createtime','action']);
     };
     //格式化表格数据
     $scope.formatUserPageData = function(pageData){

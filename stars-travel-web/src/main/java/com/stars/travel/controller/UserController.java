@@ -169,17 +169,44 @@ public class UserController extends BaseController{
     public Object update(UserInfo userInfo) {
         RequestResult result = new RequestResult();
         result.setSuccess(false);
-        if(null != userInfo && !StringUtils.isBlank(userInfo.getToken())){
+        if(null != userInfo){
             String phone = HttpSessionProvider.getSessionUserPhone();
             //获取APP的token
             if(!StringUtils.isBlank(userInfo.getToken())){
                 phone = userService.queryPhoneByToken(userInfo.getToken());
             }
-            if(StringUtils.isBlank(phone)){
+            /*if(StringUtils.isBlank(phone)){
                 result.setMessage("请先登录。");
                 return gson.toJson(result);
-            }
+            }*/
             userInfo.setPhone(phone);
+            boolean flag  = userService.modifyUserInfo(userInfo);
+            result.setSuccess(flag);
+            logger.info("更新用户信息,用户phone为:"+phone);
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * @Description : 修改个人信息,认证为当地人
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping(value = "updateUser" , method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateUser(UserInfo userInfo) {
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != userInfo){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(userInfo.getToken())){
+                phone = userService.queryPhoneByToken(userInfo.getToken());
+            }
+            /*if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }*/
             boolean flag  = userService.modifyUserInfo(userInfo);
             result.setSuccess(flag);
             logger.info("更新用户信息,用户phone为:"+phone);

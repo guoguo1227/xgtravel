@@ -149,7 +149,6 @@ public class JourneyServiceImpl implements JourneyService {
                 cri.andPhoneEqualTo(condition.getPhone());
             }
 
-            cri.andIsEnableEqualTo(true); //可用
             int count = journeyMapper.countByExample(criteria);
             if(count >0){
                 List<JourneyWithBLOBs> list = journeyMapper.selectByExampleWithBLOBs(criteria);

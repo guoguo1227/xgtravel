@@ -55,6 +55,35 @@ public class CommentController extends BaseController{
     }
 
     /**
+     * @Description : 删除评论
+     * @param condition
+     * @return
+     */
+    @RequestMapping("delete")
+    @ResponseBody
+    public String deleteComment(AuctionSearchCondition condition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        if(null != condition){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                phone = userService.queryPhoneByToken(condition.getToken());
+            }
+            if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+
+            boolean success = commentService.deleteComment(condition.getId());
+            result.setSuccess(success);
+
+        }
+        return gson.toJson(result);
+    }
+
+    /**
      * @Deescription : 查询评论列表-移动端
      * @param condition
      * @return

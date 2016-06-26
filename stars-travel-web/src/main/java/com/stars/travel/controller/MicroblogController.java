@@ -11,10 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class MicroblogController extends BaseController{
                 userPhone = userService.queryPhoneByToken(condition.getToken());
             }
             Page<MicroblogVo> page = microblogVoService.querySharedMicroblogVoPage(condition,userPhone);
-            if(null != page && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);
             }
@@ -79,7 +79,7 @@ public class MicroblogController extends BaseController{
                 userPhone = userService.queryPhoneByToken(condition.getToken());
             }
             List<MicroblogVo> list = microblogVoService.querySharedMicroblogVoApp(condition,userPhone);
-            if(null != list && list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);
             }
@@ -119,7 +119,7 @@ public class MicroblogController extends BaseController{
      */
     @RequestMapping("detail")
     @ResponseBody
-    public Object queryMicroblogDetailList(AuctionSearchCondition condition,HttpServletRequest request){
+    public Object queryMicroblogDetailList(AuctionSearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(true);
@@ -176,16 +176,12 @@ public class MicroblogController extends BaseController{
                 return gson.toJson(result);
             }
 
-            if(!StringUtils.isBlank(phone)){
-                microblogVo.setPhone(phone);
-                boolean success = microblogVoService.addMicroblog(microblogVo);
-                if(success){
-                    result.setSuccess(true);
-                }else{
-                    result.setMessage("添加微游记失败!");
-                }
+            microblogVo.setPhone(phone);
+            boolean success = microblogVoService.addMicroblog(microblogVo);
+            if(success){
+                result.setSuccess(true);
             }else{
-                result.setMessage("请先登录!");
+                result.setMessage("添加微游记失败!");
             }
         }
         return gson.toJson(result);
@@ -201,6 +197,12 @@ public class MicroblogController extends BaseController{
     public String deleteMicroblog(Integer id){
         RequestResult result = new RequestResult();
         if(null != id){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+            if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+
             boolean success = microblogVoService.deleteMicroblog(id);
             if(success){
                 result.setSuccess(true);

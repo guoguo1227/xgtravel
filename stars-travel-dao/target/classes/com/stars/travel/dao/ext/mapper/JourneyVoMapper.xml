@@ -49,9 +49,10 @@
     <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="time" property="time" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="item_title" property="title" jdbcType="VARCHAR" />
+    <result column="item_content" property="content" jdbcType="VARCHAR" />
+    <result column="item_description" property="description" jdbcType="VARCHAR" />
+    <result column="item_budget" property="budget" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="JourneyItemResultMapWithBLOBs" type="com.stars.travel.model.base.JourneyItem" extends="JourneyItemResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -81,7 +82,7 @@
   <sql id="JourneyDaySQL">
     journeyDay.id as jDId,
     journeyDay.journey_id as journeyId,
-    journeyDay.current_day as current_day,
+    journeyDay.current_day as currentDay,
     journeyDay.createtime as createtime
   </sql>
   <!-- root_journey_item -->
@@ -91,9 +92,10 @@
     journeyItem.itemtype as itemtype,
     journeyItem.createtime as createtime,
     journeyItem.time as time,
-    journeyItem.title as title,
-    journeyItem.description as description,
-    journeyItem.budget as budget
+    journeyItem.title as item_title,
+    journeyItem.description as item_description,
+    journeyItem.content as item_content,
+    journeyItem.budget as item_budget
   </sql>
 
   <!-- 公共查询条件sql -->

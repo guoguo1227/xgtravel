@@ -50,6 +50,13 @@ public interface CommentService {
     public boolean addComment(Comment comment);
 
     /**
+     * @Description : 删除评论
+     * @param id
+     * @return
+     */
+    public boolean deleteComment(Integer id);
+
+    /**
      * @Description : 删除微游记下的所有评论
      * @param id
      * @return

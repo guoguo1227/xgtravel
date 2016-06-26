@@ -14,6 +14,7 @@ import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +56,7 @@ public class JourneyController extends BaseController{
                 userPhone = userService.queryPhoneByToken(searchCondition.getToken());
             }
             Page<JourneyVo> page = journeyService.queryJourneys(searchCondition,userPhone);
-            if(null != page && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);
         }
@@ -82,7 +83,7 @@ public class JourneyController extends BaseController{
                 userPhone = userService.queryPhoneByToken(searchCondition.getToken());
             }
             List<JourneyVo> list = journeyService.queryJourneyListApp(searchCondition,userPhone);
-            if(null != list && list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);
             }
@@ -157,6 +158,13 @@ public class JourneyController extends BaseController{
         RequestResult result = new RequestResult();
         result.setSuccess(false);
 
+        String userPhone = HttpSessionProvider.getSessionUserPhone();
+        if(StringUtils.isBlank(userPhone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
+
+        journeyWithBLOBs.setPhone(userPhone);
         journeyWithBLOBs = journeyService.updateJourney(journeyWithBLOBs);
         if(null != journeyWithBLOBs){
             result.setSuccess(true);
@@ -175,6 +183,11 @@ public class JourneyController extends BaseController{
 
         RequestResult result = new RequestResult();
 
+        String userPhone = HttpSessionProvider.getSessionUserPhone();
+        if(StringUtils.isBlank(userPhone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
         boolean flag  = false;
         if(null != id){
             flag = journeyService.deleteJourney(id);
@@ -216,6 +229,10 @@ public class JourneyController extends BaseController{
         //获取APP的token
         if(!StringUtils.isBlank(journeyVo.getToken())){
             userPhone = userService.queryPhoneByToken(journeyVo.getToken());
+        }
+        if(StringUtils.isBlank(userPhone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
         }
         if(null != journeyVo){
             journeyVo.setPhone(userPhone);

@@ -26,6 +26,8 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 $scope.userInfo.portrait = data.data.uploadPath;
             }else if(flag == 2){
                 $scope.localuserInfo.introduceImage = data.data.uploadPath;
+            }else if(flag == 3){
+                $scope.edituserInfo.portrait = data.data.uploadPath;
             }
         }).error(function (data, status, headers, config) {
             //上传失败
@@ -78,7 +80,6 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     $scope.initTableData = function(pageData){
 
         $scope.tableData = {
-
             //删除用户
             deleteUser : function(row){
                 $http.post("/user/delete.json",{userId:row.id},angularMeta.postCfg)
@@ -109,20 +110,22 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             },
             //认证为当地人
             localUser : function(row){
-                $scope.localuserInfo = {id:row.id,phone:row.phone,type:1};
+                $scope.localuserInfo = {id:row.id,phone:row.phone,type:1,introduction:row.introduction,address:row.address,profession:row.profession,introduceImage:row.introduceImage,strategyInfo:row.strategyInfo};
                 $scope.userFlag.localuserOpen = true;
             },
+            //编辑用户
             editUser : function(row){
-                $scope.edituserInfo = {introduction:row.introduction,address:row.address,profession:row.profession};
+                $scope.edituserInfo = {id:row.id,introduction:row.introduction,address:row.address,profession:row.profession,name:row.name,email:row.email,portrait:row.portrait};
                 $scope.userFlag.edituserOpen = true;
             },
+            //添加评论
             addComment : function(row){
                 $scope.addCommentInfo = {relateId:row.id,type:3};
                 $scope.userFlag.showAddCommentFlag = true;
             }
         };
 
-        var headerArray = ['用户ID','用户姓名','头像','注册时间','手机号','邮箱','标题图','介绍','所在地','职业','激活状态','是否删除','操作'];
+        var headerArray = ['用户ID','用户姓名','头像','注册时间','手机号','邮箱','标题图','个性签名','关于他','介绍','攻略介绍','所在地','职业','评分','激活状态','是否删除','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
 
@@ -134,10 +137,11 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             pg.action = '<a title="删除" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.deleteUser($row)">删除</a>'+
                 '<a title="恢复" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.restoreUser($row)">恢复</a>'+
                 '<a title="认证为当地人" class="btn bg-orange btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.localUser($row)">认证为当地人</a>'+
-                '<a title="添加评论" class="btn bg-info btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>';
+                '<a title="添加评论" class="btn bg-info btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>'+
+                '<a title="修改" class="btn bg-purple btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.editUser($row)">修改</a>';
 
             return pg;
-        }), ['id', 'nikename','userPortrait','createTime','phone','email','userIntroduceImage','introduction','address','profession','activated','isEnable','action']);
+        }), ['id', 'name','userPortrait','createTime','phone','email','userIntroduceImage','signature','summary','introduction','strategyInfo','address','profession','score','activated','isEnable','action']);
     };
 
     //打开上传图片窗口
@@ -233,7 +237,7 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     //保存认证为当地人
     $scope.localuserSave = function(){
-        $http.post("/user/update.json",$scope.localuserInfo,angularMeta.postCfg)
+        $http.post("/user/updateUser.json",$scope.localuserInfo,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.userFlag.localuserOpen = false;
@@ -263,7 +267,7 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
     //保存编辑用户信息
     $scope.edituserSave = function(){
-        $http.post("/user/update.json",$scope.edituserInfo,angularMeta.postCfg)
+        $http.post("/user/updateUser.json",$scope.edituserInfo,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.userFlag.edituserOpen = false;

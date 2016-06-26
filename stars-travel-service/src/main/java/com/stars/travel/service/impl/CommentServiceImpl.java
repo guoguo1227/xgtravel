@@ -202,6 +202,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public boolean deleteComment(Integer id) {
+        if(null != id){
+            int i = commentMapper.deleteByPrimaryKey(id);
+            if(i>0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     @Transactional
     public boolean deleteCommentByMicroblogId(Integer id) {
         boolean success = false;

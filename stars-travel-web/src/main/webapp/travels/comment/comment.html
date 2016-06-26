@@ -15,4 +15,25 @@
                     visible-pages="10"
                     total-entries="totalEntries">
     </lg-paginator>
+
+    <lg-modal open = "commentFlagObj.showDetail">
+        <div class="modal-header">
+            <small>详情</small>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <p name="detail">{{commentObj.recommend}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </lg-modal>
 </div>

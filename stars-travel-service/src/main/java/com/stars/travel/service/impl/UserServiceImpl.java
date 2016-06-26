@@ -159,9 +159,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean modifyUserInfo(UserInfo userInfo) {
-        if(null != userInfo && !StringUtils.isBlank(userInfo.getPhone())){
+        if(null != userInfo && (!StringUtils.isBlank(userInfo.getPhone()) || null != userInfo.getId())){
 
-            User user = queryUserByPhoneNumber(userInfo.getPhone());
+            User user = queryUserById(userInfo.getId());
+            if(null == user){
+                user = queryUserByPhoneNumber(userInfo.getPhone());
+            }
             if(null != user){
                 if(!StringUtils.isBlank(userInfo.getName())){
                     user.setName(userInfo.getName());
@@ -205,6 +208,17 @@ public class UserServiceImpl implements UserService {
                 logger.info("用户phone:"+userInfo.getPhone()+"不存在");
             }
 
+        }
+        return false;
+    }
+
+    @Override
+    public boolean saveUser(User user) {
+        if(null != user){
+            int i = userMapper.insertSelective(user);
+            if(i>0){
+                return true;
+            }
         }
         return false;
     }

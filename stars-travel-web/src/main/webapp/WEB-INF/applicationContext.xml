@@ -20,6 +20,8 @@
     <import resource="spring-servlet.xml"></import>
     <import resource="applicationContext-shiro.xml"></import>
 
+    <import resource="spring-quartz.xml"></import>
+
     <context:annotation-config/>
     <mvc:annotation-driven/>
 

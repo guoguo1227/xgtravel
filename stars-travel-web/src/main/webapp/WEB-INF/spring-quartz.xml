@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="   
+         http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+   		 http://www.springframework.org/schema/context 
+   		 http://www.springframework.org/schema/context/spring-context-3.1.xsd   
+   		 http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.1.xsd   
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+         http://www.springframework.org/schema/tx 
+         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <!-- 调度工厂 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+               <!-- <ref bean="userTaskService" />-->
+            </list>
+        </property>
+    </bean>
+
+    <!-- 组织信息每1分钟更新一次-->
+    <bean id="userTaskService" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <bean
+                    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <property name="targetObject" ref="userTaskServiceImpl"></property>
+                <property name="targetMethod" value="initUser"></property>
+
+                <property name="concurrent" value="false"></property>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0/15 * * * ?"></property>
+    </bean>
+
+</beans>

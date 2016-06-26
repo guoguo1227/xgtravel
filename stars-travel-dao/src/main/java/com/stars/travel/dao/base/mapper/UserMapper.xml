@@ -16,7 +16,7 @@
     <result column="sex" property="sex" jdbcType="SMALLINT" />
     <result column="signature" property="signature" jdbcType="VARCHAR" />
     <result column="strategy_info" property="strategyInfo" jdbcType="VARCHAR" />
-    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="personalemail" property="personalemail" jdbcType="VARCHAR" />
@@ -165,7 +165,7 @@
       #{createtime,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{oauthid,jdbcType=VARCHAR}, 
       #{sinatoken,jdbcType=VARCHAR}, #{qqoauthid,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
       #{state,jdbcType=SMALLINT}, #{sex,jdbcType=SMALLINT}, #{signature,jdbcType=VARCHAR}, 
-      #{strategyInfo,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{strategyInfo,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{personalemail,jdbcType=VARCHAR}, #{weibo,jdbcType=VARCHAR}, 
       #{activated,jdbcType=SMALLINT}, #{portrait,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
       #{introduceImage,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
@@ -334,7 +334,7 @@
         #{strategyInfo,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
-        #{score,jdbcType=VARCHAR},
+        #{score,jdbcType=INTEGER},
       </if>
       <if test="summary != null" >
         #{summary,jdbcType=VARCHAR},
@@ -459,7 +459,7 @@
         strategy_info = #{record.strategyInfo,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null" >
-        score = #{record.score,jdbcType=VARCHAR},
+        score = #{record.score,jdbcType=INTEGER},
       </if>
       <if test="record.summary != null" >
         summary = #{record.summary,jdbcType=VARCHAR},
@@ -551,7 +551,7 @@
       sex = #{record.sex,jdbcType=SMALLINT},
       signature = #{record.signature,jdbcType=VARCHAR},
       strategy_info = #{record.strategyInfo,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
       summary = #{record.summary,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       personalemail = #{record.personalemail,jdbcType=VARCHAR},
@@ -622,7 +622,7 @@
         strategy_info = #{strategyInfo,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
-        score = #{score,jdbcType=VARCHAR},
+        score = #{score,jdbcType=INTEGER},
       </if>
       <if test="summary != null" >
         summary = #{summary,jdbcType=VARCHAR},
@@ -711,7 +711,7 @@
       sex = #{sex,jdbcType=SMALLINT},
       signature = #{signature,jdbcType=VARCHAR},
       strategy_info = #{strategyInfo,jdbcType=VARCHAR},
-      score = #{score,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
       summary = #{summary,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       personalemail = #{personalemail,jdbcType=VARCHAR},

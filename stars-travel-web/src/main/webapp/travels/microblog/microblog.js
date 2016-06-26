@@ -99,10 +99,15 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                             return toastr.error(data.message);
                         }
                     });
+            },
+            //编辑微游记
+            updateMicroblog : function(row){
+                $scope.microblogInfo = row;
+                $scope.microblogFlagObj.showAddMicroblog = true;
             }
         };
 
-        var headerArray = ['微游记ID','标题','封面图','玩趣图','美食图','风景图','新奇图','创建时间','是否分享','点赞次数','目的地','操作'];
+        var headerArray = ['微游记ID','标题','封面图','玩趣图','美食图','风景图','新奇图','创建时间','内容','描述','目的地','目的地描述','味道描述','结尾描述','封面图描述','玩趣图描述','美食图描述','风景图描述','新奇图描述','是否分享','点赞次数','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
@@ -116,12 +121,21 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
             pg.action =  '<a title="" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.deleteDetail($row)">删除</a>'+
                 '<a title="添加评论" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>'+
-                '<a title="收藏" ng-if="$row.isCollection == false" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.collect($row)">收藏</a>'+
-                '<a title="取消收藏" ng-if="$row.isCollection == true" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.uncollect($row)">取消收藏</a>'+
-                '<a title="顶" ng-if="$row.isTop == false" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.top($row)">顶</a>'+
-                '<a title="踩" ng-if="$row.isTop == true" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.untop($row)">踩</a>';
+/*
+                '<a title="修改" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.updateMicroblog($row)">修改</a>'+
+*/
+                '<a title="收藏" ng-if="!$row.isCollection" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.collect($row)">收藏</a>'+
+                '<a title="取消收藏" ng-if="$row.isCollection" class="btn bg-green btn-xs lagou-margin-top-3" ng-click="$table.uncollect($row)">取消收藏</a>'+
+                '<a title="顶" ng-if="!$row.isTop" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.top($row)">顶</a>'+
+                '<a title="踩" ng-if="$row.isTop" class="btn bg-blue btn-xs lagou-margin-top-3" ng-click="$table.untop($row)">踩</a>';
+
+            pg.titleStr = '<span style="word-wrap:break-word;">'+pg.title+'</span>';
+            pg.destDescriptionStr = '<span style="word-wrap:break-word;">'+pg.destDescription+'</span>';
+            pg.novelDescriptionStr = '<span style="word-wrap:break-word;">'+pg.novelDescription+'</span>';
+            pg.endDescriptionStr = '<span style="word-wrap:break-word;">'+pg.endDescription+'</span>';
+            pg.sceneryDescriptionStr = '<span style="word-wrap:break-word;">'+pg.sceneryDescription+'</span>';
             return pg;
-        }), ['id','title','microblogpicture','microblogfunPicture','microblogfoodPicture','microblogsceneryPicture','microblognewnessPicture','createtime','sharetimes','top','destination','action']);
+        }), ['id','titleStr','microblogpicture','microblogfunPicture','microblogfoodPicture','microblogsceneryPicture','microblognewnessPicture','createtime','content','description','destination','destDescriptionStr','novelDescriptionStr','endDescriptionStr','pictureDescription','funPictureDescription','foodPictureDescription','sceneryDescription','newnessPictureDescription','sharetimes','topCount','action']);
     };
 
     //按条件查询
@@ -129,17 +143,22 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(page != undefined){
             $scope.search.currentPage = page ;
         }
-        $http.post("/microblog/list.json",$scope.search,angularMeta.postCfg)
+        $http.post("/microblog/page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
+                    $scope.pagesNumber = data.data.totalPage;
+                    $scope.totalEntries = data.data.totalCount;
                     $scope.initTableData(data.data.pageData);
+                }else{
+                    $scope.pagesNumber = 0;
+                    $scope.totalEntries = 0;
+                    $scope.initTableData(null);
                 }
             });
     };
 
     //添加评论
     $scope.saveComment = function(){
-        $scope.addComment.token =
         $http.post("/comment/add.json",$scope.addComment,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
