@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 public class MicroblogServiceImpl implements MicroblogService {
-
+    @Autowired
     private MicroblogMapper microblogMapper;
 
     @Override
