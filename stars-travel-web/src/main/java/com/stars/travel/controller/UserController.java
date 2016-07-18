@@ -1,12 +1,19 @@
 package com.stars.travel.controller;
 import com.stars.common.utils.Page;
+import com.stars.travel.model.base.Journey;
+import com.stars.travel.model.base.MicroblogWithBLOBs;
+import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.ext.JourneyVo;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
+import com.stars.travel.service.JourneyService;
+import com.stars.travel.service.MicroblogService;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description : 用户管理控制器
@@ -30,6 +39,12 @@ public class UserController extends BaseController{
 
     @Resource
     private UserService userService;
+    
+    @Autowired
+    private MicroblogService microblogService;
+    
+    @Resource
+    private JourneyService  journeyService;
 
     /**
      * @Description : 用户分页列表
@@ -328,6 +343,63 @@ public class UserController extends BaseController{
         }else{
             result.setMessage("当地人id不可为空");
         }
+        return gson.toJson(result);
+    }
+    
+
+    /**
+     * @Description : 他人用户,他人微游记，
+     * @param condition
+     * @return
+     */
+    @RequestMapping("homePageMicroblog")
+    @ResponseBody
+    public Object queryHomePageMicroblog(AuctionSearchCondition condition ,Integer userId){
+        RequestResult result = new RequestResult();
+        User  user =new User();
+        //获取用户信息
+        if(userId!=null && !StringUtils.isBlank(userId.toString())){
+           user = userService.queryUserById(userId);
+        }
+        condition.setPhone(user.getPhone());
+        //获取该用户的行程信息
+        List<MicroblogWithBLOBs> list= microblogService.queryMicroblogByUser(user.getPhone());
+
+       	Map data=new HashMap();
+       	data.put("microblogs", list);
+        if(user != null ){
+            result.setSuccess(true);
+            result.setData(data);
+        }
+        
+        return gson.toJson(result);
+    }
+    /**
+     * @Description : 他人用户,他人行程分享，
+     * @param condition
+     * @return
+     */
+    @RequestMapping("homePageJourney")
+    @ResponseBody
+    public Object homePageJourney(AuctionSearchCondition condition ,Integer userId){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        User  user =new User();
+        //获取用户信息
+        if(userId!=null && !StringUtils.isBlank(userId.toString())){
+           user = userService.queryUserById(userId);
+        }
+        condition.setPhone(user.getPhone());
+        //获取该用户的行程信息
+        Page<JourneyVo> list= journeyService.queryJourneys(condition, user.getPhone());
+       	Map data=new HashMap();
+       	data.put("user", user);
+       	data.put("journeys", list);
+        if(user != null ){
+            result.setSuccess(true);
+            result.setData(data);
+        }
+        
         return gson.toJson(result);
     }
 }
