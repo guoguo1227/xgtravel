@@ -124,7 +124,7 @@
       ]]>
     </if>
   </sql>
-  <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
+  <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.SearchCondition" >
     select
     <include refid="microblogSelectSQL"></include>
     ,
@@ -149,7 +149,7 @@
     </if>
   </select>
 
-  <select id="countSharedMicroblogList" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
+  <select id="countSharedMicroblogList" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.SearchCondition" >
     select count(*)
     from root_microblog microblog
     <where >

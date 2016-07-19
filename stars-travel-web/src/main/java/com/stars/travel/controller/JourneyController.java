@@ -3,7 +3,7 @@ package com.stars.travel.controller;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.base.JourneyWithBLOBs;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyDayVo;
 import com.stars.travel.model.ext.JourneyItemVo;
 import com.stars.travel.model.ext.JourneyVo;
@@ -44,7 +44,7 @@ public class JourneyController extends BaseController{
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object queryJourneyListByUser(AuctionSearchCondition searchCondition){
+    public Object queryJourneyListByUser(SearchCondition searchCondition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -71,7 +71,7 @@ public class JourneyController extends BaseController{
      */
     @RequestMapping("list")
     @ResponseBody
-    public Object queryJourneyListApp(AuctionSearchCondition searchCondition){
+    public Object queryJourneyListApp(SearchCondition searchCondition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -98,7 +98,7 @@ public class JourneyController extends BaseController{
      */
     @RequestMapping("mycollection")
     @ResponseBody
-    public Object queryMyCollectionListApp(AuctionSearchCondition searchCondition){
+    public Object queryMyCollectionListApp(SearchCondition searchCondition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -134,7 +134,7 @@ public class JourneyController extends BaseController{
             if(!StringUtils.isBlank(token)){
                 userPhone = userService.queryPhoneByToken(token);
             }
-            AuctionSearchCondition searchCondition = new AuctionSearchCondition();
+            SearchCondition searchCondition = new SearchCondition();
             searchCondition.setId(id);
             Page<JourneyVo> page = journeyService.queryJourneyVos(searchCondition,userPhone);
             if(null != page && page.getPageData().size()>0){
@@ -206,7 +206,7 @@ public class JourneyController extends BaseController{
 
         RequestResult result = new RequestResult();
         result.setSuccess(true);
-        AuctionSearchCondition condition = new AuctionSearchCondition();
+        SearchCondition condition = new SearchCondition();
         int count = journeyService.queryJourneyCount(condition);
 
         result.setData(count);

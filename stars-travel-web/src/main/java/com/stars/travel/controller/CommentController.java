@@ -3,7 +3,7 @@ package com.stars.travel.controller;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CommentTypeEnum;
 import com.stars.travel.model.base.Comment;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentObj;
 import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.model.ext.RequestResult;
@@ -40,7 +40,7 @@ public class CommentController extends BaseController{
      */
     @RequestMapping("page")
     @ResponseBody
-    public String queryCommentList(AuctionSearchCondition condition){
+    public String queryCommentList(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -61,7 +61,7 @@ public class CommentController extends BaseController{
      */
     @RequestMapping("delete")
     @ResponseBody
-    public String deleteComment(AuctionSearchCondition condition){
+    public String deleteComment(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -90,7 +90,7 @@ public class CommentController extends BaseController{
      */
     @RequestMapping("list")
     @ResponseBody
-    public String queryCommentListApp(AuctionSearchCondition condition){
+    public String queryCommentListApp(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -126,7 +126,7 @@ public class CommentController extends BaseController{
      */
     @RequestMapping("mylist")
     @ResponseBody
-    public String queryMyCommentListApp(AuctionSearchCondition condition){
+    public String queryMyCommentListApp(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);

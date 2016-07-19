@@ -6,7 +6,7 @@ package com.stars.travel.model.condition;
  */
 public class BaseSearchCondition {
 
-    private Integer limit=10;//每页显示几条数据 默认10
+    private Integer limit=30;//每页显示几条数据 默认10
     private Integer currentPage=1;//当前第几页
     private Integer offset=0;//偏移量
 

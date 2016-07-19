@@ -9,17 +9,17 @@ import com.stars.travel.dao.base.mapper.MicroblogMapper;
 import com.stars.travel.dao.base.mapper.UserMapper;
 import com.stars.travel.dao.ext.mapper.CommentVoMapper;
 import com.stars.travel.model.base.*;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.service.CommentService;
 import com.stars.travel.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
     private UserService userService;
 
     @Override
-    public Page<CommentVo> queryCommentPage(AuctionSearchCondition condition) {
+    public Page<CommentVo> queryCommentPage(SearchCondition condition) {
         Page<CommentVo> page = null;
         if(null != condition){
             page = new Page();
@@ -81,7 +81,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentVo> queryCommentListApp(AuctionSearchCondition condition) {
+    public List<CommentVo> queryCommentListApp(SearchCondition condition) {
         List<CommentVo> list = null;
         if(null != condition){
             condition.setIfEnable(true); //可用
@@ -120,7 +120,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentVo> queryMyCommentList(AuctionSearchCondition condition) {
+    public List<CommentVo> queryMyCommentList(SearchCondition condition) {
         List<CommentVo> list = new ArrayList<>();
         CommentCriteria criteria = new CommentCriteria();
         CommentCriteria.Criteria cri = criteria.createCriteria();
@@ -181,7 +181,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Integer queryCommentCount(AuctionSearchCondition condition) {
+    public Integer queryCommentCount(SearchCondition condition) {
         int count = 0;
         if(null != condition){
             count = commentVoMapper.queryCommentCount(condition);
@@ -221,7 +221,7 @@ public class CommentServiceImpl implements CommentService {
             CommentCriteria.Criteria cri = criteria.createCriteria();
             cri.andRelateIdEqualTo(id).andIsEnableEqualTo(true);
             List<Comment> list = commentMapper.selectByExample(criteria);
-            if(null != list && list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 for(Comment comment:list){
                     comment.setIsEnable(false); //标记删除
                     int i = commentMapper.updateByPrimaryKeySelective(comment);
@@ -229,6 +229,8 @@ public class CommentServiceImpl implements CommentService {
                         success = true;
                     }
                 }
+            }else{
+                success = true;
             }
         }
         return success;

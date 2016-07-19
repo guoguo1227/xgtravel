@@ -4,8 +4,10 @@ import com.stars.common.utils.Page;
 import com.stars.travel.dao.base.mapper.CustomizationMapper;
 import com.stars.travel.model.base.Customization;
 import com.stars.travel.model.base.CustomizationCriteria;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.base.User;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.service.CustomizationService;
+import com.stars.travel.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class CustomizationServiceImpl implements CustomizationService {
 
     @Autowired
     private CustomizationMapper customizationMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean addCustomization(Customization customization) {
@@ -60,7 +65,7 @@ public class CustomizationServiceImpl implements CustomizationService {
     }
 
     @Override
-    public Page<Customization> queryCustomizationPage(AuctionSearchCondition condition) {
+    public Page<Customization> queryCustomizationPage(SearchCondition condition) {
         Page<Customization> page = null;
         if(null != condition){
             page = new Page<>();
@@ -74,6 +79,13 @@ public class CustomizationServiceImpl implements CustomizationService {
             //用户手机
             if(!StringUtils.isBlank(condition.getPhone())){
                 cri.andPhoneEqualTo(condition.getPhone());
+            }
+            //用户id
+            if(null != condition.getUserId()){
+                User user = userService.queryUserById(condition.getUserId());
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    cri.andPhoneEqualTo(user.getPhone());
+                }
             }
 
             criteria.setOrderByClause("  createtime desc ");
@@ -91,7 +103,7 @@ public class CustomizationServiceImpl implements CustomizationService {
     }
 
     @Override
-    public List<Customization> queryCustomizationListApp(AuctionSearchCondition condition) {
+    public List<Customization> queryCustomizationListApp(SearchCondition condition) {
         List<Customization> list = null;
         if(null != condition){
             CustomizationCriteria criteria = new CustomizationCriteria();
@@ -124,7 +136,7 @@ public class CustomizationServiceImpl implements CustomizationService {
     }
 
     @Override
-    public int countCustomization(AuctionSearchCondition condition) {
+    public int countCustomization(SearchCondition condition) {
         int count = 0;
         if(null != condition){
             CustomizationCriteria criteria = new CustomizationCriteria();

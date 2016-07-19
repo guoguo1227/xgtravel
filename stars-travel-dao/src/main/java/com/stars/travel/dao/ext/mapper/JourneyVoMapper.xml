@@ -143,7 +143,7 @@
   </sql>
 
   <!-- 根据条件查询行程分享列表 -->
-  <select id="queryJourneyVoList" resultMap="JourneyVoResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition">
+  <select id="queryJourneyVoList" resultMap="JourneyVoResultMap"  parameterType="com.stars.travel.model.condition.SearchCondition">
     select
     <include refid="JourneySQL"></include>
     ,
@@ -171,7 +171,7 @@
   </select>
 
   <!-- 根据条件查询行程分享数量 -->
-  <select id="countJourneyVo" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition">
+  <select id="countJourneyVo" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.SearchCondition">
     select count(*)
     from root_journey journey
     <where >

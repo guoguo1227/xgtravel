@@ -1,7 +1,7 @@
 package com.stars.travel.dao.ext.mapper;
 
 
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyVo;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public interface JourneyVoMapper {
      * @param condition
      * @return
      */
-    public List<JourneyVo> queryJourneyVoList(AuctionSearchCondition condition);
+    public List<JourneyVo> queryJourneyVoList(SearchCondition condition);
 
     /**
      * @Description : 查询行程分享数量
      * @param condition
      * @return
      */
-    public int countJourneyVo(AuctionSearchCondition condition);
+    public int countJourneyVo(SearchCondition condition);
 }

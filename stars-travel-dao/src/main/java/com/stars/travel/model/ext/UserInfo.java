@@ -50,6 +50,16 @@ public class UserInfo implements Serializable {
 
     private boolean ifCollection; //是否收藏
 
+    private boolean ifAttention; //是否关注
+
+    public boolean isIfAttention() {
+        return ifAttention;
+    }
+
+    public void setIfAttention(boolean ifAttention) {
+        this.ifAttention = ifAttention;
+    }
+
     public Boolean getEnable() {
         return isEnable;
     }

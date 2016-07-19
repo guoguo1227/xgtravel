@@ -1,7 +1,7 @@
 package com.stars.travel.controller;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.service.MicroblogVoService;
@@ -42,7 +42,7 @@ public class MicroblogController extends BaseController{
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object queryShareMicroblogList(AuctionSearchCondition condition){
+    public Object queryShareMicroblogList(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -68,7 +68,7 @@ public class MicroblogController extends BaseController{
      */
     @RequestMapping("list")
     @ResponseBody
-    public Object queryShareMicroblogListApp(AuctionSearchCondition condition){
+    public Object queryShareMicroblogListApp(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -94,7 +94,7 @@ public class MicroblogController extends BaseController{
      */
     @RequestMapping("mycollection")
     @ResponseBody
-    public Object queryMyCollection(AuctionSearchCondition condition){
+    public Object queryMyCollection(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(false);
@@ -119,7 +119,7 @@ public class MicroblogController extends BaseController{
      */
     @RequestMapping("detail")
     @ResponseBody
-    public Object queryMicroblogDetailList(AuctionSearchCondition condition){
+    public Object queryMicroblogDetailList(SearchCondition condition){
 
         RequestResult result = new RequestResult();
         result.setSuccess(true);
@@ -147,7 +147,7 @@ public class MicroblogController extends BaseController{
 
         RequestResult result = new RequestResult();
         result.setSuccess(true);
-        AuctionSearchCondition searchCondition = new AuctionSearchCondition();
+        SearchCondition searchCondition = new SearchCondition();
         int count = microblogVoService.countSharedMicroblogVoList(searchCondition);
         result.setData(count);
         return gson.toJson(result);

@@ -3,7 +3,7 @@ package com.stars.travel.service;
 
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Customization;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 
 import java.util.List;
 
@@ -33,14 +33,14 @@ public interface CustomizationService {
      * @param condition
      * @return
      */
-    public Page<Customization> queryCustomizationPage(AuctionSearchCondition condition);
+    public Page<Customization> queryCustomizationPage(SearchCondition condition);
 
     /**
      * @Description : 查询定制列表
      * @param condition
      * @return
      */
-    public List<Customization> queryCustomizationListApp(AuctionSearchCondition condition);
+    public List<Customization> queryCustomizationListApp(SearchCondition condition);
 
 
     /**
@@ -48,5 +48,5 @@ public interface CustomizationService {
      * @param condition
      * @return
      */
-    public int countCustomization(AuctionSearchCondition condition);
+    public int countCustomization(SearchCondition condition);
 }

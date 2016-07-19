@@ -2,7 +2,7 @@ package com.stars.travel.controller;
 
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Customization;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.service.CustomizationService;
 import com.stars.travel.service.UserService;
@@ -40,7 +40,7 @@ public class CustomizationController extends BaseController{
      */
     @RequestMapping("page")
     @ResponseBody
-    public String queryCustomizationPage(AuctionSearchCondition condition){
+    public String queryCustomizationPage(SearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
 
@@ -59,7 +59,7 @@ public class CustomizationController extends BaseController{
      */
     @RequestMapping("list")
     @ResponseBody
-    public String queryCustomizationListApp(AuctionSearchCondition condition){
+    public String queryCustomizationListApp(SearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
 
@@ -78,7 +78,7 @@ public class CustomizationController extends BaseController{
      */
     @RequestMapping("detail")
     @ResponseBody
-    public String queryCustomizationDetail(AuctionSearchCondition condition){
+    public String queryCustomizationDetail(SearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(true);
 
@@ -110,6 +110,7 @@ public class CustomizationController extends BaseController{
                 userPhone = userService.queryPhoneByToken(token);
             }
             if(StringUtils.isBlank(userPhone)){
+                result.setMessage("请先登录");
                 return gson.toJson(result);
             }
             customization.setPhone(userPhone);

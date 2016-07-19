@@ -51,7 +51,7 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
 
     //初始化变量
     function ready(){
-        $scope.search = {limit:15, currentPage:1,searchContent:''};
+        $scope.search = {limit:15, currentPage:1,searchContent:'',searchType:'userId'};
         $scope.userFlag = {localuserOpen:false,userLoginOpen:false,userRegisterOpen:false,showAddCommentFlag:false,edituserOpen:false}
         $scope.userInfo = {phone:'',password:'',portrait:'upload/user/201603/13001322e8fx.jpg'};
         $scope.journey = {};
@@ -63,6 +63,14 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
         if(page != undefined){
             $scope.search.currentPage = page ;
         }
+
+        if($scope.startTimeObj != undefined && $scope.startTimeObj !=""){
+            $scope.search.startTime = $scope.startTimeObj+" 00:00:00";
+        }
+        if($scope.endTimeObj != undefined &&  $scope.endTimeObj !="" ){
+            $scope.search.endTime = $scope.endTimeObj+" 23:59:59";
+        }
+
         $http.post("/user/user-page.json",$scope.search,angularMeta.postCfg)
             .success(function(data){
                 if(data.success){

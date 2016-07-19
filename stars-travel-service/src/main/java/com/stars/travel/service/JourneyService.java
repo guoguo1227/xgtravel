@@ -3,7 +3,7 @@ package com.stars.travel.service;
 
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.JourneyWithBLOBs;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyDayVo;
 import com.stars.travel.model.ext.JourneyVo;
 import com.stars.travel.model.ext.RequestResult;
@@ -40,7 +40,7 @@ public interface JourneyService {
      * @param condition
      * @return
      */
-    public Page<JourneyVo> queryJourneys(AuctionSearchCondition condition, String currentPhone);
+    public Page<JourneyVo> queryJourneys(SearchCondition condition, String currentPhone);
 
     /**
      * @Descripition : 查询行程列表 -移动端
@@ -48,9 +48,9 @@ public interface JourneyService {
      * @param currentPhone
      * @return
      */
-    public List<JourneyVo> queryJourneyListApp(AuctionSearchCondition condition, String currentPhone);
+    public List<JourneyVo> queryJourneyListApp(SearchCondition condition, String currentPhone);
 
-    public Page<JourneyVo> queryJourneyVos(AuctionSearchCondition condition,String currentPhone);
+    public Page<JourneyVo> queryJourneyVos(SearchCondition condition, String currentPhone);
 
 
     /**
@@ -58,7 +58,7 @@ public interface JourneyService {
      * @param condition
      * @return
      */
-    public Integer queryJourneyCount(AuctionSearchCondition condition);
+    public Integer queryJourneyCount(SearchCondition condition);
 
     /**
      * @Description : 收藏行程分享
@@ -105,7 +105,7 @@ public interface JourneyService {
      * @param currentPhone
      * @return
      */
-    public List<JourneyVo> queryMyCollectList(AuctionSearchCondition condition, String currentPhone);
+    public List<JourneyVo> queryMyCollectList(SearchCondition condition, String currentPhone);
     /**
      * @Description : 根据行程id,用户id查询是否收藏
      * @param id

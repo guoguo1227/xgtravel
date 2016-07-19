@@ -1,7 +1,7 @@
 package com.stars.travel.service;
 
 import com.stars.common.utils.Page;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.RequestResult;
 
@@ -19,7 +19,7 @@ public interface MicroblogVoService {
      * @param condition
      * @return
      */
-    public Page<MicroblogVo> querySharedMicroblogVoPage(AuctionSearchCondition condition, String currentPhone);
+    public Page<MicroblogVo> querySharedMicroblogVoPage(SearchCondition condition, String currentPhone);
 
 
     /**
@@ -27,7 +27,7 @@ public interface MicroblogVoService {
      * @param condition
      * @return
      */
-    public List<MicroblogVo> querySharedMicroblogVoApp(AuctionSearchCondition condition,String currentPhone);
+    public List<MicroblogVo> querySharedMicroblogVoApp(SearchCondition condition, String currentPhone);
 
     /**
      * @Description : 我的微游记收藏
@@ -35,13 +35,13 @@ public interface MicroblogVoService {
      * @param currentPhone
      * @return
      */
-    public List<MicroblogVo> queryMyCollection(AuctionSearchCondition condition,String currentPhone);
+    public List<MicroblogVo> queryMyCollection(SearchCondition condition, String currentPhone);
     /**
      * @Description : 查询分享微游记总数
      * @param condition
      * @return
      */
-    public int countSharedMicroblogVoList(AuctionSearchCondition condition);
+    public int countSharedMicroblogVoList(SearchCondition condition);
 
     /**
      * @Description : 添加微游记
@@ -96,4 +96,6 @@ public interface MicroblogVoService {
      */
     public RequestResult untopMicroblog(Integer id, String currentPhone);
 
-}
+    public void addMicroblogExtAttr(MicroblogVo vo,String currentPhone);
+
+    }

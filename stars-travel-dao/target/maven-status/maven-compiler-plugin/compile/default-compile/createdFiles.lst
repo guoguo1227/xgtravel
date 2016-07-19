@@ -1,6 +1,7 @@
 com\stars\travel\model\base\CommentCriteria$Criteria.class
 com\stars\travel\model\base\JourneyDay.class
 com\stars\travel\model\base\UserRoleCriteria$Criterion.class
+com\stars\travel\model\base\AttentionKey.class
 com\stars\travel\model\base\UserCollectionCriteria.class
 com\stars\travel\model\base\RolePermissionCriteria$Criterion.class
 com\stars\travel\dao\base\mapper\JourneyMapper.class
@@ -23,6 +24,7 @@ com\stars\travel\dao\base\mapper\CommentMapper.class
 com\stars\travel\dao\base\mapper\PermissionMapper.class
 com\stars\travel\datasource\Master.class
 com\stars\travel\model\ext\RequestResult.class
+com\stars\travel\model\base\AttentionCriteria$Criteria.class
 com\stars\travel\dao\base\mapper\JourneyItemMapper.class
 com\stars\travel\model\base\PermissionCriteria$Criterion.class
 com\stars\travel\datasource\MasterAnnotationAspect.class
@@ -48,6 +50,7 @@ com\stars\travel\model\base\RolePermission.class
 com\stars\travel\model\ext\JourneyVo.class
 com\stars\travel\model\base\MicroblogWithBLOBs.class
 com\stars\travel\model\base\RolePermissionCriteria.class
+com\stars\travel\enums\AttentionEnum.class
 com\stars\travel\dao\base\mapper\UserMapper.class
 com\stars\travel\dao\base\mapper\UserCollectionMapper.class
 com\stars\travel\model\base\UserRole.class
@@ -69,6 +72,7 @@ com\stars\travel\model\base\JourneyCriteria$Criterion.class
 com\stars\travel\model\base\CommentCriteria$GeneratedCriteria.class
 com\stars\travel\model\base\JourneyDayCriteria$GeneratedCriteria.class
 com\stars\travel\model\base\UserRoleCriteria$Criteria.class
+com\stars\travel\enums\AttentionEnum$AttentionEnumConstanst.class
 com\stars\travel\model\base\CommentCriteria$Criterion.class
 com\stars\travel\model\base\MicroblogCollectionKey.class
 com\stars\travel\model\base\PermissionCriteria$GeneratedCriteria.class
@@ -76,6 +80,7 @@ com\stars\travel\model\base\LogCriteria$Criteria.class
 com\stars\travel\model\base\JourneyCollectionCriteria$Criterion.class
 com\stars\travel\model\base\UserCriteria$Criteria.class
 com\stars\travel\model\ext\JourneyItemVo.class
+com\stars\travel\model\base\AttentionCriteria$Criterion.class
 com\stars\travel\common\UserDaoConstants.class
 com\stars\travel\model\base\PermissionCriteria$Criteria.class
 com\stars\travel\model\base\JourneyItem.class
@@ -88,7 +93,9 @@ com\stars\travel\datasource\MasterSlaveDataSource.class
 com\stars\travel\model\base\BaseBean.class
 com\stars\travel\dao\ext\mapper\MicroblogVoMapper.class
 com\stars\travel\model\base\RoleCriteria.class
+com\stars\travel\model\base\AttentionCriteria.class
 com\stars\travel\model\base\JourneyWithBLOBs.class
+com\stars\travel\model\condition\SearchCondition.class
 com\stars\travel\model\base\RolePermissionCriteria$Criteria.class
 com\stars\travel\dao\base\mapper\RoleMapper.class
 com\stars\travel\model\base\MicroblogCriteria$GeneratedCriteria.class
@@ -106,8 +113,11 @@ com\stars\travel\dao\base\mapper\MicroblogCollectionMapper.class
 com\stars\travel\dao\base\mapper\CustomizationMapper.class
 com\stars\travel\model\base\MicroblogCollectionCriteria$Criteria.class
 com\stars\travel\model\base\MicroblogCollectionCriteria.class
+com\stars\travel\dao\base\mapper\AttentionMapper.class
 com\stars\travel\model\base\Comment.class
+com\stars\travel\model\base\Attention.class
 com\stars\travel\model\base\UserCollectionCriteria$Criterion.class
+com\stars\travel\model\base\AttentionCriteria$GeneratedCriteria.class
 com\stars\travel\model\base\JourneyCollectionCriteria.class
 com\stars\travel\model\base\Microblog.class
 com\stars\travel\model\base\RoleCriteria$Criteria.class
@@ -118,5 +128,4 @@ com\stars\travel\model\base\MicroblogCriteria$Criteria.class
 com\stars\travel\model\base\UserRoleCriteria$GeneratedCriteria.class
 com\stars\travel\model\base\MicroblogCriteria$Criterion.class
 com\stars\travel\dao\base\mapper\UserRoleMapper.class
-com\stars\travel\model\condition\AuctionSearchCondition.class
 com\stars\travel\model\ext\CommentVo.class

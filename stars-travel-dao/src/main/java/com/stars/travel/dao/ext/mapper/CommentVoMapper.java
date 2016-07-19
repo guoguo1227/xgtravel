@@ -1,6 +1,6 @@
 package com.stars.travel.dao.ext.mapper;
 
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 
 import java.util.List;
@@ -17,13 +17,13 @@ public interface CommentVoMapper {
      * @param condition
      * @return
      */
-    List<CommentVo> queryCommentList(AuctionSearchCondition condition);
+    List<CommentVo> queryCommentList(SearchCondition condition);
 
     /**
      * @Description : 查询评论数量
      * @param condition
      * @return
      */
-    Integer queryCommentCount(AuctionSearchCondition condition);
+    Integer queryCommentCount(SearchCondition condition);
 
 }

@@ -4,17 +4,20 @@ import com.stars.common.utils.Page;
 import com.stars.common.utils.BeanUtilExt;
 import com.stars.common.utils.EncryptUtil;
 import com.stars.travel.dao.base.mapper.*;
+import com.stars.travel.dao.ext.mapper.MicroblogVoMapper;
 import com.stars.travel.dao.ext.mapper.UserVoMapper;
-import com.stars.travel.enums.LogType;
 import com.stars.travel.model.base.*;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
+import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.*;
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -61,7 +64,13 @@ public class UserServiceImpl implements UserService {
     private CustomizationMapper customizationMapper; //定制dao层服务
 
     @Autowired
+    private MicroblogVoMapper microblogVoMapper;
+
+    @Autowired
     private LogService logService;
+
+    @Autowired
+    private AttentionService attentionService; //关注服务
 
     @Override
     public User queryUserByPhoneNumber(String phone) {
@@ -212,16 +221,6 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public boolean saveUser(User user) {
-        if(null != user){
-            int i = userMapper.insertSelective(user);
-            if(i>0){
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public boolean modifyUser(User user) {
@@ -241,14 +240,6 @@ public class UserServiceImpl implements UserService {
             user = userMapper.selectByPrimaryKey(userId);
         }
         return user;
-    }
-
-    @Override
-    public List<User> listAllUser() {
-        UserCriteria userCriteria = new UserCriteria();
-        userCriteria.createCriteria().andIsEnableEqualTo(true); //可用
-        List<User> userList = userMapper.selectByExample(userCriteria);
-        return userList;
     }
 
     @Override
@@ -273,7 +264,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserInfo> queryUserInfo(AuctionSearchCondition searchCondition, String currentPhone) {
+    public Page<UserInfo> queryUserInfo(SearchCondition searchCondition, String currentPhone) {
         Page<UserInfo> userInfoPage = new Page<>();
         List<UserInfo> userInfoList = new ArrayList<>();
 
@@ -315,8 +306,12 @@ public class UserServiceImpl implements UserService {
             if(!StringUtils.isBlank(searchCondition.getEmail())){
                 criteria.andEmailEqualTo(searchCondition.getEmail());
             }
-
-            //criteria.andIsEnableEqualTo(true); //可用
+            if(null != searchCondition.getStartTime()){
+                criteria.andCreatetimeGreaterThanOrEqualTo(searchCondition.getStartTime());
+            }
+            if(null != searchCondition.getEndTime()){
+                criteria.andCreatetimeLessThanOrEqualTo(searchCondition.getEndTime());
+            }
             userCriteria.setOrderByClause(" createtime desc ");
             Integer count = userMapper.countByExample(userCriteria);
             if(count>0){
@@ -338,7 +333,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInfo> queryUserListApp(AuctionSearchCondition searchCondition,String currentPhone) {
+    public List<UserInfo> queryUserListApp(SearchCondition searchCondition, String currentPhone) {
         List<UserInfo> userInfoList = new ArrayList<>();
 
         Short type = 0;
@@ -400,7 +395,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInfo> queryMyCollection(AuctionSearchCondition searchCondition, String currentPhone) {
+    public List<UserInfo> queryMyCollection(SearchCondition searchCondition, String currentPhone) {
         List<UserInfo> userInfoList = new ArrayList<>();
 
         Short state = 1;
@@ -453,6 +448,19 @@ public class UserServiceImpl implements UserService {
             }
         }
         return userInfoList;
+    }
+
+    @Override
+    public UserInfo queryUserInfoByPhone(String phone,String currentPhone) {
+        UserInfo userInfo = null;
+        if(!StringUtils.isBlank(phone)){
+            User user = userVoMapper.queryUserByPhone(phone);
+            if(null != user){
+                //封装用户属性
+                userInfo = addUserExtAtrr(user,currentPhone);
+            }
+        }
+        return userInfo;
     }
 
     @Override
@@ -606,6 +614,53 @@ public class UserServiceImpl implements UserService {
         return phone;
     }
 
+    @Override
+    public JSONObject queryUserHomePage(SearchCondition condition, String currentPhone) {
+        JSONObject jsonObject = new JSONObject();
+
+        if(null != condition && null != condition.getUserId()){
+            User user = userMapper.selectByPrimaryKey(condition.getUserId());
+            if(null != user){
+                //查询该用户发布的微游记
+                condition.setPhone(user.getPhone());
+                List<MicroblogVo> list = microblogVoMapper.querySharedMicroblogList(condition);
+                if(!CollectionUtils.isEmpty(list)){
+                    for(MicroblogVo vo : list){
+                        microblogVoService.addMicroblogExtAttr(vo,currentPhone);
+                    }
+                }
+                //查询该用户发布行程分享
+                CustomizationCriteria criteria = new CustomizationCriteria();
+                criteria.createCriteria().andIsEnableEqualTo(true).andPhoneEqualTo(user.getPhone());
+                criteria.setOrderByClause("  createtime desc ");
+                List<Customization> customizationList = customizationMapper.selectByExample(criteria);
+
+                if(null != user){
+                    jsonObject.put("user",user);
+                }else{
+                    jsonObject.put("user","");
+                }
+                if(!CollectionUtils.isEmpty(list)){
+                    jsonObject.put("microblogList",list);
+                }else{
+                    jsonObject.put("microblogList","");
+                }
+                if(CollectionUtils.isEmpty(customizationList)){
+                    jsonObject.put("customizationList",customizationList);
+                }else{
+                    jsonObject.put("customizationList","");
+                }
+
+            }
+        }
+        return jsonObject;
+    }
+
+    /**
+     * @Description: 封装用户对象
+     * @param u
+     * @return
+     */
     private UserInfo packageUserInfo(User u){
         UserInfo userInfo = new UserInfo();
         if(null != u){
@@ -640,7 +695,7 @@ public class UserServiceImpl implements UserService {
         }
 
         //行程分享数量
-        AuctionSearchCondition journeyContion = new AuctionSearchCondition();
+        SearchCondition journeyContion = new SearchCondition();
         journeyContion.setUserId(u.getId());
         int journeyCount = journeyService.queryJourneyCount(journeyContion);
         userInfo.setJourneyNumber(journeyCount+"");
@@ -650,11 +705,13 @@ public class UserServiceImpl implements UserService {
         //定制数量
         int customCount = customizationService.countCustomization(journeyContion);
         userInfo.setCustomCount(customCount+"");
-        //当前用户是否收藏
+        //当前用户是否收藏、关注
         if(!StringUtils.isBlank(currentPhone)){
             userInfo.setIfCollection(ifCollectionUser(u.getPhone(),currentPhone));
+            userInfo.setIfAttention(attentionService.ifAttention(u.getPhone(),currentPhone));
         }else{
             userInfo.setIfCollection(false);
+            userInfo.setIfAttention(false);
         }
         return userInfo;
     }

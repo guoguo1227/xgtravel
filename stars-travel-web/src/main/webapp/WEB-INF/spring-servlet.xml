@@ -46,9 +46,9 @@
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8"/>
         <!-- 指定所上传文件的总大小不能超过200000KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
-        <property name="maxUploadSize" value="104857600"/>
+        <property name="maxUploadSize" value="10485760000"/>
         <property name="maxInMemorySize">
-            <value>1638400</value>
+            <value>40960</value>
         </property>
     </bean>
 
@@ -88,11 +88,11 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <!-- websocket -->
-    <!--<bean id="websocket" class="com.stars.travel.websocket.WebsocketEndPoint"/>
+    <bean id="websocket" class="com.stars.travel.websocket.WebsocketEndPoint"/>
     <websocket:handlers>
         <websocket:mapping path="/websocket" handler="websocket"/>
         <websocket:handshake-interceptors>
             <bean class="com.stars.travel.websocket.HandshakeInterceptor"/>
         </websocket:handshake-interceptors>
-    </websocket:handlers>-->
+    </websocket:handlers>
 </beans>

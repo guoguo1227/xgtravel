@@ -1,12 +1,14 @@
 package com.stars.travel.model.condition;
 
 
+import org.springframework.util.StringUtils;
+
 import java.util.*;
 
 /**
  * 搜索条件：通用
  */
-public class AuctionSearchCondition extends BaseSearchCondition {
+public class SearchCondition extends BaseSearchCondition {
 
     //搜索文字内容
     private String searchContent ;
@@ -29,6 +31,8 @@ public class AuctionSearchCondition extends BaseSearchCondition {
 
     private String type; //类型
 
+    private String searchType ;//查询类型
+
     private String orderByClause; //排列
 
     private String destination; //目的地
@@ -50,6 +54,43 @@ public class AuctionSearchCondition extends BaseSearchCondition {
     private String token ; //授权token
 
     private Boolean my; //我的
+
+    private Boolean attentionMe; //关注我的
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public Boolean getAttentionMe() {
+        return attentionMe;
+    }
+
+    public void setAttentionMe(Boolean attentionMe) {
+        this.attentionMe = attentionMe;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+        if(!StringUtils.isEmpty(searchType)){
+            switch (searchType){
+                case "userId":
+                    if(!StringUtils.isEmpty(this.searchContent)){
+                        Integer userId = Integer.parseInt(this.searchContent);
+                        this.userId = userId;
+                    }
+                    break;
+                case "name":
+                    this.name = this.searchContent;
+                    break;
+                case "phone":
+                    this.phone = this.searchContent;
+                    break;
+                case "email":
+                    this.email = this.searchContent;
+                    break;
+            }
+        }
+    }
 
     public Boolean getMy() {
         return my;

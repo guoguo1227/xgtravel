@@ -4,8 +4,9 @@ import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Permission;
 import com.stars.travel.model.base.Role;
 import com.stars.travel.model.base.User;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.UserInfo;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Date : 2015/12/22 22:47
  */
 public interface UserService {
+
     public User queryUserByPhoneNumber(String phone);
 
     public boolean deleteUserById(Integer id);
@@ -23,21 +25,25 @@ public interface UserService {
 
     public boolean modifyUserInfo(UserInfo userInfo) ;
 
-    public boolean saveUser(User user);
-
     public boolean modifyUser(User user);
 
     public User queryUserById(Integer userId) ;
 
-    public List<User> listAllUser() ;
-
     public List<Role> queryRoleListByUser(Integer useId);
 
-    public Page<UserInfo> queryUserInfo(AuctionSearchCondition searchCondition, String currentPhone);
+    public Page<UserInfo> queryUserInfo(SearchCondition searchCondition, String currentPhone);
 
-    public List<UserInfo> queryUserListApp(AuctionSearchCondition searchCondition, String currentPhone);
+    public List<UserInfo> queryUserListApp(SearchCondition searchCondition, String currentPhone);
 
-    public List<UserInfo> queryMyCollection(AuctionSearchCondition searchCondition, String currentPhone);
+    public List<UserInfo> queryMyCollection(SearchCondition searchCondition, String currentPhone);
+
+    /**
+     * @Description:根据phone查询用户信息
+     * @param phone 查询用户手机
+     * @param currentPhone 当前用户手机
+     * @return
+     */
+    public UserInfo queryUserInfoByPhone(String phone,String currentPhone);
 
     public List<Permission> queryPermissionListByRole(Integer roleId);
 
@@ -100,4 +106,11 @@ public interface UserService {
      * @return
      */
     public String queryPhoneByToken(String token);
+
+    /**
+     * @Description : 查询用户主页
+     * @param condition
+     * @return
+     */
+    public JSONObject queryUserHomePage(SearchCondition condition, String currentPhone);
 }

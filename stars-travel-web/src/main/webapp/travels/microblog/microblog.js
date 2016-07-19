@@ -107,7 +107,7 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             }
         };
 
-        var headerArray = ['微游记ID','标题','封面图','玩趣图','美食图','风景图','新奇图','创建时间','内容','描述','目的地','目的地描述','味道描述','结尾描述','封面图描述','玩趣图描述','美食图描述','风景图描述','新奇图描述','是否分享','点赞次数','操作'];
+        var headerArray = ['微游记ID','标题','封面图','玩趣图','美食图','风景图','新奇图','创建时间','内容','描述','目的地','目的地描述','味道描述','结尾描述','封面图描述','玩趣图描述','美食图描述','风景图描述','新奇图描述','是否分享','点赞次数','是否可用','操作'];
         lgDataTableService.setWidth($scope.tableData, undefined, [4,8],true);
         lgDataTableService.setHeadWithArrays($scope.tableData, [headerArray]);
         pageData = $scope.formatUserPageData(pageData);
@@ -135,7 +135,7 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             pg.endDescriptionStr = '<span style="word-wrap:break-word;">'+pg.endDescription+'</span>';
             pg.sceneryDescriptionStr = '<span style="word-wrap:break-word;">'+pg.sceneryDescription+'</span>';
             return pg;
-        }), ['id','titleStr','microblogpicture','microblogfunPicture','microblogfoodPicture','microblogsceneryPicture','microblognewnessPicture','createtime','content','description','destination','destDescriptionStr','novelDescriptionStr','endDescriptionStr','pictureDescription','funPictureDescription','foodPictureDescription','sceneryDescription','newnessPictureDescription','sharetimes','topCount','action']);
+        }), ['id','titleStr','microblogpicture','microblogfunPicture','microblogfoodPicture','microblogsceneryPicture','microblognewnessPicture','createtime','content','description','destination','destDescriptionStr','novelDescriptionStr','endDescriptionStr','pictureDescription','funPictureDescription','foodPictureDescription','sceneryDescription','newnessPictureDescription','sharetimes','topCount','isEnable','action']);
     };
 
     //按条件查询
@@ -238,6 +238,11 @@ function microblogCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                     pageData[i].isShared = '<font color="green">分享</font>';
                 }else{
                     pageData[i].isShared = "不分享";
+                }
+                if(pageData[i].isEnable == 1){
+                    pageData[i].isEnable = '<font color="green">可用</font>';
+                }else{
+                    pageData[i].isEnable = '<font color="red">已删除</font>';
                 }
             }
         }

@@ -9,7 +9,7 @@ import com.stars.travel.dao.base.mapper.MicroblogCollectionMapper;
 import com.stars.travel.dao.base.mapper.MicroblogMapper;
 import com.stars.travel.dao.ext.mapper.MicroblogVoMapper;
 import com.stars.travel.model.base.*;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
@@ -59,11 +59,11 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     private CommentMapper commentMapper;
 
     @Override
-    public Page<MicroblogVo> querySharedMicroblogVoPage(AuctionSearchCondition condition, String currentPhone) {
+    public Page<MicroblogVo> querySharedMicroblogVoPage(SearchCondition condition, String currentPhone) {
         Page<MicroblogVo> page = new Page<>();
         page.setPageSize(condition.getLimit());
         if(null != condition){
-            condition.setIfEnable(true); //可用
+            //condition.setIfEnable(true); //可用
             condition.setOrderByClause(" createtime desc");
             int count = countSharedMicroblogVoList(condition);
             if(count >0){
@@ -82,7 +82,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     }
 
     @Override
-    public List<MicroblogVo> querySharedMicroblogVoApp(AuctionSearchCondition condition,String currentPhone) {
+    public List<MicroblogVo> querySharedMicroblogVoApp(SearchCondition condition, String currentPhone) {
 
         List<MicroblogVo> list = null;
         if(null != condition){
@@ -105,6 +105,22 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     condition.setPhone(currentPhone);
                 }
             }
+            //他人的--phone
+            if(null != condition.getPhone()){
+                condition.setPhone(condition.getPhone());
+            }
+            //他人的-- userId
+            if(null != condition.getUserId()){
+                User user = userService.queryUserById(condition.getUserId());
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    condition.setPhone(user.getPhone());
+                }
+            }
+            condition.setIfEnable(true); //可用
+            //最热
+            if(condition.getIfHot()){
+                condition.setOrderByClause(" top_count desc "); //点赞倒序
+            }
             //排序
             condition.setOrderByClause(" id desc");
 
@@ -119,7 +135,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     }
 
     @Override
-    public List<MicroblogVo> queryMyCollection(AuctionSearchCondition condition, String currentPhone) {
+    public List<MicroblogVo> queryMyCollection(SearchCondition condition, String currentPhone) {
         List<MicroblogVo> list = null;
         List<Integer> ids = new ArrayList<>();
         if(null != condition){
@@ -164,7 +180,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     }
 
     @Override
-    public int countSharedMicroblogVoList(AuctionSearchCondition condition) {
+    public int countSharedMicroblogVoList(SearchCondition condition) {
         int count = 0;
         if(null != condition){
              count = microblogVoMapper.countSharedMicroblogList(condition);
@@ -425,7 +441,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
      * @param vo
      * @param currentPhone
      */
-    private void addMicroblogExtAttr(MicroblogVo vo,String currentPhone){
+    public void addMicroblogExtAttr(MicroblogVo vo,String currentPhone){
         //该用户是否对该行程评论
         boolean ifComment = false;
         //该用户是否收藏

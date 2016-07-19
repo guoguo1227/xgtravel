@@ -77,7 +77,7 @@
     </if>
 
   </sql>
-  <select id="queryCommentList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
+  <select id="queryCommentList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.SearchCondition" >
     select
     <include refid="commentSelectSQL"></include>
     ,
@@ -102,7 +102,7 @@
     </if>
   </select>
 
-  <select id="queryCommentCount" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.AuctionSearchCondition" >
+  <select id="queryCommentCount" resultType="java.lang.Integer"  parameterType="com.stars.travel.model.condition.SearchCondition" >
     select count(*)
     from root_comment comment
     <where >

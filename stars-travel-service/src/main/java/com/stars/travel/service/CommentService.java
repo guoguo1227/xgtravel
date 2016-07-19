@@ -2,7 +2,7 @@ package com.stars.travel.service;
 
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Comment;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 
 import java.util.List;
@@ -19,28 +19,28 @@ public interface CommentService {
      * @param condition
      * @return
      */
-    public Page<CommentVo> queryCommentPage(AuctionSearchCondition condition);
+    public Page<CommentVo> queryCommentPage(SearchCondition condition);
 
     /**
      * @Description : 查询评论列表-移动端
      * @param condition
      * @return
      */
-    public List<CommentVo> queryCommentListApp(AuctionSearchCondition condition);
+    public List<CommentVo> queryCommentListApp(SearchCondition condition);
 
     /**
      * @Description :　查询我的评论列表
      * @param condition
      * @return
      */
-    public List<CommentVo> queryMyCommentList(AuctionSearchCondition condition);
+    public List<CommentVo> queryMyCommentList(SearchCondition condition);
 
      /**
      * @Description : 查询评论数量
      * @param condition
      * @return
      */
-    public Integer queryCommentCount(AuctionSearchCondition condition);
+    public Integer queryCommentCount(SearchCondition condition);
 
     /**
      * @Description :添加评论

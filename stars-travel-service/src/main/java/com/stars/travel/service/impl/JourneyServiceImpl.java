@@ -7,7 +7,7 @@ import com.stars.common.utils.BeanUtilExt;
 import com.stars.travel.dao.base.mapper.*;
 import com.stars.travel.dao.ext.mapper.JourneyVoMapper;
 import com.stars.travel.model.base.*;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyDayVo;
 import com.stars.travel.model.ext.JourneyVo;
 import com.stars.travel.model.ext.RequestResult;
@@ -120,7 +120,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public Page<JourneyVo> queryJourneys(AuctionSearchCondition condition, String currentPhone) {
+    public Page<JourneyVo> queryJourneys(SearchCondition condition, String currentPhone) {
 
         Page<JourneyVo> page = new Page<>();
         page.setPageSize(condition.getLimit());
@@ -175,7 +175,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public List<JourneyVo> queryJourneyListApp(AuctionSearchCondition condition, String currentPhone) {
+    public List<JourneyVo> queryJourneyListApp(SearchCondition condition, String currentPhone) {
 
         List<JourneyVo> list = null;
         if(null != condition){
@@ -199,6 +199,14 @@ public class JourneyServiceImpl implements JourneyService {
                     condition.setPhone(currentPhone);
                 }
             }
+
+            //用户id
+            if(null != condition.getUserId()){
+                User user = userService.queryUserById(condition.getUserId());
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    condition.setPhone(user.getPhone());
+                }
+            }
             //排序
             condition.setOrderByClause(" id desc ");
             list = journeyVoMapper.queryJourneyVoList(condition);
@@ -212,7 +220,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public Page<JourneyVo> queryJourneyVos(AuctionSearchCondition condition,String currentPhone) {
+    public Page<JourneyVo> queryJourneyVos(SearchCondition condition, String currentPhone) {
         Page<JourneyVo> page  = new Page<>();
         List<JourneyVo> list = null;
         if(null != condition){
@@ -234,7 +242,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public Integer queryJourneyCount(AuctionSearchCondition condition) {
+    public Integer queryJourneyCount(SearchCondition condition) {
         int count = 0;
         if(null != condition){
             count = journeyVoMapper.countJourneyVo(condition);
@@ -402,7 +410,7 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
-    public List<JourneyVo> queryMyCollectList(AuctionSearchCondition condition, String currentPhone) {
+    public List<JourneyVo> queryMyCollectList(SearchCondition condition, String currentPhone) {
         List<JourneyVo> list = null;
         List<Integer> ids = new ArrayList<>();
         if(null != condition){

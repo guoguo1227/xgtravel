@@ -1,12 +1,13 @@
 package com.stars.travel.controller;
 import com.stars.common.utils.Page;
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping("user-page")
     @ResponseBody
-    public Object queryUserList(AuctionSearchCondition searchCondition){
+    public Object queryUserList(SearchCondition searchCondition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         String  userPhone = HttpSessionProvider.getSessionUserPhone();
@@ -58,7 +59,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping("user-list")
     @ResponseBody
-    public Object queryUserListAPP(AuctionSearchCondition condition){
+    public Object queryUserListAPP(SearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         String  userPhone = HttpSessionProvider.getSessionUserPhone();
@@ -83,7 +84,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping("mycollection")
     @ResponseBody
-    public Object queryMyCollection(AuctionSearchCondition condition){
+    public Object queryMyCollection(SearchCondition condition){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         String  userPhone = HttpSessionProvider.getSessionUserPhone();
@@ -108,7 +109,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping("detail")
     @ResponseBody
-    public Object queryUserDetailList(AuctionSearchCondition condition){
+    public Object queryUserDetailList(SearchCondition condition){
         RequestResult result = new RequestResult();
         if(null != condition && null != condition.getUserId()){
             result.setSuccess(true);
@@ -122,6 +123,34 @@ public class UserController extends BaseController{
             if(null != page && null != page.getPageData() && page.getPageData().size()>0){
                 result.setData(page.getPageData().get(0));
             }
+        }else{
+            result.setSuccess(false);
+            result.setMessage("id 不可为空");
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * @Description: 查询用户个人主页
+     * @param condition
+     * @return
+     */
+    @RequestMapping("homePage")
+    @ResponseBody
+    public Object queryUserHomePage(SearchCondition condition){
+        RequestResult result = new RequestResult();
+        if(null != condition && null != condition.getUserId()){
+            result.setSuccess(true);
+            String  userPhone = HttpSessionProvider.getSessionUserPhone();
+
+            //获取APP的token
+            if(!StringUtils.isBlank(condition.getToken())){
+                userPhone = userService.queryPhoneByToken(condition.getToken());
+            }
+
+            JSONObject object = userService.queryUserHomePage(condition,userPhone);
+            result.setSuccess(true);
+            result.setData(object);
         }else{
             result.setSuccess(false);
             result.setMessage("id 不可为空");
@@ -175,10 +204,10 @@ public class UserController extends BaseController{
             if(!StringUtils.isBlank(userInfo.getToken())){
                 phone = userService.queryPhoneByToken(userInfo.getToken());
             }
-            /*if(StringUtils.isBlank(phone)){
+            if(StringUtils.isBlank(phone)){
                 result.setMessage("请先登录。");
                 return gson.toJson(result);
-            }*/
+            }
             userInfo.setPhone(phone);
             boolean flag  = userService.modifyUserInfo(userInfo);
             result.setSuccess(flag);
@@ -203,10 +232,10 @@ public class UserController extends BaseController{
             if(!StringUtils.isBlank(userInfo.getToken())){
                 phone = userService.queryPhoneByToken(userInfo.getToken());
             }
-            /*if(StringUtils.isBlank(phone)){
+            if(StringUtils.isBlank(phone)){
                 result.setMessage("请先登录。");
                 return gson.toJson(result);
-            }*/
+            }
             boolean flag  = userService.modifyUserInfo(userInfo);
             result.setSuccess(flag);
             logger.info("更新用户信息,用户phone为:"+phone);
@@ -285,7 +314,7 @@ public class UserController extends BaseController{
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(!StringUtils.isBlank(phone)){
-            String  currentPhone = HttpSessionProvider.getSessionUserPhone();
+            String currentPhone = HttpSessionProvider.getSessionUserPhone();
             //获取APP的token
             if(!StringUtils.isBlank(token)){
                 currentPhone = userService.queryPhoneByToken(token);
@@ -303,7 +332,7 @@ public class UserController extends BaseController{
             boolean success = userService.collectionUser(phone,currentPhone);
             result.setSuccess(success);
         }else{
-            result.setMessage("当地人id不可为空");
+            result.setMessage("当地人phone不可为空");
         }
         return gson.toJson(result);
     }
@@ -326,7 +355,7 @@ public class UserController extends BaseController{
             boolean success = userService.uncollectionUser(phone,userPhone);
             result.setSuccess(success);
         }else{
-            result.setMessage("当地人id不可为空");
+            result.setMessage("当地人phone不可为空");
         }
         return gson.toJson(result);
     }

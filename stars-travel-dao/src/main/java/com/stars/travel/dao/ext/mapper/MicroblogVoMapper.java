@@ -1,7 +1,7 @@
 package com.stars.travel.dao.ext.mapper;
 
 
-import com.stars.travel.model.condition.AuctionSearchCondition;
+import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public interface MicroblogVoMapper {
      * @param param
      * @return
      */
-    public List<MicroblogVo> querySharedMicroblogList(AuctionSearchCondition param);
+    public List<MicroblogVo> querySharedMicroblogList(SearchCondition param);
 
     /**
      * @Description : 获取符合条件的微游记数量
      * @param param
      * @return
      */
-    public int countSharedMicroblogList(AuctionSearchCondition param);
+    public int countSharedMicroblogList(SearchCondition param);
 }
