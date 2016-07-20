@@ -4,6 +4,8 @@ import com.stars.travel.dao.base.mapper.MicroblogMapper;
 import com.stars.travel.model.base.MicroblogCriteria;
 import com.stars.travel.model.base.MicroblogWithBLOBs;
 import com.stars.travel.service.MicroblogService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @Service
 public class MicroblogServiceImpl implements MicroblogService {
 
+    @Autowired
     private MicroblogMapper microblogMapper;
 
     @Override

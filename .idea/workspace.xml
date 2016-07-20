@@ -30,11 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AttentionServiceImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AttentionServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/AttentionServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8452381">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MicroblogController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/MicroblogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,22 +52,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/CommentServiceImpl.java">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.4">
-              <caret line="60" column="35" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JourneyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/JourneyServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.433333">
-              <caret line="204" column="53" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="53" />
-              <folding />
+            <state vertical-scroll-proportion="0.51910114">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,19 +67,41 @@
       <file leaf-file-name="MicroblogServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="22.166666">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MicroblogVoServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogVoServiceImpl.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.933333">
-              <caret line="123" column="10" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="10" />
-              <folding />
+            <state vertical-scroll-proportion="-7.7">
+              <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+              <folding>
+                <marker date="1469021581601" expanded="true" signature="59:132666" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="96:242" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="281:1189" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1321:1378" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1495:1553" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1592:2988" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1634:2988" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1728:2229" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1863:2215" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1929:2198" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="1982:2176" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="2322:2906" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="2450:2892" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="2516:2875" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="2569:2853" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="2743:2832" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="129889:129906" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="129889:129924" placeholder="..." />
+                <marker date="1469021581601" expanded="true" signature="129889:129937" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +119,7 @@
       <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/UserServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.8333335">
+            <state vertical-scroll-proportion="0.0">
               <caret line="227" column="35" selection-start-line="227" selection-start-column="35" selection-end-line="227" selection-end-column="35" />
               <folding />
             </state>
@@ -152,8 +176,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/stars-travel-dao/src/main/java/com/stars/travel/dao/ext/mapper/CommentVoMapper.xml" />
-        <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/realm/ShiroDbRealm.java" />
         <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UploadController.java" />
         <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/constant/CommentConstant.java" />
         <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/LoginController.java" />
@@ -196,13 +218,15 @@
         <option value="$PROJECT_DIR$/stars-travel-dao/src/main/java/com/stars/travel/enums/AttentionEnum.java" />
         <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/AttentionController.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/AttentionService.java" />
-        <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java" />
         <option value="$PROJECT_DIR$/stars-travel-dao/src/main/java/com/stars/travel/model/ext/UserInfo.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogVoServiceImpl.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/CustomizationServiceImpl.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/JourneyServiceImpl.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/AttentionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogServiceImpl.java" />
+        <option value="$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java" />
       </list>
     </option>
   </component>
@@ -257,7 +281,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1042,9 +1065,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stars-travel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xgtravel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stars-travel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xgtravel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1662,11 +1714,12 @@
       <workItem from="1468412895441" duration="2320000" />
       <workItem from="1468847058900" duration="7812000" />
       <workItem from="1468933274449" duration="11563000" />
+      <workItem from="1469020411361" duration="1110000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217118000" />
+    <option name="totallyTimeSpent" value="218228000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1679,11 +1732,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29411766" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1691,7 +1743,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09286899" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23366013" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.62908494" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2254902" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28668684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1702,6 +1754,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4640523" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29411766" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8627451" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1781,13 +1834,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java</url>
-          <line>140</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java</url>
-          <line>157</line>
+          <line>171</line>
           <properties />
           <option name="timeStamp" value="124" />
         </line-breakpoint>
@@ -1816,14 +1869,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/resources/ehcache-shiro.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/applicationContext-shiro.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1946,7 +1991,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.9636364">
           <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1954,7 +1998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6037736">
           <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1962,9 +2005,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49367088">
           <caret line="100" column="21" selection-start-line="100" selection-start-column="15" selection-end-line="100" selection-end-column="21" />
-          <folding>
-            <marker date="1468859581524" expanded="true" signature="3471:3516" placeholder="select count... root_comment" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1972,12 +2013,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10806175">
           <caret line="6" column="26" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="26" />
-          <folding>
-            <element signature="e#352#353#0" expanded="true" />
-            <element signature="e#386#387#0" expanded="true" />
-            <element signature="e#717#718#0" expanded="true" />
-            <element signature="e#746#747#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1985,15 +2020,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5334608">
           <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-          <folding>
-            <marker date="1468859509822" expanded="true" signature="4298:4470" placeholder="select from root_attention" />
-            <marker date="1468859509822" expanded="true" signature="4580:4706" placeholder="delete from " />
-            <marker date="1468859509822" expanded="true" signature="4818:4844" placeholder="delete from " />
-            <marker date="1468859509822" expanded="true" signature="7568:7603" placeholder="select count... root_attention" />
-            <marker date="1468859509822" expanded="true" signature="9121:9699" placeholder="update root_... " />
-            <marker date="1468859509822" expanded="true" signature="9918:10858" placeholder="update root_... " />
-            <marker date="1468859509822" expanded="true" signature="10965:11479" placeholder="update root_... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2012,7 +2038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2020,7 +2045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="5" selection-start-line="9" selection-start-column="4" selection-end-line="60" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2028,10 +2052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3327616">
           <caret line="27" column="29" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="29" />
-          <folding>
-            <element signature="e#516#517#0" expanded="false" />
-            <element signature="e#548#549#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2052,9 +2072,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="25" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2062,30 +2079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.75643224">
           <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-          <folding>
-            <element signature="e#1300#1301#0" expanded="true" />
-            <element signature="e#1334#1335#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
-            <element signature="e#1435#1436#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="211" column="45" selection-start-line="211" selection-start-column="45" selection-end-line="211" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/MicroblogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="64" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2159,7 +2152,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/CommentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.4">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="35" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
           <folding />
         </state>
@@ -2175,16 +2168,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/JourneyServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.433333">
+        <state vertical-scroll-proportion="0.0">
           <caret line="204" column="53" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="22.166666">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -2193,15 +2178,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.835443">
           <caret line="114" column="9" selection-start-line="114" selection-start-column="9" selection-end-line="114" selection-end-column="9" />
-          <folding>
-            <marker date="1468859581455" expanded="true" signature="6367:6416" placeholder="select count... root_microblog" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogVoServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.933333">
+        <state vertical-scroll-proportion="0.0">
           <caret line="123" column="10" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="10" />
           <folding />
         </state>
@@ -2209,7 +2192,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.8333335">
+        <state vertical-scroll-proportion="0.0">
           <caret line="227" column="35" selection-start-line="227" selection-start-column="35" selection-end-line="227" selection-end-column="35" />
           <folding />
         </state>
@@ -2249,8 +2232,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/AttentionServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8452381">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/MicroblogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.7">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding>
+            <marker date="1469021581601" expanded="true" signature="59:132666" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="96:242" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="281:1189" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1321:1378" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1495:1553" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1592:2988" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1634:2988" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1728:2229" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1863:2215" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1929:2198" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="1982:2176" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="2322:2906" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="2450:2892" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="2516:2875" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="2569:2853" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="2743:2832" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="129889:129906" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="129889:129924" placeholder="..." />
+            <marker date="1469021581601" expanded="true" signature="129889:129937" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/java/com/stars/travel/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51910114">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
