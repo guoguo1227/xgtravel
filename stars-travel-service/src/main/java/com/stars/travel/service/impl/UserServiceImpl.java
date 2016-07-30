@@ -606,7 +606,7 @@ public class UserServiceImpl implements UserService {
             UserCriteria userCriteria = new UserCriteria();
             userCriteria.createCriteria().andOauthidEqualTo(token);
             List<User> users = userMapper.selectByExample(userCriteria);
-            if(null != users && users.size()>0){
+            if(!CollectionUtils.isEmpty(users)){
                 User user = users.get(0);
                 phone = user.getPhone();
             }
@@ -713,6 +713,8 @@ public class UserServiceImpl implements UserService {
             userInfo.setIfCollection(false);
             userInfo.setIfAttention(false);
         }
+        //被关注数
+        userInfo.setAttentionCount(attentionService.attentionCount(u.getPhone())+"");
         return userInfo;
     }
 

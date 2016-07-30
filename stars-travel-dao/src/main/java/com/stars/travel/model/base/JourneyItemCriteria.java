@@ -380,73 +380,123 @@ public class JourneyItemCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andTimeIsNull() {
-            addCriterion("time is null");
+        public Criteria andStarttimeIsNull() {
+            addCriterion("starttime is null");
             return (Criteria) this;
         }
 
-        public Criteria andTimeIsNotNull() {
-            addCriterion("time is not null");
+        public Criteria andStarttimeIsNotNull() {
+            addCriterion("starttime is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTimeEqualTo(String value) {
-            addCriterion("time =", value, "time");
+        public Criteria andStarttimeEqualTo(Date value) {
+            addCriterion("starttime =", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeNotEqualTo(String value) {
-            addCriterion("time <>", value, "time");
+        public Criteria andStarttimeNotEqualTo(Date value) {
+            addCriterion("starttime <>", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeGreaterThan(String value) {
-            addCriterion("time >", value, "time");
+        public Criteria andStarttimeGreaterThan(Date value) {
+            addCriterion("starttime >", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeGreaterThanOrEqualTo(String value) {
-            addCriterion("time >=", value, "time");
+        public Criteria andStarttimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("starttime >=", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeLessThan(String value) {
-            addCriterion("time <", value, "time");
+        public Criteria andStarttimeLessThan(Date value) {
+            addCriterion("starttime <", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeLessThanOrEqualTo(String value) {
-            addCriterion("time <=", value, "time");
+        public Criteria andStarttimeLessThanOrEqualTo(Date value) {
+            addCriterion("starttime <=", value, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeLike(String value) {
-            addCriterion("time like", value, "time");
+        public Criteria andStarttimeIn(List<Date> values) {
+            addCriterion("starttime in", values, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeNotLike(String value) {
-            addCriterion("time not like", value, "time");
+        public Criteria andStarttimeNotIn(List<Date> values) {
+            addCriterion("starttime not in", values, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeIn(List<String> values) {
-            addCriterion("time in", values, "time");
+        public Criteria andStarttimeBetween(Date value1, Date value2) {
+            addCriterion("starttime between", value1, value2, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeNotIn(List<String> values) {
-            addCriterion("time not in", values, "time");
+        public Criteria andStarttimeNotBetween(Date value1, Date value2) {
+            addCriterion("starttime not between", value1, value2, "starttime");
             return (Criteria) this;
         }
 
-        public Criteria andTimeBetween(String value1, String value2) {
-            addCriterion("time between", value1, value2, "time");
+        public Criteria andEndtimeIsNull() {
+            addCriterion("endtime is null");
             return (Criteria) this;
         }
 
-        public Criteria andTimeNotBetween(String value1, String value2) {
-            addCriterion("time not between", value1, value2, "time");
+        public Criteria andEndtimeIsNotNull() {
+            addCriterion("endtime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeEqualTo(Date value) {
+            addCriterion("endtime =", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotEqualTo(Date value) {
+            addCriterion("endtime <>", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeGreaterThan(Date value) {
+            addCriterion("endtime >", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("endtime >=", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeLessThan(Date value) {
+            addCriterion("endtime <", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeLessThanOrEqualTo(Date value) {
+            addCriterion("endtime <=", value, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeIn(List<Date> values) {
+            addCriterion("endtime in", values, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotIn(List<Date> values) {
+            addCriterion("endtime not in", values, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeBetween(Date value1, Date value2) {
+            addCriterion("endtime between", value1, value2, "endtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndtimeNotBetween(Date value1, Date value2) {
+            addCriterion("endtime not between", value1, value2, "endtime");
             return (Criteria) this;
         }
 
@@ -600,62 +650,52 @@ public class JourneyItemCriteria implements BaseCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andBudgetEqualTo(String value) {
+        public Criteria andBudgetEqualTo(Integer value) {
             addCriterion("budget =", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetNotEqualTo(String value) {
+        public Criteria andBudgetNotEqualTo(Integer value) {
             addCriterion("budget <>", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetGreaterThan(String value) {
+        public Criteria andBudgetGreaterThan(Integer value) {
             addCriterion("budget >", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetGreaterThanOrEqualTo(String value) {
+        public Criteria andBudgetGreaterThanOrEqualTo(Integer value) {
             addCriterion("budget >=", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetLessThan(String value) {
+        public Criteria andBudgetLessThan(Integer value) {
             addCriterion("budget <", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetLessThanOrEqualTo(String value) {
+        public Criteria andBudgetLessThanOrEqualTo(Integer value) {
             addCriterion("budget <=", value, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetLike(String value) {
-            addCriterion("budget like", value, "budget");
-            return (Criteria) this;
-        }
-
-        public Criteria andBudgetNotLike(String value) {
-            addCriterion("budget not like", value, "budget");
-            return (Criteria) this;
-        }
-
-        public Criteria andBudgetIn(List<String> values) {
+        public Criteria andBudgetIn(List<Integer> values) {
             addCriterion("budget in", values, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetNotIn(List<String> values) {
+        public Criteria andBudgetNotIn(List<Integer> values) {
             addCriterion("budget not in", values, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetBetween(String value1, String value2) {
+        public Criteria andBudgetBetween(Integer value1, Integer value2) {
             addCriterion("budget between", value1, value2, "budget");
             return (Criteria) this;
         }
 
-        public Criteria andBudgetNotBetween(String value1, String value2) {
+        public Criteria andBudgetNotBetween(Integer value1, Integer value2) {
             addCriterion("budget not between", value1, value2, "budget");
             return (Criteria) this;
         }

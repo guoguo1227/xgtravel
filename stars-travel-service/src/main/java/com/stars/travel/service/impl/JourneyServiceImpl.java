@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -55,6 +56,42 @@ public class JourneyServiceImpl implements JourneyService {
 
     @Autowired
     private UserService userService;
+
+    @Override
+    public RequestResult addJourneyDetail(JourneyVo journeyVo) {
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+        Date nowDate = new Date();
+        if(null != journeyVo && !CollectionUtils.isEmpty(journeyVo.getJourneyDayVoList())){
+            //添加行程基本属性
+            Journey journey = addJourney(journeyVo);
+            journey.setTotalday(journeyVo.getJourneyDayVoList().size());
+            if(null != journey && null != journey.getId()){
+                //添加每天属性
+                for(JourneyDayVo journeyDayVo: journeyVo.getJourneyDayVoList()){
+                    JourneyDay journeyDay = new JourneyDay();
+                    journeyDay.setJourneyId(journey.getId()); //行程id
+                    journeyDay.setCurrentDay(journeyDayVo.getCurrentDay());
+                    journeyDay.setCreatetime(nowDate);
+                    int i = journeyDayMapper.insertSelective(journeyDay);
+                    //添加每天事件
+                    if(i>0){
+                        if(!CollectionUtils.isEmpty(journeyDayVo.getJourneyItemVoList())){
+                            for(JourneyItem item : journeyDayVo.getJourneyItemVoList()){
+                                item.setJourneyDayId(journeyDay.getId()); //每天行程id
+                                item.setCreatetime(nowDate);
+                                journeyItemMapper.insertSelective(item);
+                            }
+                        }
+                    }
+                }
+                result.setSuccess(true);
+            }
+        }else{
+            result.setMessage("行程分享不可为空");
+        }
+        return result;
+    }
 
     @Override
     public JourneyVo addJourney(JourneyVo journeyVo) {
@@ -138,11 +175,11 @@ public class JourneyServiceImpl implements JourneyService {
             }
             //是否最新
             if(null != condition.getIfNew() && condition.getIfNew() == true){
-                criteria.setOrderByClause(" createtime desc");
+                criteria.setOrderByClause(" journey.createtime desc");
             }
             //是否最热
             if(null != condition.getIfHot() && condition.getIfHot() == true){
-                criteria.setOrderByClause(" top desc ");
+                criteria.setOrderByClause(" journey.top desc ");
             }
             //用户手机
             if(!StringUtils.isBlank(condition.getPhone())){
@@ -225,7 +262,7 @@ public class JourneyServiceImpl implements JourneyService {
         List<JourneyVo> list = null;
         if(null != condition){
             condition.setIfEnable(true);
-            condition.setOrderByClause(" createtime desc ");
+            condition.setOrderByClause(" journey.createtime desc ");
             int count = journeyVoMapper.countJourneyVo(condition);
             if(count>0){
                 list = journeyVoMapper.queryJourneyVoList(condition);

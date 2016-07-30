@@ -123,6 +123,16 @@
         and microblog.id < #{idLessThan}
       ]]>
     </if>
+    <!-- 点赞大于 -->
+    <if test="topGreaterThan != null" >
+      and microblog.top_count > #{topGreaterThan}
+    </if>
+    <!--点赞小于 -->
+    <if test="topLessTan != null" >
+      <![CDATA[
+        and microblog.top_count < #{topLessTan}
+      ]]>
+    </if>
   </sql>
   <select id="querySharedMicroblogList" resultMap="BaseResultMap"  parameterType="com.stars.travel.model.condition.SearchCondition" >
     select
@@ -137,13 +147,10 @@
       <include refid="whereBaseSQL"></include>
     </where>
 
-  <!--  <if test="orderByClause != null" >
-      order by #{orderByClause}
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
     </if>
--->
-    order by microblog.id desc
     limit #{limit}
-
     <if test="offset != null" >
       offset #{offset}
     </if>

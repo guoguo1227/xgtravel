@@ -15,6 +15,10 @@ public class Journey implements BaseBean {
 
     private Date updatetime;
 
+    private Date endtime;
+
+    private Date starttime;
+
     private Boolean isEnable;
 
     private Boolean isShared;
@@ -25,7 +29,7 @@ public class Journey implements BaseBean {
 
     private String title;
 
-    private String budget;
+    private Integer budget;
 
     private Integer totalday;
 
@@ -75,6 +79,22 @@ public class Journey implements BaseBean {
         this.updatetime = updatetime;
     }
 
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
+
+    public Date getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+    }
+
     public Boolean getIsEnable() {
         return isEnable;
     }
@@ -115,12 +135,12 @@ public class Journey implements BaseBean {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getBudget() {
+    public Integer getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
-        this.budget = budget == null ? null : budget.trim();
+    public void setBudget(Integer budget) {
+        this.budget = budget;
     }
 
     public Integer getTotalday() {
@@ -166,6 +186,8 @@ public class Journey implements BaseBean {
         bean.setName(getName());
         bean.setCreatetime(getCreatetime());
         bean.setUpdatetime(getUpdatetime());
+        bean.setEndtime(getEndtime());
+        bean.setStarttime(getStarttime());
         bean.setIsEnable(getIsEnable());
         bean.setIsShared(getIsShared());
         bean.setTopCount(getTopCount());
@@ -190,6 +212,8 @@ public class Journey implements BaseBean {
         	", name:" + getName() + 
         	", createtime:" + getCreatetime() + 
         	", updatetime:" + getUpdatetime() + 
+        	", endtime:" + getEndtime() + 
+        	", starttime:" + getStarttime() + 
         	", isEnable:" + getIsEnable() + 
         	", isShared:" + getIsShared() + 
         	", topCount:" + getTopCount() + 

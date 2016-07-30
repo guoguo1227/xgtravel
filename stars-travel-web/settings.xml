@@ -10,23 +10,6 @@
 <pluginGroups>
     <pluginGroup>org.mortbay.jetty</pluginGroup>      
 </pluginGroups>
-<servers>
-    <server>
-      <id>releases</id>
-      <username>gim</username>
-      <password>gim702</password>
-    </server>
-    <server>
-      <id>snapshots</id>
-      <username>soul</username>
-      <password>soul1234</password>
-    </server>
-	<server>
-      <id>nexus</id>
-      <username>soul</username>
-      <password>soul1234</password>
-    </server>	
-</servers>
 
 <mirrors>
 	<!--配置仓库镜像-->
@@ -34,7 +17,7 @@
 	  <id>nexus</id>
 	  <mirrorOf>*</mirrorOf>
 	  <name>Human Readable Name for this Mirror.</name>
-	  <url>http://nexus.lagou.com/content/groups/public/</url>
+	  <url>http://repo1.maven.org/maven2/</url>
 	</mirror>
 	
 </mirrors>

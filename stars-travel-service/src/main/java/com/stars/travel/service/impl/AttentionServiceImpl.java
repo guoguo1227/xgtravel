@@ -46,7 +46,7 @@ public class AttentionServiceImpl implements AttentionService{
             List<Attention> list = attentionMapper.selectByExample(criteria);
             if(!CollectionUtils.isEmpty(list)){
                 for(Attention a : list){
-                    a.setIsDelete(true);
+                    a.setIsDelete(false);
                     a.setUpdatetime(nowDate);
                     int j = attentionMapper.updateByPrimaryKeySelective(a);
                     if(j>0){
@@ -117,6 +117,17 @@ public class AttentionServiceImpl implements AttentionService{
     }
 
     @Override
+    public Integer attentionCount(String phone) {
+        Integer count = 0;
+        AttentionCriteria criteria = new AttentionCriteria();
+        criteria.createCriteria().andRelatePhoneEqualTo(phone)
+                .andTypeEqualTo(AttentionEnum.USER.getCode()).andIsDeleteEqualTo(false);
+        count = attentionMapper.countByExample(criteria);
+
+        return count;
+    }
+
+    @Override
     public List<UserInfo> queryAttetionApp(SearchCondition condition, String currentPhone) {
 
         List<UserInfo> userInfoList = null;
@@ -125,7 +136,7 @@ public class AttentionServiceImpl implements AttentionService{
         AttentionCriteria.Criteria attentionCriteria = criteria.createCriteria();
         if(null != condition && !StringUtils.isBlank(currentPhone)){
             //我的关注
-            if(condition.getMy()){
+            if(null != condition.getMy() && condition.getMy()){
                 attentionCriteria.andCurrentPhoneEqualTo(currentPhone);
             }
 

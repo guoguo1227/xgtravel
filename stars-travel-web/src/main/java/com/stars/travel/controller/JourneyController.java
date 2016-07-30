@@ -12,6 +12,7 @@ import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 
+//import net.sf.json.JSONArray;
 /**
  * Description : 行程管理控制器
  * Author : guo
@@ -277,6 +279,43 @@ public class JourneyController extends BaseController{
         }
         result.setSuccess(flag);
         return gson.toJson(result);
+    }
+
+    /**
+     * @Description:添加行程
+     * @return
+     */
+    @RequestMapping("add-journeyDatail")
+    @ResponseBody
+    public Object addJourneyDetail(String journeyVo,String token){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        String userPhone = HttpSessionProvider.getSessionUserPhone();
+        //获取APP的token
+        if(!StringUtils.isBlank(token)){
+            userPhone = userService.queryPhoneByToken(token);
+        }
+        if(StringUtils.isBlank(userPhone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
+        if(StringUtils.isBlank(journeyVo)){
+            result.setMessage("行程不可我空");
+            return gson.toJson(result);
+        }
+        JourneyVo vo = gson.fromJson(journeyVo,JourneyVo.class);
+        if(null != vo){
+            vo.setPhone(userPhone);
+            RequestResult requestResult = journeyService.addJourneyDetail(vo);
+            result.setSuccess(requestResult.getSuccess());
+            result.setMessage(requestResult.getMessage());
+        }else{
+            result.setMessage("行程不可为空");
+        }
+
+        return result;
     }
 
     /**

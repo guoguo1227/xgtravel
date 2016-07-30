@@ -18,6 +18,13 @@ import java.util.List;
 public interface JourneyService {
 
     /**
+     * @Description:添加行程分享，同时添加每天行程和具体安排
+     * @param journeyVo
+     * @return
+     */
+    public RequestResult addJourneyDetail(JourneyVo journeyVo);
+
+    /**
      * @Description : 添加行程分享
      * @param journeyVo
      * @return

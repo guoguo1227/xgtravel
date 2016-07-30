@@ -7,12 +7,14 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
     <result column="is_shared" property="isShared" jdbcType="BIT" />
     <result column="top_count" property="topCount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="SMALLINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="INTEGER" />
     <result column="totalday" property="totalday" jdbcType="INTEGER" />
     <result column="destination" property="destination" jdbcType="VARCHAR" />
     <result column="sharetimes" property="sharetimes" jdbcType="INTEGER" />
@@ -81,8 +83,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, name, createtime, updatetime, is_enable, is_shared, top_count, status, 
-    title, budget, totalday, destination, sharetimes, cover_image
+    id, phone, name, createtime, updatetime, endtime, starttime, is_enable, is_shared, 
+    top_count, status, title, budget, totalday, destination, sharetimes, cover_image
   </sql>
   <sql id="Blob_Column_List" >
     description, content
@@ -148,17 +150,19 @@
       SELECT @@IDENTITY
     </selectKey>
     insert into root_journey (phone, name, createtime, 
-      updatetime, is_enable, is_shared, 
-      top_count, status, title, 
-      budget, totalday, destination, 
-      sharetimes, cover_image, description, 
-      content)
+      updatetime, endtime, starttime, 
+      is_enable, is_shared, top_count, 
+      status, title, budget, 
+      totalday, destination, sharetimes, 
+      cover_image, description, content
+      )
     values (#{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, 
-      #{topCount,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
-      #{budget,jdbcType=VARCHAR}, #{totalday,jdbcType=INTEGER}, #{destination,jdbcType=VARCHAR}, 
-      #{sharetimes,jdbcType=INTEGER}, #{coverImage,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{updatetime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{isEnable,jdbcType=BIT}, #{isShared,jdbcType=BIT}, #{topCount,jdbcType=INTEGER}, 
+      #{status,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, #{budget,jdbcType=INTEGER}, 
+      #{totalday,jdbcType=INTEGER}, #{destination,jdbcType=VARCHAR}, #{sharetimes,jdbcType=INTEGER}, 
+      #{coverImage,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.JourneyWithBLOBs" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -177,6 +181,12 @@
       </if>
       <if test="updatetime != null" >
         updatetime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="starttime != null" >
+        starttime,
       </if>
       <if test="isEnable != null" >
         is_enable,
@@ -228,6 +238,12 @@
       <if test="updatetime != null" >
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
       <if test="isEnable != null" >
         #{isEnable,jdbcType=BIT},
       </if>
@@ -244,7 +260,7 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="budget != null" >
-        #{budget,jdbcType=VARCHAR},
+        #{budget,jdbcType=INTEGER},
       </if>
       <if test="totalday != null" >
         #{totalday,jdbcType=INTEGER},
@@ -290,6 +306,12 @@
       <if test="record.updatetime != null" >
         updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.starttime != null" >
+        starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.isEnable != null" >
         is_enable = #{record.isEnable,jdbcType=BIT},
       </if>
@@ -306,7 +328,7 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.budget != null" >
-        budget = #{record.budget,jdbcType=VARCHAR},
+        budget = #{record.budget,jdbcType=INTEGER},
       </if>
       <if test="record.totalday != null" >
         totalday = #{record.totalday,jdbcType=INTEGER},
@@ -338,12 +360,14 @@
       name = #{record.name,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
       is_shared = #{record.isShared,jdbcType=BIT},
       top_count = #{record.topCount,jdbcType=INTEGER},
       status = #{record.status,jdbcType=SMALLINT},
       title = #{record.title,jdbcType=VARCHAR},
-      budget = #{record.budget,jdbcType=VARCHAR},
+      budget = #{record.budget,jdbcType=INTEGER},
       totalday = #{record.totalday,jdbcType=INTEGER},
       destination = #{record.destination,jdbcType=VARCHAR},
       sharetimes = #{record.sharetimes,jdbcType=INTEGER},
@@ -361,12 +385,14 @@
       name = #{record.name,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
       is_enable = #{record.isEnable,jdbcType=BIT},
       is_shared = #{record.isShared,jdbcType=BIT},
       top_count = #{record.topCount,jdbcType=INTEGER},
       status = #{record.status,jdbcType=SMALLINT},
       title = #{record.title,jdbcType=VARCHAR},
-      budget = #{record.budget,jdbcType=VARCHAR},
+      budget = #{record.budget,jdbcType=INTEGER},
       totalday = #{record.totalday,jdbcType=INTEGER},
       destination = #{record.destination,jdbcType=VARCHAR},
       sharetimes = #{record.sharetimes,jdbcType=INTEGER},
@@ -390,6 +416,12 @@
       <if test="updatetime != null" >
         updatetime = #{updatetime,jdbcType=TIMESTAMP},
       </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
       <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=BIT},
       </if>
@@ -406,7 +438,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="budget != null" >
-        budget = #{budget,jdbcType=VARCHAR},
+        budget = #{budget,jdbcType=INTEGER},
       </if>
       <if test="totalday != null" >
         totalday = #{totalday,jdbcType=INTEGER},
@@ -435,12 +467,14 @@
       name = #{name,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
       is_shared = #{isShared,jdbcType=BIT},
       top_count = #{topCount,jdbcType=INTEGER},
       status = #{status,jdbcType=SMALLINT},
       title = #{title,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=VARCHAR},
+      budget = #{budget,jdbcType=INTEGER},
       totalday = #{totalday,jdbcType=INTEGER},
       destination = #{destination,jdbcType=VARCHAR},
       sharetimes = #{sharetimes,jdbcType=INTEGER},
@@ -455,12 +489,14 @@
       name = #{name,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
       is_enable = #{isEnable,jdbcType=BIT},
       is_shared = #{isShared,jdbcType=BIT},
       top_count = #{topCount,jdbcType=INTEGER},
       status = #{status,jdbcType=SMALLINT},
       title = #{title,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=VARCHAR},
+      budget = #{budget,jdbcType=INTEGER},
       totalday = #{totalday,jdbcType=INTEGER},
       destination = #{destination,jdbcType=VARCHAR},
       sharetimes = #{sharetimes,jdbcType=INTEGER},

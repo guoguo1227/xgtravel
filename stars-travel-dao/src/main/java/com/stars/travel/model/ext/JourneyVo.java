@@ -25,6 +25,8 @@ public class JourneyVo extends JourneyWithBLOBs {
 
     private String token;  //APP授权token
 
+    List<JourneyDayVo> journeyDayVoList = new ArrayList<>(); //
+
     public boolean isIfComment() {
         return ifComment;
     }
@@ -48,8 +50,6 @@ public class JourneyVo extends JourneyWithBLOBs {
     public void setIfTop(boolean ifTop) {
         this.ifTop = ifTop;
     }
-
-    List<JourneyDayVo> journeyDayVoList = new ArrayList<>();
 
     public String getToken() {
         return token;

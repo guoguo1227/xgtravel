@@ -1,6 +1,5 @@
 package com.stars.travel.service;
 
-import com.stars.travel.model.base.Attention;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.UserInfo;
 
@@ -36,6 +35,13 @@ public interface AttentionService {
      * @return
      */
     public boolean ifAttention(String relatePhone,String currentPhone);
+
+    /**
+     * @Description:被关注次数
+     * @param phone
+     * @return
+     */
+    public Integer attentionCount(String phone);
     /**
      * @Description:查询关注列表
      * @param condition

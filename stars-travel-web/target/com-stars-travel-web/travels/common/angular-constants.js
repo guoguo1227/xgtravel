@@ -18,4 +18,10 @@ angular.module('angular-constants', []).service('angularMeta', function($http){
     };
     this.postCfg = postCfg;
 
+    var postCfgJSON = {
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'},
+        transformRequest: transFn
+    };
+    this.postCfgJSON = postCfgJSON;
+
 });

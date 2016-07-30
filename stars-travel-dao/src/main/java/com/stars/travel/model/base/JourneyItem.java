@@ -13,13 +13,15 @@ public class JourneyItem implements BaseBean {
 
     private Date createtime;
 
-    private String time;
+    private Date starttime;
+
+    private Date endtime;
 
     private String title;
 
     private String description;
 
-    private String budget;
+    private Integer budget;
 
     private Boolean isEnable;
 
@@ -57,12 +59,20 @@ public class JourneyItem implements BaseBean {
         this.createtime = createtime;
     }
 
-    public String getTime() {
-        return time;
+    public Date getStarttime() {
+        return starttime;
     }
 
-    public void setTime(String time) {
-        this.time = time == null ? null : time.trim();
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
     }
 
     public String getTitle() {
@@ -81,12 +91,12 @@ public class JourneyItem implements BaseBean {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getBudget() {
+    public Integer getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
-        this.budget = budget == null ? null : budget.trim();
+    public void setBudget(Integer budget) {
+        this.budget = budget;
     }
 
     public Boolean getIsEnable() {
@@ -115,7 +125,8 @@ public class JourneyItem implements BaseBean {
         bean.setJourneyDayId(getJourneyDayId());
         bean.setItemtype(getItemtype());
         bean.setCreatetime(getCreatetime());
-        bean.setTime(getTime());
+        bean.setStarttime(getStarttime());
+        bean.setEndtime(getEndtime());
         bean.setTitle(getTitle());
         bean.setDescription(getDescription());
         bean.setBudget(getBudget());
@@ -134,7 +145,8 @@ public class JourneyItem implements BaseBean {
         	", journeyDayId:" + getJourneyDayId() + 
         	", itemtype:" + getItemtype() + 
         	", createtime:" + getCreatetime() + 
-        	", time:" + getTime() + 
+        	", starttime:" + getStarttime() + 
+        	", endtime:" + getEndtime() + 
         	", title:" + getTitle() + 
         	", description:" + getDescription() + 
         	", budget:" + getBudget() + 

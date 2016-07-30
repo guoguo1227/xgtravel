@@ -202,6 +202,27 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
                 }
             });
     }
+    $scope.test = function(){
+        $scope.journey = {title:"这是的我的行程",description:"蔚蓝之旅",totalday:3,budget:3000,journeyDayVoList:[]};
+
+        for(var i=1;i<3;i++){
+            var obj = {
+                currentDay :i,
+                journeyItemVoList:[{journeyId:i,currentDay:i,title:"标题",description:"故宫",budget:33}]
+            };
+            $scope.journey.journeyDayVoList.push(obj);
+        }
+
+        var list = JSON.stringify($scope.journey);
+        $.ajax({
+            url:"/journey/add-journeyDatail.json",
+            type:'post',
+            data:{journeyVo:list,token:"294641541185f7652bafe87f40f4cfc4"},
+            dataType:'json'
+        }).done(function(result){
+
+         });
+    }
     //添加行程
     $scope.addJourney = function(){
         $scope.journeyFlagObj.showAddJourneyPannel = true;
@@ -216,7 +237,7 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
     }
 
     $scope.saveJourneyVo = function(){
-        $http.post("/journey/add-journeyVo.json",$scope.journey,angularMeta.postCfg)
+        $http.post("/journey/add-journeyVo.json",{journey:$scope.journey},angularMeta.postCfg)
             .success(function(data){
                 if(data.success){
                     $scope.journeyVo = data.data;

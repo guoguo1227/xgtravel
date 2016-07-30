@@ -92,11 +92,26 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     if(null != condition.getfId()){
                         condition.setIdGreaterThan(condition.getfId());
                     }
+                    //大于点赞数
+                    if(null != condition.getTopCount()&& condition.getTopCount() !=0){
+                        condition.setTopGreaterThan(condition.getTopCount());
+                    }
                 }else{
                     if(null != condition.getfId()){
                         condition.setIdLessThan(condition.getfId());
                     }
+                    //小于点赞数
+                    if(null != condition.getTopCount()&& condition.getTopCount() !=0){
+                        condition.setTopLessTan(condition.getTopCount());
+                    }
                 }
+            }
+            //最热
+            if(null != condition.getIfHot() && condition.getIfHot()){
+                condition.setOrderByClause(" microblog.top_count desc "); //点赞倒序
+            }else{
+                //排序
+                condition.setOrderByClause(" microblog.id desc"); //按照id倒序
             }
 
             //我的
@@ -117,12 +132,6 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                 }
             }
             condition.setIfEnable(true); //可用
-            //最热
-            if(condition.getIfHot()){
-                condition.setOrderByClause(" top_count desc "); //点赞倒序
-            }
-            //排序
-            condition.setOrderByClause(" id desc");
 
             list = microblogVoMapper.querySharedMicroblogList(condition);
             if(null !=  list && list.size()>0){
@@ -152,13 +161,24 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
             //最新，历史
             if(null != condition.getIfNew()){
                 if(condition.getIfNew()){
+                    //id大于
                     if(null != condition.getfId()){
                         condition.setIdGreaterThan(condition.getfId());
                     }
+                    //点赞数大于
+                    if(null != condition.getTopCount() && condition.getTopCount() !=0){
+                        condition.setTopGreaterThan(condition.getTopCount());
+                    }
                 }else{
+                    //id小于
                     if(null != condition.getfId()){
                         condition.setIdLessThan(condition.getfId());
                     }
+                    //点赞数小于
+                    if(null != condition.getTopCount() && condition.getTopCount() !=0){
+                        condition.setTopLessTan(condition.getTopCount());
+                    }
+
                 }
             }
             //排序

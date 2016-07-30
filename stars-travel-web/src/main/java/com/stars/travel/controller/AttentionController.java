@@ -3,6 +3,7 @@ package com.stars.travel.controller;
 import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Attention;
 import com.stars.travel.model.base.Customization;
+import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.model.ext.RequestResult;
@@ -104,10 +105,10 @@ public class AttentionController extends BaseController{
      */
     @RequestMapping("attention")
     @ResponseBody
-    public String collectionUser(String phone,String token){
+    public String collectionUser(String phone,Integer userId,String token){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
-        if(!StringUtils.isBlank(phone)){
+        if(!StringUtils.isBlank(phone) || null != userId){
             String  currentPhone = HttpSessionProvider.getSessionUserPhone();
             //获取APP的token
             if(!StringUtils.isBlank(token)){
@@ -116,6 +117,13 @@ public class AttentionController extends BaseController{
             if(StringUtils.isBlank(currentPhone)){
                 result.setMessage("请先登录");
                 return gson.toJson(result);
+            }
+            //根据id查询关联用户手机
+            if(StringUtils.isBlank(phone)){
+                User user = userService.queryUserById(userId);
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    phone = user.getPhone();
+                }
             }
             boolean ifAttetion = attentionService.ifAttention(phone,currentPhone);
             if(ifAttetion){
@@ -137,7 +145,7 @@ public class AttentionController extends BaseController{
      */
     @RequestMapping("unattention")
     @ResponseBody
-    public String unAttentionUser(String phone,String token){
+    public String unAttentionUser(String phone,Integer userId,String token){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         if(!StringUtils.isBlank(phone)){
@@ -145,6 +153,13 @@ public class AttentionController extends BaseController{
             //获取APP的token
             if(!StringUtils.isBlank(token)){
                 currentPhone = userService.queryPhoneByToken(token);
+            }
+            //根据id查询关联用户手机
+            if(StringUtils.isBlank(phone)){
+                User user = userService.queryUserById(userId);
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    phone = user.getPhone();
+                }
             }
             boolean success = attentionService.unAttention(phone,currentPhone);
             result.setSuccess(success);

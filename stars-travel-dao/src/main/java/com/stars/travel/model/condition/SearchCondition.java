@@ -29,6 +29,8 @@ public class SearchCondition extends BaseSearchCondition {
 
     private Boolean ifHot; //是否最热
 
+    private Integer topCount; //点赞次数
+
     private String type; //类型
 
     private String searchType ;//查询类型
@@ -51,6 +53,10 @@ public class SearchCondition extends BaseSearchCondition {
 
     private Integer idLessThan; //小于某id
 
+    private Integer topGreaterThan;//点赞大于
+
+    private Integer topLessTan; //点赞小于
+
     private String token ; //授权token
 
     private Boolean my; //我的
@@ -67,6 +73,30 @@ public class SearchCondition extends BaseSearchCondition {
 
     public void setAttentionMe(Boolean attentionMe) {
         this.attentionMe = attentionMe;
+    }
+
+    public Integer getTopCount() {
+        return topCount;
+    }
+
+    public void setTopCount(Integer topCount) {
+        this.topCount = topCount;
+    }
+
+    public Integer getTopGreaterThan() {
+        return topGreaterThan;
+    }
+
+    public void setTopGreaterThan(Integer topGreaterThan) {
+        this.topGreaterThan = topGreaterThan;
+    }
+
+    public Integer getTopLessTan() {
+        return topLessTan;
+    }
+
+    public void setTopLessTan(Integer topLessTan) {
+        this.topLessTan = topLessTan;
     }
 
     public void setSearchType(String searchType) {
@@ -253,7 +283,7 @@ public class SearchCondition extends BaseSearchCondition {
     public void setIfNew(Boolean ifNew) {
         this.ifNew = ifNew;
         if(ifNew){
-            this.orderByClause = " order by createtime";
+            this.orderByClause = "  createtime desc";
         }
     }
 
@@ -264,7 +294,7 @@ public class SearchCondition extends BaseSearchCondition {
     public void setIfHot(Boolean ifHot) {
         this.ifHot = ifHot;
         if(ifHot){
-            this.orderByClause = " order by top";
+            this.orderByClause = "  top_count desc ";
         }
     }
 

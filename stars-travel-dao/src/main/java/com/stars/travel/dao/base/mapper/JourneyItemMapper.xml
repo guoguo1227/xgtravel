@@ -6,10 +6,11 @@
     <result column="journey_day_id" property="journeyDayId" jdbcType="INTEGER" />
     <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="INTEGER" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.stars.travel.model.base.JourneyItem" extends="BaseResultMap" >
@@ -74,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, journey_day_id, itemtype, createtime, time, title, description, budget, is_enable
+    id, journey_day_id, itemtype, createtime, starttime, endtime, title, description, 
+    budget, is_enable
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -140,13 +142,13 @@
       SELECT @@IDENTITY
     </selectKey>
     insert into root_journey_item (journey_day_id, itemtype, createtime, 
-      time, title, description, 
-      budget, is_enable, content
-      )
+      starttime, endtime, title, 
+      description, budget, is_enable, 
+      content)
     values (#{journeyDayId,jdbcType=INTEGER}, #{itemtype,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{time,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{budget,jdbcType=VARCHAR}, #{isEnable,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{budget,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.JourneyItem" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -163,8 +165,11 @@
       <if test="createtime != null" >
         createtime,
       </if>
-      <if test="time != null" >
-        time,
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
       </if>
       <if test="title != null" >
         title,
@@ -192,8 +197,11 @@
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=VARCHAR},
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -202,7 +210,7 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="budget != null" >
-        #{budget,jdbcType=VARCHAR},
+        #{budget,jdbcType=INTEGER},
       </if>
       <if test="isEnable != null" >
         #{isEnable,jdbcType=BIT},
@@ -233,8 +241,11 @@
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.time != null" >
-        time = #{record.time,jdbcType=VARCHAR},
+      <if test="record.starttime != null" >
+        starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
@@ -243,7 +254,7 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.budget != null" >
-        budget = #{record.budget,jdbcType=VARCHAR},
+        budget = #{record.budget,jdbcType=INTEGER},
       </if>
       <if test="record.isEnable != null" >
         is_enable = #{record.isEnable,jdbcType=BIT},
@@ -262,10 +273,11 @@
       journey_day_id = #{record.journeyDayId,jdbcType=INTEGER},
       itemtype = #{record.itemtype,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      time = #{record.time,jdbcType=VARCHAR},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      budget = #{record.budget,jdbcType=VARCHAR},
+      budget = #{record.budget,jdbcType=INTEGER},
       is_enable = #{record.isEnable,jdbcType=BIT},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -278,10 +290,11 @@
       journey_day_id = #{record.journeyDayId,jdbcType=INTEGER},
       itemtype = #{record.itemtype,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      time = #{record.time,jdbcType=VARCHAR},
+      starttime = #{record.starttime,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      budget = #{record.budget,jdbcType=VARCHAR},
+      budget = #{record.budget,jdbcType=INTEGER},
       is_enable = #{record.isEnable,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -299,8 +312,11 @@
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=VARCHAR},
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -309,7 +325,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="budget != null" >
-        budget = #{budget,jdbcType=VARCHAR},
+        budget = #{budget,jdbcType=INTEGER},
       </if>
       <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=BIT},
@@ -325,10 +341,11 @@
     set journey_day_id = #{journeyDayId,jdbcType=INTEGER},
       itemtype = #{itemtype,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      time = #{time,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
       title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=VARCHAR},
+      budget = #{budget,jdbcType=INTEGER},
       is_enable = #{isEnable,jdbcType=BIT},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -338,10 +355,11 @@
     set journey_day_id = #{journeyDayId,jdbcType=INTEGER},
       itemtype = #{itemtype,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      time = #{time,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
       title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=VARCHAR},
+      budget = #{budget,jdbcType=INTEGER},
       is_enable = #{isEnable,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
