@@ -96,10 +96,10 @@
         <!--<table schema="" tableName="root_microblog" domainObjectName="Microblog">
             <generatedKey column="id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>-->
-        <table schema="" tableName="root_journey" domainObjectName="Journey">
+       <!-- <table schema="" tableName="root_journey" domainObjectName="Journey">
             <generatedKey column="id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>
-
+-->
         <table schema="" tableName="root_journey_item" domainObjectName="JourneyItem">
             <generatedKey column="id" sqlStatement="SELECT @@IDENTITY" identity="true"/>
         </table>

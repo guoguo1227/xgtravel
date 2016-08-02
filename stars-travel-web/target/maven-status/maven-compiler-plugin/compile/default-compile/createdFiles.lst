@@ -12,6 +12,7 @@ com\stars\travel\web\ThreadVariable.class
 com\stars\travel\controller\NavigationController.class
 com\stars\travel\web\UserInitListener.class
 com\stars\travel\web\SessionProvider.class
+com\stars\travel\quartz\impl\JourneyTaskServiceImpl.class
 com\stars\travel\controller\DynamicPageController.class
 com\stars\travel\controller\LoginController.class
 com\stars\travel\controller\CommentController.class
@@ -19,6 +20,7 @@ com\stars\travel\websocket\WebsocketEndPoint.class
 com\stars\travel\quartz\impl\UserTaskServiceImpl.class
 com\stars\travel\controller\MicroblogController.class
 com\stars\travel\websocket\UserSocketVo.class
+com\stars\travel\quartz\JourneyTaskService.class
 com\stars\travel\controller\UploadController.class
 com\stars\travel\controller\LogController.class
 com\stars\travel\controller\CustomizationController.class

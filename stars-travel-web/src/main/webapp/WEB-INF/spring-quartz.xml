@@ -19,12 +19,27 @@
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
+               <!--<ref bean="journeyTask"></ref>-->
                <!-- <ref bean="userTaskService" />-->
             </list>
         </property>
     </bean>
 
-    <!-- 组织信息每1分钟更新一次-->
+    <!-- 行程分享任务每3分钟更新一次-->
+    <bean id="journeyTask" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <bean
+                    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+                <property name="targetObject" ref="journeyTaskServiceImpl"></property>
+                <property name="targetMethod" value="refreshAllIndex"></property>
+
+                <property name="concurrent" value="false"></property>
+            </bean>
+        </property>
+        <property name="cronExpression" value="0 0/4 * * * ?"></property>
+    </bean>
+
+    <!-- 每15分钟更新一次-->
     <bean id="userTaskService" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail">
             <bean

@@ -93,7 +93,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                         condition.setIdGreaterThan(condition.getfId());
                     }
                     //大于点赞数
-                    if(null != condition.getTopCount()&& condition.getTopCount() !=0){
+                    if(null != condition.getTopCount()){
                         condition.setTopGreaterThan(condition.getTopCount());
                     }
                 }else{
@@ -101,7 +101,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                         condition.setIdLessThan(condition.getfId());
                     }
                     //小于点赞数
-                    if(null != condition.getTopCount()&& condition.getTopCount() !=0){
+                    if(null != condition.getTopCount()){
                         condition.setTopLessTan(condition.getTopCount());
                     }
                 }
@@ -166,7 +166,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                         condition.setIdGreaterThan(condition.getfId());
                     }
                     //点赞数大于
-                    if(null != condition.getTopCount() && condition.getTopCount() !=0){
+                    if(null != condition.getTopCount()){
                         condition.setTopGreaterThan(condition.getTopCount());
                     }
                 }else{
@@ -175,14 +175,16 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                         condition.setIdLessThan(condition.getfId());
                     }
                     //点赞数小于
-                    if(null != condition.getTopCount() && condition.getTopCount() !=0){
+                    if(null != condition.getTopCount()){
                         condition.setTopLessTan(condition.getTopCount());
                     }
 
                 }
             }
             //排序
-            condition.setOrderByClause(" id desc");
+            if(null != condition.getOrderByClause()){
+                condition.setOrderByClause(" microblog.id desc");
+            }
 
             if(ids.size()>0){
                 condition.setIdsIn(ids);
@@ -193,8 +195,6 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     }
                 }
             }
-
-
         }
         return list;
     }

@@ -203,7 +203,7 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             });
     }
     $scope.test = function(){
-        $scope.journey = {title:"这是的我的行程",description:"蔚蓝之旅",totalday:3,budget:3000,journeyDayVoList:[]};
+        $scope.journey = {title:"这是的我的行程ss",starttime:"2015-01-09",endtime:"2016-05-09",description:"蔚蓝之旅sss",totalday:3,budget:3000,journeyDayVoList:[]};
 
         for(var i=1;i<3;i++){
             var obj = {

@@ -27,6 +27,8 @@
         <dubbo.version>2.5.3</dubbo.version>
         <zookeeper.version>3.3.3</zookeeper.version>
         <shiro.version>1.2.3</shiro.version>
+        <elasticsearch.version>2.3.1</elasticsearch.version>
+
     </properties>
 
     <!-- 父模块以及父模块的子模块不会引入任何的构件依赖，这只是为了让子模块能够继承得到这些配置。
@@ -121,27 +123,12 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
-            <!-- websocket 浏览器与server即时通讯 begin （spring4.0之后才提供了对websocket的支持）-->
-            <!-- websocket依赖 begin-->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
                 <!--<scope>provided</scope>-->
             </dependency>
-            <!-- websocket依赖 end-->
-            <!-- websocket依赖 begin-->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <!-- websocket依赖 end-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-websocket</artifactId>
@@ -152,8 +139,6 @@
                 <artifactId>spring-messaging</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
-
-            <!-- websocket 浏览器与server即时通讯 end -->
 
             <!-- freemarker -->
             <dependency>
@@ -174,41 +159,36 @@
             </dependency>
 
             <!-- Jackson JSON -->
-            <!-- websocket依赖 begin-->
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.2.2</version>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20140107</version>
             </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>2.2.2</version>
-            </dependency>
-            <!-- websocket依赖 end-->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>2.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>${jackson.version}</version>
-                <!-- <type>jar</type> -->
-                <!-- <scope>compile</scope> -->
-            </dependency>
-            <!--<dependency>
-                <groupId>net.sf.json-lib</groupId>
-                <artifactId>json-lib</artifactId>
-                <version>2.4</version>
-                <classifier>jdk15</classifier>
-            </dependency>-->
-
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>2.2.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.13</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.json-simple</groupId>
@@ -380,6 +360,11 @@
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
                 <version>2.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

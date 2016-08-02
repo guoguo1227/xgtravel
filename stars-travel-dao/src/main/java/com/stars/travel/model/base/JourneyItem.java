@@ -13,9 +13,7 @@ public class JourneyItem implements BaseBean {
 
     private Date createtime;
 
-    private Date starttime;
-
-    private Date endtime;
+    private String time;
 
     private String title;
 
@@ -59,20 +57,12 @@ public class JourneyItem implements BaseBean {
         this.createtime = createtime;
     }
 
-    public Date getStarttime() {
-        return starttime;
+    public String getTime() {
+        return time;
     }
 
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
-    }
-
-    public Date getEndtime() {
-        return endtime;
-    }
-
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
+    public void setTime(String time) {
+        this.time = time == null ? null : time.trim();
     }
 
     public String getTitle() {
@@ -125,8 +115,7 @@ public class JourneyItem implements BaseBean {
         bean.setJourneyDayId(getJourneyDayId());
         bean.setItemtype(getItemtype());
         bean.setCreatetime(getCreatetime());
-        bean.setStarttime(getStarttime());
-        bean.setEndtime(getEndtime());
+        bean.setTime(getTime());
         bean.setTitle(getTitle());
         bean.setDescription(getDescription());
         bean.setBudget(getBudget());
@@ -145,8 +134,7 @@ public class JourneyItem implements BaseBean {
         	", journeyDayId:" + getJourneyDayId() + 
         	", itemtype:" + getItemtype() + 
         	", createtime:" + getCreatetime() + 
-        	", starttime:" + getStarttime() + 
-        	", endtime:" + getEndtime() + 
+        	", time:" + getTime() + 
         	", title:" + getTitle() + 
         	", description:" + getDescription() + 
         	", budget:" + getBudget() + 

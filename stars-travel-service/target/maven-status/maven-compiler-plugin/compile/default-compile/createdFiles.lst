@@ -2,6 +2,7 @@ com\stars\travel\service\impl\CustomizationServiceImpl.class
 com\stars\common\utils\BeanUtils.class
 com\stars\travel\service\impl\MicroblogServiceImpl.class
 com\stars\upload\Repository.class
+com\stars\constants\ConfigUtil.class
 com\stars\common\service\CommonOptionsService.class
 com\stars\common\utils\TravelsUtils.class
 com\stars\common\enums\CollectionTopType.class
@@ -18,13 +19,17 @@ com\stars\travel\service\impl\LogSerivceImpl.class
 com\stars\common\enums\CommentTypeEnum.class
 com\stars\travel\service\UserService.class
 com\stars\travel\service\realm\ShiroDbRealm.class
+com\stars\elasticsearch\MicroblogSearchService.class
 com\stars\upload\UploadUtils.class
 com\stars\travel\service\impl\MicroblogVoServiceImpl.class
 com\stars\common\service\impl\HttpRequestServiceImpl.class
 com\stars\travel\service\LogService.class
 com\stars\travel\service\impl\AttentionServiceImpl.class
+com\stars\constants\ElasticsearchConstant.class
 com\stars\travel\service\JourneyService.class
 com\stars\travel\service\CustomizationService.class
+com\stars\elasticsearch\JourneySearchService.class
+com\stars\elasticsearch\ElasticSearchTool.class
 com\stars\common\service\impl\CommonOptionsServiceImpl.class
 com\stars\common\service\HttpRequestService.class
 com\stars\common\service\Assertion.class

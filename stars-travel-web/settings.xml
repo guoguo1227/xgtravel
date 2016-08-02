@@ -1,77 +1,37 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
               http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<!--
+    <localRepository>E:\maven_repository</localRepository>
+    -->
+
+	<!--非官方插件命令行运行配置-->
 <!--
-<localRepository>E:\maven_repository</localRepository>
+	<pluginGroups>
+		<pluginGroup>org.mortbay.jetty</pluginGroup>
+	</pluginGroups>
 -->
 
-<!--非官方插件命令行运行配置-->
-<pluginGroups>
-    <pluginGroup>org.mortbay.jetty</pluginGroup>      
-</pluginGroups>
+<!--
+	<mirrors>
+		&lt;!&ndash;配置仓库镜像&ndash;&gt;
+		<mirror>
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<name>Human Readable Name for this Mirror.</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</mirror>
 
-<mirrors>
-	<!--配置仓库镜像-->
-	<mirror>
-	  <id>nexus</id>
-	  <mirrorOf>*</mirrorOf>
-	  <name>Human Readable Name for this Mirror.</name>
-	  <url>http://repo1.maven.org/maven2/</url>
-	</mirror>
-	
-</mirrors>
-  
-<profiles>
-    <!--配置仓库和插件仓库-->
-    <profile>
-      <id>nexus</id>
-      <repositories>
-				<repository>
-					<id>central</id>
-					<name>central</name>
-					<url>http://central</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-			
-			<pluginRepositories>
-				<pluginRepository>
-					<id>central</id>
-					<name>central</name>
-					<url>http://central</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</pluginRepository>
-			</pluginRepositories>
-    </profile>
-<!--    <profile>  
-        <id>jdk-1.6</id>  
-        <activation>  
-            <activeByDefault>true</activeByDefault>  
-            <jdk>1.6</jdk>  
-        </activation>  
-        <properties>  
-            <maven.compiler.source>1.7</maven.compiler.source>  
-            <maven.compiler.target>1.7</maven.compiler.target>  
-            <maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>  
-        </properties>  
-    </profile> 
---> 
- </profiles> 
+	</mirrors>
+-->
 
-  <!--激活profile-->
-  <activeProfiles>
-    <activeProfile>nexus</activeProfile>
-  </activeProfiles>
-  
+
+	<!--激活profile-->
+<!--
+	<activeProfiles>
+		<activeProfile>nexus</activeProfile>
+	</activeProfiles>
+-->
+
 </settings>

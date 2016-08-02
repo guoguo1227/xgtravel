@@ -57,6 +57,14 @@ public interface JourneyService {
      */
     public List<JourneyVo> queryJourneyListApp(SearchCondition condition, String currentPhone);
 
+    /**
+     * @Description: 行程列表搜索接口
+     * @param condition
+     * @param currentPhone
+     * @return
+     */
+    public List<JourneyVo> searchJourneyListApp(SearchCondition condition, String currentPhone);
+
     public Page<JourneyVo> queryJourneyVos(SearchCondition condition, String currentPhone);
 
 

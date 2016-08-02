@@ -50,8 +50,7 @@
     <result column="journeyDayId" property="journeyDayId" jdbcType="INTEGER" />
     <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
-    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
     <result column="item_title" property="title" jdbcType="VARCHAR" />
     <result column="item_content" property="content" jdbcType="VARCHAR" />
     <result column="item_description" property="description" jdbcType="VARCHAR" />
@@ -96,8 +95,7 @@
     journeyItem.journey_day_id as journeyDayId,
     journeyItem.itemtype as itemtype,
     journeyItem.createtime as createtime,
-    journeyItem.starttime as starttime,
-    journeyItem.endtime as endtime,
+    journeyItem.time as time,
     journeyItem.title as item_title,
     journeyItem.description as item_description,
     journeyItem.content as item_content,
@@ -144,7 +142,16 @@
         and journey.id < #{idLessThan}
       ]]>
     </if>
-
+    <!-- 点赞大于 -->
+    <if test="topGreaterThan != null" >
+      and journey.top_count >= #{topGreaterThan}
+    </if>
+    <!--点赞小于 -->
+    <if test="topLessTan != null" >
+      <![CDATA[
+        and journey.top_count <= #{topLessTan}
+      ]]>
+    </if>
 
   </sql>
 

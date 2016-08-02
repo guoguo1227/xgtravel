@@ -6,8 +6,7 @@
     <result column="journey_day_id" property="journeyDayId" jdbcType="INTEGER" />
     <result column="itemtype" property="itemtype" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
-    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="budget" property="budget" jdbcType="INTEGER" />
@@ -75,8 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, journey_day_id, itemtype, createtime, starttime, endtime, title, description, 
-    budget, is_enable
+    id, journey_day_id, itemtype, createtime, time, title, description, budget, is_enable
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -142,13 +140,13 @@
       SELECT @@IDENTITY
     </selectKey>
     insert into root_journey_item (journey_day_id, itemtype, createtime, 
-      starttime, endtime, title, 
-      description, budget, is_enable, 
-      content)
+      time, title, description, 
+      budget, is_enable, content
+      )
     values (#{journeyDayId,jdbcType=INTEGER}, #{itemtype,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{budget,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{time,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{budget,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.stars.travel.model.base.JourneyItem" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -165,11 +163,8 @@
       <if test="createtime != null" >
         createtime,
       </if>
-      <if test="starttime != null" >
-        starttime,
-      </if>
-      <if test="endtime != null" >
-        endtime,
+      <if test="time != null" >
+        time,
       </if>
       <if test="title != null" >
         title,
@@ -197,11 +192,8 @@
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="starttime != null" >
-        #{starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endtime != null" >
-        #{endtime,jdbcType=TIMESTAMP},
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -241,11 +233,8 @@
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.starttime != null" >
-        starttime = #{record.starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.endtime != null" >
-        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
       </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
@@ -273,8 +262,7 @@
       journey_day_id = #{record.journeyDayId,jdbcType=INTEGER},
       itemtype = #{record.itemtype,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      starttime = #{record.starttime,jdbcType=TIMESTAMP},
-      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      time = #{record.time,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       budget = #{record.budget,jdbcType=INTEGER},
@@ -290,8 +278,7 @@
       journey_day_id = #{record.journeyDayId,jdbcType=INTEGER},
       itemtype = #{record.itemtype,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      starttime = #{record.starttime,jdbcType=TIMESTAMP},
-      endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      time = #{record.time,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       budget = #{record.budget,jdbcType=INTEGER},
@@ -312,11 +299,8 @@
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="starttime != null" >
-        starttime = #{starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endtime != null" >
-        endtime = #{endtime,jdbcType=TIMESTAMP},
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -341,8 +325,7 @@
     set journey_day_id = #{journeyDayId,jdbcType=INTEGER},
       itemtype = #{itemtype,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      starttime = #{starttime,jdbcType=TIMESTAMP},
-      endtime = #{endtime,jdbcType=TIMESTAMP},
+      time = #{time,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       budget = #{budget,jdbcType=INTEGER},
@@ -355,8 +338,7 @@
     set journey_day_id = #{journeyDayId,jdbcType=INTEGER},
       itemtype = #{itemtype,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      starttime = #{starttime,jdbcType=TIMESTAMP},
-      endtime = #{endtime,jdbcType=TIMESTAMP},
+      time = #{time,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       budget = #{budget,jdbcType=INTEGER},

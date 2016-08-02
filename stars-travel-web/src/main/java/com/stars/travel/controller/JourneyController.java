@@ -1,5 +1,7 @@
 package com.stars.travel.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.base.JourneyWithBLOBs;
@@ -12,7 +14,6 @@ import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
 import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 
-//import net.sf.json.JSONArray;
 /**
  * Description : 行程管理控制器
  * Author : guo
@@ -32,6 +32,8 @@ import java.util.List;
 @Controller
 @RequestMapping("journey")
 public class JourneyController extends BaseController{
+
+    Gson gsonAdd = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
     @Resource
     private JourneyService journeyService;
@@ -85,6 +87,33 @@ public class JourneyController extends BaseController{
                 userPhone = userService.queryPhoneByToken(searchCondition.getToken());
             }
             List<JourneyVo> list = journeyService.queryJourneyListApp(searchCondition,userPhone);
+            if(!CollectionUtils.isEmpty(list)){
+                result.setSuccess(true);
+                result.setData(list);
+            }
+        }
+        return gson.toJson(result);
+    }
+
+    /**
+     * @Description : 用户行程列表搜索接口
+     * @param searchCondition
+     * @return
+     */
+    @RequestMapping("search")
+    @ResponseBody
+    public Object searchJourneyListApp(SearchCondition searchCondition){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        if(null != searchCondition){
+            String userPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(searchCondition.getToken())){
+                userPhone = userService.queryPhoneByToken(searchCondition.getToken());
+            }
+            List<JourneyVo> list = journeyService.searchJourneyListApp(searchCondition,userPhone);
             if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);
@@ -305,7 +334,7 @@ public class JourneyController extends BaseController{
             result.setMessage("行程不可我空");
             return gson.toJson(result);
         }
-        JourneyVo vo = gson.fromJson(journeyVo,JourneyVo.class);
+        JourneyVo vo = gsonAdd.fromJson(journeyVo,JourneyVo.class);
         if(null != vo){
             vo.setPhone(userPhone);
             RequestResult requestResult = journeyService.addJourneyDetail(vo);

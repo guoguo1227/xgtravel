@@ -4,6 +4,7 @@ import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.common.enums.CommentTypeEnum;
 import com.stars.common.utils.BeanUtilExt;
+import com.stars.elasticsearch.JourneySearchService;
 import com.stars.travel.dao.base.mapper.*;
 import com.stars.travel.dao.ext.mapper.JourneyVoMapper;
 import com.stars.travel.model.base.*;
@@ -57,6 +58,9 @@ public class JourneyServiceImpl implements JourneyService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JourneySearchService journeySearchService;
+
     @Override
     public RequestResult addJourneyDetail(JourneyVo journeyVo) {
         RequestResult result = new RequestResult();
@@ -85,6 +89,8 @@ public class JourneyServiceImpl implements JourneyService {
                         }
                     }
                 }
+                //添加索引
+                journeySearchService.addJourneyIndex(journey.getId());
                 result.setSuccess(true);
             }
         }else{
@@ -123,6 +129,8 @@ public class JourneyServiceImpl implements JourneyService {
                         }
                     }
                 }
+                //添加索引
+                journeySearchService.addJourneyIndex(journeyDayVo.getJourneyId());
             }
         }
         return journeyDayVo;
@@ -133,6 +141,8 @@ public class JourneyServiceImpl implements JourneyService {
         if(null != journey && null != journey.getPhone()){
             int i = journeyMapper.updateByPrimaryKeySelective(journey);
             if(i>0){
+                //更新索引
+                journeySearchService.addJourneyIndex(journey.getId());
                 return  journey;
             }
         }
@@ -149,6 +159,8 @@ public class JourneyServiceImpl implements JourneyService {
                 //更新
                 int i = journeyMapper.updateByPrimaryKeySelective(journeyWithBLOBs);
                 if( i>0 ){
+                    //更新索引
+                    journeySearchService.addJourneyIndex(id);
                     return true;
                 }
             }
@@ -224,9 +236,17 @@ public class JourneyServiceImpl implements JourneyService {
                     if(null != condition.getfId()){
                         condition.setIdGreaterThan(condition.getfId());
                     }
+                    //大于点赞数
+                    if(null != condition.getTopCount()){
+                        condition.setTopGreaterThan(condition.getTopCount());
+                    }
                 }else{
                     if(null != condition.getfId()){
                         condition.setIdLessThan(condition.getfId());
+                    }
+                    //小于点赞数
+                    if(null != condition.getTopCount()){
+                        condition.setTopLessTan(condition.getTopCount());
                     }
                 }
             }
@@ -245,7 +265,9 @@ public class JourneyServiceImpl implements JourneyService {
                 }
             }
             //排序
-            condition.setOrderByClause(" id desc ");
+            if(!StringUtils.isBlank(condition.getOrderByClause())){
+                condition.setOrderByClause(" journey.id desc ");
+            }
             list = journeyVoMapper.queryJourneyVoList(condition);
             if(null != list && list.size()>0 ){
                 for(JourneyVo vo : list){
@@ -254,6 +276,19 @@ public class JourneyServiceImpl implements JourneyService {
             }
         }
         return list ;
+    }
+
+    @Override
+    public List<JourneyVo> searchJourneyListApp(SearchCondition condition, String currentPhone) {
+        List<JourneyVo> list = null;
+        if(null != condition){
+            List<Integer> ids = journeySearchService.queryJourneyVoList(condition);
+            if(!CollectionUtils.isEmpty(ids)){
+                condition.setIdsIn(ids);
+            }
+            list = queryJourneyListApp(condition,currentPhone);
+        }
+        return list;
     }
 
     @Override
