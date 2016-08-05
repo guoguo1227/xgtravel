@@ -32,7 +32,7 @@ public class JourneySearchService {
 
     private final static Logger logger = LoggerFactory.getLogger(JourneySearchService.class);
 
-    public Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
+    public static Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
 
     @Autowired
     private JourneyVoMapper journeyVoMapper;
@@ -56,8 +56,6 @@ public class JourneySearchService {
         searchRequestBuilder.setTypes(ES_TYPE_JOURNEY);
         //设置查询类型
         searchRequestBuilder.setSearchType(SearchType.DFS_QUERY_THEN_FETCH);
-        //设置分页信息
-        searchRequestBuilder.setFrom(condtion.getOffset()).setSize(condtion.getLimit());
 
         //设置查询条件
         boolQueryBuilder = getQueryBuilder(condtion);
@@ -74,34 +72,34 @@ public class JourneySearchService {
             String fields = hit.getSourceAsString();
             JourneyVo vo = gson.fromJson(fields,JourneyVo.class);
             ids.add(vo.getId());
-            /*try {
-                Integer fields = Integer.valueOf(hit.getSourceAsString());
-                ids.add(fields);
-            }catch (Exception e){
-                logger.info("转换id:"+hit.getSourceAsString()+"失败");
-            }*/
         }
         return ids;
     }
+
     /**
      * @Description :　拼接查询字段
      * @param condtion
      * @return
      */
-    private BoolQueryBuilder getQueryBuilder(SearchCondition condtion){
+    private static BoolQueryBuilder getQueryBuilder(SearchCondition condtion){
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-       /* if(null != condtion){
+        if(null != condtion){
+            //内容
             if(!StringUtils.isBlank(condtion.getSearchContent())){
-                //目的地
-                boolQueryBuilder.should(QueryBuilders.matchPhraseQuery("destination", condtion.getSearchContent()));
-                //标题
-                boolQueryBuilder.should(QueryBuilders.matchPhraseQuery("title", condtion.getSearchContent()));
+
+                BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+                boolQuery.should(QueryBuilders.matchPhraseQuery("content",condtion.getSearchContent()));
+                boolQuery.should(QueryBuilders.matchPhraseQuery("description",condtion.getSearchContent()));
+                boolQuery.should(QueryBuilders.matchPhraseQuery("title",condtion.getSearchContent()));
+                boolQueryBuilder.must(boolQuery);
+            }
+            //目的地
+            if(!StringUtils.isBlank(condtion.getDestination())){
+                boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("destination", condtion.getSearchContent()));
             }
         }
         //未删除
-        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("isEnable", false));*/
-
-        boolQueryBuilder.must(QueryBuilders.matchAllQuery());
+        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("isEnable", true));
 
         return boolQueryBuilder;
     }

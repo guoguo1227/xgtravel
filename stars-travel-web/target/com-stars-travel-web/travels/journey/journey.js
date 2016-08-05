@@ -213,7 +213,11 @@ function journeyCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             $scope.journey.journeyDayVoList.push(obj);
         }
 
-        var list = JSON.stringify($scope.journey);
+        //var list = JSON.stringify($scope.journey);
+
+        var list = '{  "journeyDayVoList" : [    {      "journeyItemVoList" : [        {          "title" : "目的地",          "time" : "time",          "budget" : 200,          "description" : "feel\n"        }      ],      "currentDay" : 1    },    {      "journeyItemVoList" : [      ],      "currentDay" : 2    },    {      "journeyItemVoList" : [      ],      "currentDay" : 3    }  ],  "destination" : "目的地",  "starttime" : "2016-08-03",  "content" : "feel",  "endtime" : "2016-08-05",  "coverImage" : "\/upload\/journey\/201608\/03135521gk33.jpg",  "budget" : 2000,  "title" : "title"}';
+
+        //var list = JSON.stringify(list);
         $.ajax({
             url:"/journey/add-journeyDatail.json",
             type:'post',

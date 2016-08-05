@@ -144,12 +144,12 @@
     </if>
     <!-- 点赞大于 -->
     <if test="topGreaterThan != null" >
-      and journey.top_count >= #{topGreaterThan}
+      and journey.top_count > #{topGreaterThan}
     </if>
     <!--点赞小于 -->
     <if test="topLessTan != null" >
       <![CDATA[
-        and journey.top_count <= #{topLessTan}
+        and journey.top_count < #{topLessTan}
       ]]>
     </if>
 

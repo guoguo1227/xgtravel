@@ -21,6 +21,11 @@
     <dependencies>
         <dependency>
             <groupId>com.stars.travel</groupId>
+            <artifactId>com-stars-travel-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.stars.travel</groupId>
             <artifactId>com-stars-travel-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -114,19 +119,6 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.8.3</version>
         </dependency>
-        <!-- gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-        </dependency>
         <!-- websocket依赖 begin-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -134,31 +126,12 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- websocket依赖 end-->
         <!-- websocket 浏览器与server即时通讯 begin （spring4.0之后才提供了对websocket的支持）-->
-        <!-- websocket依赖 begin-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
             <!--<scope>provided</scope>-->
-        </dependency>
-        <!-- websocket依赖 end-->
-        <!-- websocket依赖 begin-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <!-- websocket依赖 end-->
         <dependency>
@@ -169,8 +142,38 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
         </dependency>
-
-        <!-- websocket 浏览器与server即时通讯 end -->
+        <!-- gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <!-- Jackson JSON -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <!-- <type>jar</type> -->
+            <!-- <scope>compile</scope> -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

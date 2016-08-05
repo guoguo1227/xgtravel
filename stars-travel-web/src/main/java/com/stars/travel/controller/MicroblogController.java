@@ -86,6 +86,31 @@ public class MicroblogController extends BaseController{
         }
         return gson.toJson(result);
     }
+    /**
+     * @Description : 微游记搜索接口
+     * @param searchCondition
+     * @return
+     */
+    @RequestMapping("search")
+    @ResponseBody
+    public Object searchMicroblogListApp(SearchCondition searchCondition){
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        if(null != searchCondition){
+            String userPhone = HttpSessionProvider.getSessionUserPhone();
+            //获取APP的token
+            if(!StringUtils.isBlank(searchCondition.getToken())){
+                userPhone = userService.queryPhoneByToken(searchCondition.getToken());
+            }
+            List<MicroblogVo> list = microblogVoService.searchMicroblogVoApp(searchCondition,userPhone);
+            if(!CollectionUtils.isEmpty(list)){
+                result.setSuccess(true);
+                result.setData(list);
+            }
+        }
+        return gson.toJson(result);
+    }
 
     /**
      * @Description : 查询收藏微游记列表 移动端
@@ -105,7 +130,7 @@ public class MicroblogController extends BaseController{
                 userPhone = userService.queryPhoneByToken(condition.getToken());
             }
             List<MicroblogVo> list = microblogVoService.queryMyCollection(condition,userPhone);
-            if(null != list && list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);
             }
@@ -130,7 +155,7 @@ public class MicroblogController extends BaseController{
                 userPhone = userService.queryPhoneByToken(condition.getToken());
             }
             Page<MicroblogVo> page = microblogVoService.querySharedMicroblogVoPage(condition,userPhone);
-            if(null != page && null != page.getPageData() && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setData(page.getPageData().get(0));
             }
         }

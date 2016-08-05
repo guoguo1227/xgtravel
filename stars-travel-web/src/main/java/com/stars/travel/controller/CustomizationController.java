@@ -26,6 +26,7 @@ import java.util.List;
 @Controller
 @RequestMapping("customization")
 public class CustomizationController extends BaseController{
+
     private final static Logger logger = LoggerFactory.getLogger(CustomizationController.class);
 
     @Autowired
@@ -84,7 +85,7 @@ public class CustomizationController extends BaseController{
 
         if(null != condition && null != condition.getId()){
             Page<Customization> page = customizationService.queryCustomizationPage(condition);
-            if(null != page && null != page.getPageData() && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setData(page.getPageData().get(0));
             }
         }else{
@@ -137,4 +138,5 @@ public class CustomizationController extends BaseController{
         }
         return gson.toJson(result);
     }
+
 }

@@ -4,6 +4,7 @@ import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.common.enums.CommentTypeEnum;
 import com.stars.common.utils.BeanUtilExt;
+import com.stars.elasticsearch.MicroblogSearchService;
 import com.stars.travel.dao.base.mapper.CommentMapper;
 import com.stars.travel.dao.base.mapper.MicroblogCollectionMapper;
 import com.stars.travel.dao.base.mapper.MicroblogMapper;
@@ -24,6 +25,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -57,6 +59,9 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private MicroblogSearchService microblogSearchService;
 
     @Override
     public Page<MicroblogVo> querySharedMicroblogVoPage(SearchCondition condition, String currentPhone) {
@@ -144,6 +149,19 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     }
 
     @Override
+    public List<MicroblogVo> searchMicroblogVoApp(SearchCondition condition, String currentPhone) {
+        List<MicroblogVo> list = null;
+        if(null != condition){
+            List<Integer> ids = microblogSearchService.queryMicroblogList(condition);
+            if(!CollectionUtils.isEmpty(ids)){
+                condition.setIdsIn(ids);
+                list = querySharedMicroblogVoApp(condition,currentPhone);
+            }
+        }
+        return list;
+    }
+
+    @Override
     public List<MicroblogVo> queryMyCollection(SearchCondition condition, String currentPhone) {
         List<MicroblogVo> list = null;
         List<Integer> ids = new ArrayList<>();
@@ -217,6 +235,8 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                 microblog.setCreatetime(new Date());
                 int i = microblogMapper.insertSelective(microblog);
                 if(i>0){
+                    //添加索引
+                    microblogSearchService.addMicroblogIndex(microblog.getId());
                     return true;
                 }
             }catch (BeansException e){
@@ -242,6 +262,8 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                     microblog.setUpdatetime(new Date());
                     int i = microblogMapper.updateByPrimaryKeySelective(microblog);
                     if(i>0){
+                        //添加索引
+                        microblogSearchService.addMicroblogIndex(id);
                         success = true;
                     }
                 }

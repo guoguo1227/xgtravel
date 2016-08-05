@@ -68,8 +68,8 @@ public class JourneyServiceImpl implements JourneyService {
         Date nowDate = new Date();
         if(null != journeyVo && !CollectionUtils.isEmpty(journeyVo.getJourneyDayVoList())){
             //添加行程基本属性
+            journeyVo.setTotalday(journeyVo.getJourneyDayVoList().size());
             Journey journey = addJourney(journeyVo);
-            journey.setTotalday(journeyVo.getJourneyDayVoList().size());
             if(null != journey && null != journey.getId()){
                 //添加每天属性
                 for(JourneyDayVo journeyDayVo: journeyVo.getJourneyDayVoList()){
@@ -285,8 +285,8 @@ public class JourneyServiceImpl implements JourneyService {
             List<Integer> ids = journeySearchService.queryJourneyVoList(condition);
             if(!CollectionUtils.isEmpty(ids)){
                 condition.setIdsIn(ids);
+                list = queryJourneyListApp(condition,currentPhone);
             }
-            list = queryJourneyListApp(condition,currentPhone);
         }
         return list;
     }

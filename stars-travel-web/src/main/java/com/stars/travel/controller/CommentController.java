@@ -46,7 +46,7 @@ public class CommentController extends BaseController{
         result.setSuccess(false);
         if(null != condition){
             Page<CommentVo> page =  commentService.queryCommentPage(condition);
-            if(null != page && null != page.getPageData() && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page);
             }
@@ -109,7 +109,7 @@ public class CommentController extends BaseController{
             }
             List<CommentVo> list =  commentService.queryCommentListApp(condition);
             int count = commentService.queryCommentCount(condition);
-            if(null != list &&  list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 commentObj.setCommentVoList(list);
                 commentObj.setCount(count);
                 result.setSuccess(true);

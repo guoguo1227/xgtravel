@@ -1,7 +1,5 @@
 package com.stars.travel.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.stars.common.utils.Page;
 import com.stars.common.enums.CollectionTopType;
 import com.stars.travel.model.base.JourneyWithBLOBs;
@@ -32,8 +30,6 @@ import java.util.List;
 @Controller
 @RequestMapping("journey")
 public class JourneyController extends BaseController{
-
-    Gson gsonAdd = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
     @Resource
     private JourneyService journeyService;
@@ -141,7 +137,7 @@ public class JourneyController extends BaseController{
                 userPhone = userService.queryPhoneByToken(searchCondition.getToken());
             }
             List<JourneyVo> list = journeyService.queryMyCollectList(searchCondition,userPhone);
-            if(null != list && list.size()>0){
+            if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);
             }
@@ -168,14 +164,13 @@ public class JourneyController extends BaseController{
             SearchCondition searchCondition = new SearchCondition();
             searchCondition.setId(id);
             Page<JourneyVo> page = journeyService.queryJourneyVos(searchCondition,userPhone);
-            if(null != page && page.getPageData().size()>0){
+            if(null != page && !CollectionUtils.isEmpty(page.getPageData())){
                 result.setSuccess(true);
                 result.setData(page.getPageData().get(0));
             }
         }
         return gson.toJson(result);
     }
-
 
     /**
      * @Description : 更新行程信息
@@ -334,16 +329,19 @@ public class JourneyController extends BaseController{
             result.setMessage("行程不可我空");
             return gson.toJson(result);
         }
-        JourneyVo vo = gsonAdd.fromJson(journeyVo,JourneyVo.class);
-        if(null != vo){
-            vo.setPhone(userPhone);
-            RequestResult requestResult = journeyService.addJourneyDetail(vo);
-            result.setSuccess(requestResult.getSuccess());
-            result.setMessage(requestResult.getMessage());
-        }else{
-            result.setMessage("行程不可为空");
+        try{
+            JourneyVo vo = gson.fromJson(journeyVo,JourneyVo.class);
+            if(null != vo){
+                vo.setPhone(userPhone);
+                RequestResult requestResult = journeyService.addJourneyDetail(vo);
+                result.setSuccess(requestResult.getSuccess());
+                result.setMessage(requestResult.getMessage());
+            }else{
+                result.setMessage("行程不可为空");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
         return result;
     }
 

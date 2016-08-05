@@ -125,12 +125,12 @@
     </if>
     <!-- 点赞大于 -->
     <if test="topGreaterThan != null" >
-      and microblog.top_count >= #{topGreaterThan}
+      and microblog.top_count > #{topGreaterThan}
     </if>
     <!--点赞小于 -->
     <if test="topLessTan != null" >
       <![CDATA[
-        and microblog.top_count <= #{topLessTan}
+        and microblog.top_count < #{topLessTan}
       ]]>
     </if>
   </sql>

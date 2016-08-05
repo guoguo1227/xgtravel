@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class BaseController {
 
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
