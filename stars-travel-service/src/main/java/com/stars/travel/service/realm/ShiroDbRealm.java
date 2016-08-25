@@ -8,7 +8,7 @@ import com.stars.travel.model.base.Role;
 import com.stars.travel.model.base.User;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.UserService;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

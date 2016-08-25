@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>$!content.contentExt.title - $!{site.name} - POWERD BY PHYCMS</title>
+    <meta http-equiv="keywords" content="$!content.tagStr" />
+    <meta http-equiv="description" content="$!content.description" />
+    <link href="/static/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="news_text">
+        <div class="other">
+			${obj.id}
+			${obj.content}
+            <section class="content">
+                <div class="callout callout-info">
+                    <h4>分享</h4>
+                </div>
+                <!-- Default box -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Title</h3>
+                        <span>${obj.content}</span>
+                    </div>
+                    <div class="box-body">
+                        Start creating your amazing application!
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        Footer
+                    </div>
+                    <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+            </section>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

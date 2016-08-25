@@ -50,13 +50,7 @@
         <!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter -->  
 		<property name="filterChainDefinitions">
 			<value>
-			/phy/* = anon
-			/admin/login.do = anon
-			/admin/page.do = anon
-			/admin/adlogin.do = anon
-				/admin/**/* = authc
-		<!-- 	/validateCode = anon
-           	/** = authc -->
+			/login/login.json = anon
 			</value>
 		</property>
 	</bean>

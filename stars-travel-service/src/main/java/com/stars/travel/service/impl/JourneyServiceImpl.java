@@ -15,7 +15,7 @@ import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.stars.travel.dao.base.mapper.MicroblogMapper;
 import com.stars.travel.model.base.Microblog;
 import com.stars.travel.model.condition.SearchCondition;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -92,6 +92,7 @@ public class MicroblogSearchService {
                 BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
                 boolQuery.should(QueryBuilders.matchPhraseQuery("content",condtion.getSearchContent()));
                 boolQuery.should(QueryBuilders.matchPhraseQuery("description",condtion.getSearchContent()));
+                boolQuery.should(QueryBuilders.matchPhraseQuery("destination",condtion.getSearchContent()));
                 boolQuery.should(QueryBuilders.matchPhraseQuery("title",condtion.getSearchContent()));
                 boolQueryBuilder.must(boolQuery);
             }

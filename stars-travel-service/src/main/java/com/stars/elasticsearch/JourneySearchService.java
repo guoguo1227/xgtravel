@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.stars.travel.dao.ext.mapper.JourneyVoMapper;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyVo;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -91,6 +91,7 @@ public class JourneySearchService {
                 boolQuery.should(QueryBuilders.matchPhraseQuery("content",condtion.getSearchContent()));
                 boolQuery.should(QueryBuilders.matchPhraseQuery("description",condtion.getSearchContent()));
                 boolQuery.should(QueryBuilders.matchPhraseQuery("title",condtion.getSearchContent()));
+                boolQuery.should(QueryBuilders.matchPhraseQuery("destination",condtion.getSearchContent()));
                 boolQueryBuilder.must(boolQuery);
             }
             //目的地

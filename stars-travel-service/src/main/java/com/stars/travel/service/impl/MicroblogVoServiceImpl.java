@@ -17,7 +17,7 @@ import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.CommentService;
 import com.stars.travel.service.MicroblogVoService;
 import com.stars.travel.service.UserService;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

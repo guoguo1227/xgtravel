@@ -50,7 +50,7 @@
                 <property name="concurrent" value="false"></property>
             </bean>
         </property>
-        <property name="cronExpression" value="0 0/4 * * * ?"></property>
+        <property name="cronExpression" value="0 0/40 * * * ?"></property>
     </bean>
 
     <!-- 每15分钟更新一次-->

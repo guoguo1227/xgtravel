@@ -56,29 +56,32 @@
     <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet.xml</param-value>
+        </init-param>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
-
-   <!-- <servlet>
-        <description></description>
-        <display-name>UploadServlet</display-name>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>com.lagou.auction.controller.UploadServlet</servlet-class>
-        &lt;!&ndash;设置初始化参数 &ndash;&gt;
+    <!--前台分发器-->
+    <servlet>
+        <servlet-name>footFront</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
-            <param-name>savePath</param-name>
-            <param-value>upload</param-value>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet-front.xml</param-value>
         </init-param>
+        <load-on-startup>2</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>UploadServlet</servlet-name>
-        <url-pattern>/upload.json</url-pattern>
-    </servlet-mapping>-->
+        <servlet-name>footFront</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/404</location>

@@ -8,7 +8,7 @@ import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.service.CustomizationService;
 import com.stars.travel.service.UserService;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

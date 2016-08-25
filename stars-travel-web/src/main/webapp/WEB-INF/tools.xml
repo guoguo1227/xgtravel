@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<tools>
+	
+	<toolbox scope="session" locale="en_US">
+	  	
+	</toolbox>
+	
+	<toolbox scope="request">
+		<tool key="text" class="org.apache.velocity.tools.generic.ResourceTool" bundles="resources" />
+	</toolbox>
+	
+	<toolbox scope="application">
+	    
+  	</toolbox>
+  	
+</tools>

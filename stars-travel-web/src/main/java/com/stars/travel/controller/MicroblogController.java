@@ -10,6 +10,7 @@ import com.stars.travel.web.HttpSessionProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,11 +1,7 @@
 package com.stars.travel.controller;
 
-import com.stars.common.utils.Page;
-import com.stars.travel.model.base.Attention;
-import com.stars.travel.model.base.Customization;
 import com.stars.travel.model.base.User;
 import com.stars.travel.model.condition.SearchCondition;
-import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.model.ext.UserInfo;
 import com.stars.travel.service.AttentionService;
