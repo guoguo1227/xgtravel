@@ -79,7 +79,7 @@
 
     <servlet-mapping>
         <servlet-name>footFront</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
 
     <error-page>

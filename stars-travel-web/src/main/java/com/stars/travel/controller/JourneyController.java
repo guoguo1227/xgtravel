@@ -82,7 +82,7 @@ public class JourneyController extends BaseController{
             if(!StringUtils.isBlank(searchCondition.getToken())){
                 userPhone = userService.queryPhoneByToken(searchCondition.getToken());
             }
-            List<JourneyVo> list = journeyService.queryJourneyListApp(searchCondition,userPhone);
+            List<JourneyVo> list = journeyService.queryJourneyVoListApp(searchCondition,userPhone);
             if(!CollectionUtils.isEmpty(list)){
                 result.setSuccess(true);
                 result.setData(list);

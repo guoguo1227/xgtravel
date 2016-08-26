@@ -9,10 +9,7 @@ import com.stars.travel.dao.base.mapper.*;
 import com.stars.travel.dao.ext.mapper.JourneyVoMapper;
 import com.stars.travel.model.base.*;
 import com.stars.travel.model.condition.SearchCondition;
-import com.stars.travel.model.ext.JourneyDayVo;
-import com.stars.travel.model.ext.JourneyVo;
-import com.stars.travel.model.ext.RequestResult;
-import com.stars.travel.model.ext.UserInfo;
+import com.stars.travel.model.ext.*;
 import com.stars.travel.service.JourneyService;
 import com.stars.travel.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -187,11 +184,11 @@ public class JourneyServiceImpl implements JourneyService {
             }
             //是否最新
             if(null != condition.getIfNew() && condition.getIfNew() == true){
-                criteria.setOrderByClause(" journey.createtime desc");
+                criteria.setOrderByClause(" createtime desc");
             }
             //是否最热
             if(null != condition.getIfHot() && condition.getIfHot() == true){
-                criteria.setOrderByClause(" journey.top desc ");
+                criteria.setOrderByClause(" top desc ");
             }
             //用户手机
             if(!StringUtils.isBlank(condition.getPhone())){
@@ -279,6 +276,101 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
+    public List<JourneyVo> queryJourneyVoListApp(SearchCondition condition, String currentPhone) {
+        List<JourneyVo> list = new ArrayList<>();
+        JourneyCriteria criteria = new JourneyCriteria();
+        JourneyCriteria.Criteria cri = criteria.createCriteria();
+        if(null != condition){
+            cri.andIsEnableEqualTo(true);
+            //最新，历史
+            if(null != condition.getIfNew()){
+                if(condition.getIfNew()){
+                    if(null != condition.getfId()){
+                        cri.andIdGreaterThan(condition.getfId());
+                    }
+                    //大于点赞数
+                    if(null != condition.getTopCount()){
+                        cri.andTopCountGreaterThan(condition.getTopCount());
+                    }
+                }else{
+                    if(null != condition.getfId()){
+                        cri.andIdLessThan(condition.getfId());
+                    }
+                    //小于点赞数
+                    if(null != condition.getTopCount()){
+                        cri.andTopCountLessThan(condition.getTopCount());
+                    }
+                }
+            }
+            //我的
+            if(null != condition.getMy()){
+                if(condition.getMy()){
+                    cri.andPhoneEqualTo(currentPhone);
+                }
+            }
+
+            //用户id
+            if(null != condition.getUserId()){
+                User user = userService.queryUserById(condition.getUserId());
+                if(null != user && !StringUtils.isBlank(user.getPhone())){
+                    cri.andPhoneEqualTo(user.getPhone());
+                }
+            }
+            //排序
+            if(!StringUtils.isBlank(condition.getOrderByClause())){
+                criteria.setOrderByClause(" id desc ");
+            }
+            if(null != condition.getId()){
+                cri.andIdEqualTo(condition.getId());
+            }
+            List<JourneyWithBLOBs> journeyList = journeyMapper.selectByExampleWithBLOBs(criteria);
+            if(!CollectionUtils.isEmpty(journeyList)){
+                for(JourneyWithBLOBs j : journeyList){
+                    JourneyVo vo = new JourneyVo();
+                    try {
+                        BeanUtilExt.copyProperties(vo,j);
+                        //每天行程
+                        JourneyDayCriteria dayCriteria = new JourneyDayCriteria();
+                        dayCriteria.createCriteria().andJourneyIdEqualTo(j.getId());
+                        List<JourneyDay> journeyDayList = journeyDayMapper.selectByExample(dayCriteria);
+                        List<JourneyDayVo> journeyDayVoList = new ArrayList<>();
+                        if(!CollectionUtils.isEmpty(journeyDayList)){
+                            for(JourneyDay day : journeyDayList){
+                                JourneyDayVo dayVo = new JourneyDayVo();
+                                BeanUtilExt.copyProperties(dayVo,day);
+                                //查询具体安排
+                                JourneyItemCriteria itemCriteria = new JourneyItemCriteria();
+                                itemCriteria.createCriteria().andJourneyDayIdEqualTo(day.getId());
+                                List<JourneyItem> itemList = journeyItemMapper.selectByExample(itemCriteria);
+                                List<JourneyItemVo> itemVoList = new ArrayList<>();
+                                if(!CollectionUtils.isEmpty(itemList)){
+                                    for(JourneyItem item:itemList){
+                                        JourneyItemVo itemVo = new JourneyItemVo();
+                                        BeanUtilExt.copyProperties(itemVo,item);
+                                        itemVo.setCurrentDay(day.getCurrentDay());
+                                        itemVo.setJourneyId(j.getId());
+                                        itemVoList.add(itemVo);
+                                    }
+                                }
+                                dayVo.setJourneyItemVoList(itemVoList);
+                                journeyDayVoList.add(dayVo);
+                            }
+                        }
+
+                        addJourneyVoExtAttr(vo,currentPhone);
+
+                    } catch (InvocationTargetException | IllegalAccessException e) {
+                        logger.info("拷贝行程分享id:"+j.getId()+"属性失败"+e.toString());
+                    }
+                    list.add(vo);
+                }
+            }
+        }
+        return list ;
+    }
+
+
+    @Override
     public List<JourneyVo> searchJourneyListApp(SearchCondition condition, String currentPhone) {
         List<JourneyVo> list = null;
         if(null != condition){
@@ -296,18 +388,17 @@ public class JourneyServiceImpl implements JourneyService {
         Page<JourneyVo> page  = new Page<>();
         List<JourneyVo> list = null;
         if(null != condition){
+            JourneyCriteria criteria = new JourneyCriteria();
+            criteria.createCriteria().andIsEnableEqualTo(true);
+            criteria.setOrderByClause(" createtime desc ");
+            int count = journeyMapper.countByExample(criteria);
+
             condition.setIfEnable(true);
-            condition.setOrderByClause(" journey.createtime desc ");
-            int count = journeyVoMapper.countJourneyVo(condition);
+            condition.setOrderByClause(" createtime desc ");
             if(count>0){
-                list = journeyVoMapper.queryJourneyVoList(condition);
-                if(null != list && list.size()>0 ){
-                    for(JourneyVo vo : list){
-                        addJourneyVoExtAttr(vo,currentPhone);
-                    }
-                    page.setTotalCount(count);
-                    page.setPageData(list);
-                }
+                list = queryJourneyVoListApp(condition,currentPhone);
+                page.setTotalCount(count);
+                page.setPageData(list);
             }
         }
         return page ;
@@ -488,7 +579,7 @@ public class JourneyServiceImpl implements JourneyService {
         if(null != condition){
             JourneyCollectionCriteria criteria = new JourneyCollectionCriteria();
             criteria.createCriteria().andIsEnableEqualTo(true).andPhoneEqualTo(currentPhone).andTypeEqualTo(CollectionTopType.COLLECTION.getCode());
-            criteria.setOrderByClause("id desc");
+            criteria.setOrderByClause(" id desc");
             //收藏列表
             List<JourneyCollection> collections = journeyCollectionMapper.selectByExample(criteria);
             if(!collections.isEmpty()){
@@ -513,12 +604,7 @@ public class JourneyServiceImpl implements JourneyService {
                 condition.setIdsIn(ids);
                 //排序
                 condition.setOrderByClause(" id desc ");
-                list = journeyVoMapper.queryJourneyVoList(condition);
-                if(!list.isEmpty()){
-                    for(JourneyVo vo : list){
-                        addJourneyVoExtAttr(vo,currentPhone);
-                    }
-                }
+                list = queryJourneyVoListApp(condition,currentPhone);
             }
 
         }
