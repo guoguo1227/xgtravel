@@ -2,6 +2,7 @@ package com.stars.travel.service;
 
 
 import com.stars.common.utils.Page;
+import com.stars.travel.model.base.Journey;
 import com.stars.travel.model.base.JourneyWithBLOBs;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.JourneyDayVo;
@@ -58,6 +59,12 @@ public interface JourneyService {
     public List<JourneyVo> queryJourneyListApp(SearchCondition condition, String currentPhone);
 
     public List<JourneyVo> queryJourneyVoListApp(SearchCondition condition,String currentPhone);
+
+    /**
+     * @Description : 推荐行程
+     * @return
+     */
+    public List<Journey> queryRecommendJourney();
     /**
      * @Description: 行程列表搜索接口
      * @param condition

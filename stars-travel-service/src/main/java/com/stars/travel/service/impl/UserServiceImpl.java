@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUserById(Integer id) {
+    public boolean deleteUserById(Integer id,Boolean deleteFlag) {
         if(null != id){
             User user = userMapper.selectByPrimaryKey(id);
             Date nowDate = new Date();
@@ -141,11 +141,21 @@ public class UserServiceImpl implements UserService {
                     }
                 }
 
-                user.setIsEnable(false); //标记删除
-                int i = userMapper.updateByPrimaryKeySelective(user);
-                if(i>0){
-                    return true;
+                if(deleteFlag){
+                    //删除
+                    int i = userMapper.deleteByPrimaryKey(id);
+                    if(i>0){
+                        return true;
+                    }
+                }else{
+                    //禁用
+                    user.setIsEnable(false); //标记删除
+                    int i = userMapper.updateByPrimaryKeySelective(user);
+                    if(i>0){
+                        return true;
+                    }
                 }
+
             }
         }
         return false;

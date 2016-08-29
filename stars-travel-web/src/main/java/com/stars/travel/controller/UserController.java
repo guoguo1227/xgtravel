@@ -264,7 +264,7 @@ public class UserController extends BaseController{
      */
     @RequestMapping(value = "delete")
     @ResponseBody
-    public String deleteUser(String token,Integer userId){
+    public String deleteUser(String token,Integer userId,Boolean deleteFlag){
         RequestResult result = new RequestResult();
         result.setSuccess(false);
         String phone = HttpSessionProvider.getSessionUserPhone();
@@ -277,7 +277,7 @@ public class UserController extends BaseController{
             return gson.toJson(result);
         }
         if(null != userId){
-            boolean success = userService.deleteUserById(userId);
+            boolean success = userService.deleteUserById(userId,deleteFlag);
             if(success){
                 result.setSuccess(true);
             }else{

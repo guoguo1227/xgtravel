@@ -19,7 +19,7 @@ public interface UserService {
 
     public User queryUserByPhoneNumber(String phone);
 
-    public boolean deleteUserById(Integer id);
+    public boolean deleteUserById(Integer id,Boolean deleteFlag);
 
     public boolean restoreUserById(Integer id);
 

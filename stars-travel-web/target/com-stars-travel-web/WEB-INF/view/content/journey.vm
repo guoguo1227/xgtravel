@@ -4,42 +4,294 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>$!content.contentExt.title - $!{site.name} - POWERD BY PHYCMS</title>
-    <meta http-equiv="keywords" content="$!content.tagStr" />
-    <meta http-equiv="description" content="$!content.description" />
-    <link href="/static/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
+    <title> $!{obj.tiltle}  星轨行程分享页</title>
+    <meta http-equiv="keywords" content="$!obj.title" />
+    <meta http-equiv="description" content="$!obj.description" />
+    <style type="text/css">
+
+        #place{
+
+            position:relative;
+            left:77%;
+            top:20px;
+            width: 152px;
+            height: 40px;
+            border-radius: 60px;
+            background-color: rgba(0, 0, 0, 0.4);
+            text-align:center;
+
+        }
+
+        #text{
+            width: 84px;
+            height: 40px;
+            position:relative;
+            top:6px;
+            font-family: PingFang-SC;
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        #Introduction{
+            text-align:center;
+
+            position:relative;
+            top:300px;
+            width:100%;
+            height: 100px;
+            opacity: 0.8;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(36, 36, 36, 0.86));
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--black-86));
+        }
+
+        #text1{
+            text-align:center;
+            position:relative;
+            top:32px;
+            width: 710px;
+            font-family: PingFang-SC;
+            color: #ffffff;
+            font-size: 34px;
+        }
+        td
+        {
+            text-align:left;
+        }
+
+        .text2{
+            padding-bottom:20px;
+            font-family: PingFang-SC;
+            color: #333333;
+            font-size: 30px;
+            font-weight: 300;
+        }
+
+        #text3{
+
+            width: 91px;
+            position:relative;
+            left:20px;
+            top:9px;
+
+            font-family: PingFang-SC;
+            color: #4384f3;
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .name{
+
+            font-family: PingFang-SC;
+            color: #666666;
+            font-size: 28px;
+        }
+        .time{
+
+            font-family: PingFang-SC;
+            color: #999999;
+            font-size: 26px;
+            font-weight: 300;
+        }
+
+        .tip{
+            padding-top:20px;
+
+            padding-bottom:10px;
+            font-family: PingFang-SC;
+            color: #333333;
+            font-size: 30px;
+        }
+
+        .comment{
+            font-family: PingFang-SC;
+            color: #666666;
+            font-size: 30px;
+            font-weight: 300;
+        }
+
+        body {
+            margin:0px auto;
+        }
+        #fixedLayer {
+            position:fixed;
+            bottom:0px;
+            width:100%;
+            line-height:30px;
+            background: #FC6;
+            border:1px solid #F90;
+        }
+    </style>
+
+
 </head>
-<body>
-<div class="main">
-    <div class="news_text">
-        <div class="other">
-            <section class="content">
-                <div class="callout callout-info">
-                    <h4>分享</h4>
-                </div>
-                <!-- Default box -->
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">${obj.title}</h3>
-                        <span>${obj.destination}</span>
-                        <span>${obj.content}</span>
-                        <span>${obj.description}</span>
-                    </div>
-                    <div class="box-body">
-                        Start creating your amazing application!
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        Footer
-                    </div>
-                    <!-- /.box-footer-->
-                </div>
-                <!-- /.box -->
-            </section>
-        </div>
+<body >
+
+
+<!-- 下载悬浮窗 -->
+<div id="fixedLayer" style="  width: 100%;height: 130px;background-color: #454545;">
+    <table   style="width:100%;height:100%;lign:center;">
+        <tr >
+            <td style="padding-left:20px;width:120px"><img style="width:80px" src="/travels/share/xingui.png" alt="Big Boat"/></td>
+            <td style="font-family: PingFang-SC;color: rgba(255, 255, 255, 0.87); font-size: 22px;font-weight: 300;">下载 星轨旅行 APP<br>行程分享更丰富，还有精彩微游记</td>
+            <td  style="padding-right:20%">
+
+                <button  onclick="down()" style=" width: 141px; height: 58px; border-radius: 6px; background-color: #4384f3; text-align:center;">
+
+                    <text style="   width: 104px;height: 37px;font-family: PingFang-SC;color: #ffffff;font-size: 26px; ">下载星轨</div>
+
+</button>
+</div>
+</td>
+<tr>
+
+
+    </table>
     </div>
 
-</div>
+
+    <!-- 目的地 -->
+    <div id="head" style="background:url('${obj.coverImage}')  no-repeat;background-size:cover;height:440px">
+
+        <div id="place" >
+            <text id="text">${obj.destination}</text>
+        </div>
+        <div id="Introduction" >
+            <text id="text1">${obj.title}</text>
+        </div>
+
+    </div>
+
+
+    <!-- 个人信息 -->
+    <div id="personInfo">
+        <table    style="width:100%; padding:20px">
+            <tr  ><td style="width:100px;height:80px ;" rowspan=2> <img src='${obj.userInfo.portrait}' alt="头像"  style="width:100%; padding:20px"/></td>
+                <td class="name" >${obj.userInfo.name}</td> </tr>
+            <tr><td class="time">$date.format('yyyy-MM-dd HH:mm:ss', $obj.createtime)</tr>
+        </table>
+        <table   style="width:100%;padding:20px ">
+
+            <tr  ><td colspan=2 class='text2'></td>${obj.description} </tr>
+            <tr ><td  class="time">$date.format('yyyy-MM-dd HH:mm:ss', $!obj.starttime) 出发   共 <text style="color: #4384f3">$!{obj.totalday}</text> 天</td> <td class="time" style="text-align:right;" >人均 <text style="color: #FFA63E">$!{obj.budget}</text> 元</td> </tr>
+        </table>
+    </div>
+
+    <!-- 行程 -->
+    <div id="journeyListDay">
+
+        #foreach( $journeyDayVo in $obj.journeyDayVoList)
+            <div style="width: 100%; height: 60px;background-color: #f5f5f9;">
+                <text id="text3">DAY $!{journeyDayVo.currentDay}</text>
+            </div>
+           <div id="journeyList">
+               #foreach( $journeyItemVo in $journeyDayVo.journeyItemVoList)
+                   <table   style="width:100%; padding:20px">
+                       <tr ><td style="width:22px;height:22px ;" ><img src="/travels/share/650.png"   alt="Big Boat"/></td><td class="time" style="width:20%" >$!journeyItemVo.time</td> <td class="time" >预计花费 <text style="color: #FFA63E">$journeyItemVo.budget</text> 元</td><tr>
+                       <tr ><td rowspan=2 style="width:2px;height:100% ;" ></td><td colspan=2 style="width:100%; " class="tip" >$journeyItemVo.title</td> </tr>
+                       <tr ><td colspan=2 class="comment" >$journeyItemVo.description</td>  </tr>
+                   </table>
+               #end
+
+
+           <div>
+        #end
+
+    </div>
+
+    <!-- 分割线-->
+    <div style="padding-bottom:40px;padding-top:40px" >
+
+        <h1 style="height: 1px;background-color: #ebebeb;"><h1>
+
+
+    </div>
+
+    <!-- 评论 -->
+    <div >
+        <div  style= "padding-bottom:20px;text-align:center">
+            <text  style=" width: 104px; height: 37px;font-family: PingFang-SC;color: #4384f3;font-size: 26px;" >热门评论</text>
+        </div>
+        <div id="comments">
+            #foreach( $comment in $comments)
+                <table   style="width:100%; padding:20px">
+                    <tr  ><td style="width:100px;height:80px ;"  rowspan=2> <img src="$comment.userInfo.portrait" alt="头像" style="width:100%; padding:20px"/></td>
+                    <tr><td class="time">$date.format('yyyy-MM-dd HH:mm:ss', $comment.createtime)</tr>
+                    <tr><td ></td><td class="text2" >$!comment.recommend</td></tr>
+                </table>
+                <div style= "padding-top:20px;padding-bottom:20px;padding-left:120px">
+                    <h1 style="  width:100%;height: 1px;background-color: #ebebeb"><h1>
+                </div>
+            #end
+
+        </div>
+
+        <div  style= "padding-top:20px;padding-left:3%;padding-right:3%;text-align:center" >
+
+            <div onmousedown="mDown(this)" onmouseup="mUp(this)" id="downBtn" style= " height: 60px;border-radius: 4px;border: solid 2px #4384f3;padding-top:30px">
+                <text  style="  width: 408px;height: 33px;font-family: PingFang-SC;color: #4384f3;font-size: 24px;" >下载星轨客户端，查看更多精彩评论！</text>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 分割线-->
+    <div style="padding-bottom:20px;padding-top:40px" >
+
+        <h1 style="height: 1px;background-color: #ebebeb;"><h1>
+
+
+    </div>
+
+    <!-- 其他行程 -->
+    <div id="otherJourneyLis" >
+        <div  style= "padding-bottom:20px;text-align:center">
+            <text  style=" width: 104px; height: 37px;font-family: PingFang-SC;color: #4384f3;font-size: 26px;" >推荐行程</text>
+        </div>
+        #foreach( $recommend in $recommendJourney)
+            <div style="width:100%;height:287px" onmousedown="mDown(this)" onmouseup="mUp(this)" >
+                <table   style="padding:20px;width:100%;height: 100%;">
+                    <tr ><td colspan=3 style="  width: 710px;height: 45px;font-family: PingFang-SC;color: #333333;font-size: 32px;">$!recommend.title</td><tr>
+                    <tr ><td colspan=3  style="  width: 710px;height: 84px;font-family: PingFang-SC;color: #666666;font-size: 30px;font-weight: 300;">$!recommend.description</td><tr>
+                    <tr >
+                        <td></td>
+                        <td style="width: 100px;height: 37px;font-family: PingFang-SC;color: #4384f3;text-align: right;font-size: 26px;">$!recommend.destination</td>
+                        <td style=" width: 120px;height: 37px;font-family: PingFang-SC;color: #999999;text-align: right;font-size: 26px;">$!recommend.topCount可用</td><tr>
+                </table>
+            </div  >
+
+
+            <div style="padding-left:20px;">
+                <h1 style="height: 1px;background-color: #ebebeb;"><h1>
+            </div>
+        #end
+    </div>
+
+    <!--底部-->
+    <div style="height: 438px;background-color: #4384f3;padding-left:25%;padding-top:85px">
+        <img style=" width: 60%; height:125px" src="/travels/share/bottom.png" alt="Big Boat"/>
+    </div>
+
 </body>
+
+<script language="javascript">
+
+    window.onload=function(){
+
+    }
+
+    function mDown(obj){
+        obj.style.backgroundColor="#f5f5f9";
+    }
+
+    function mUp(obj){
+        obj.style.backgroundColor="white";
+        //操作下载
+        alert("准备下载");
+    }
+    function down(){
+        //操作下载
+        alert("准备下载");
+    }
+</script>
 </html>

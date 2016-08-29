@@ -357,6 +357,7 @@ public class JourneyServiceImpl implements JourneyService {
                             }
                         }
 
+                        vo.setJourneyDayVoList(journeyDayVoList);
                         addJourneyVoExtAttr(vo,currentPhone);
 
                     } catch (InvocationTargetException | IllegalAccessException e) {
@@ -367,6 +368,15 @@ public class JourneyServiceImpl implements JourneyService {
             }
         }
         return list ;
+    }
+
+    @Override
+    public List<Journey> queryRecommendJourney() {
+        JourneyCriteria criteria = new JourneyCriteria();
+        criteria.setOrderByClause(" createtime ");
+        criteria.setLimitEnd(5);
+        List<Journey> list =  journeyMapper.selectByExample(criteria);
+        return list;
     }
 
 

@@ -99,10 +99,8 @@ public class CommentController extends BaseController{
             if(!StringUtils.isBlank(condition.getType())){
                 try{
                     Integer typeId = Integer.parseInt(condition.getType());
-                    if(null != typeId){
-                        String typeEnum = CommentTypeEnum.getCommentTypeByCode(typeId);
-                        condition.setType(typeEnum);
-                    }
+                    String typeEnum = CommentTypeEnum.getCommentTypeByCode(typeId);
+                    condition.setType(typeEnum);
                 }catch (IllegalArgumentException e){
                     result.setMessage("评论类型不存在。");
                 }

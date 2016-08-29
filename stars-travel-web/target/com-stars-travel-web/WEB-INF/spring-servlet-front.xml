@@ -37,6 +37,9 @@
     <bean id="velocityConfig"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="/WEB-INF/view/" />
+        <property name="configLocation" value="/WEB-INF/velocity.properties" />
+        <property name="overrideLogging" value="true" />
+
         <property name="velocityProperties">
             <props>
                 <prop  key="input.encoding">UTF-8</prop>
@@ -50,8 +53,17 @@
         <property name="cache" value="true" />
         <property name="prefix" value="" />
         <property name="layoutUrl" value="layout.vm" />
+
+        <property name="toolboxConfigLocation" value="WEB-INF/tools.xml" />
+        <property name="allowRequestOverride" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="dateToolAttribute" value="date" />
+        <property name="numberToolAttribute" value="number" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityLayoutView" />
+        <property name="contentType" value="text/html;charset=utf-8" />
         <property name="suffix" value=".vm" />
-        <property name="contentType"><value>text/html;charset=UTF-8</value></property>
     </bean>
 
 </beans>
