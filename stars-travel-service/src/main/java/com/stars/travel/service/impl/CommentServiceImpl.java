@@ -11,6 +11,7 @@ import com.stars.travel.dao.ext.mapper.CommentVoMapper;
 import com.stars.travel.model.base.*;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
+import com.stars.travel.model.ext.RequestResult;
 import com.stars.travel.service.CommentService;
 import com.stars.travel.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -210,6 +211,29 @@ public class CommentServiceImpl implements CommentService {
             }
         }
         return false;
+    }
+
+    @Override
+    public RequestResult deleteMyComment(String currentPhone, Integer id) {
+        boolean success = false;
+        String message = "";
+        if(null != id && !StringUtils.isBlank(currentPhone)){
+            Comment comment = commentMapper.selectByPrimaryKey(id);
+            //自己发布的
+            if(null != comment && comment.getPhone().equals(currentPhone)){
+                comment.setIsEnable(false); //标记删除
+                int i = commentMapper.updateByPrimaryKey(comment);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "只能删除自己发布的评论";
+            }
+        }
+        RequestResult result = new RequestResult();
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
     }
 
     @Override

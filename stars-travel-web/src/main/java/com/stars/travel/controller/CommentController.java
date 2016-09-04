@@ -82,7 +82,36 @@ public class CommentController extends BaseController{
         }
         return gson.toJson(result);
     }
+    /**
+     * @Description : 删除评论
+     * @param id
+     * @param token
+     * @return
+     */
+    @RequestMapping("deleteMy")
+    @ResponseBody
+    public String deleteMyComment(Integer id,String token){
 
+        RequestResult result = new RequestResult();
+        if(null != id){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+
+            //获取APP的token
+            if(!StringUtils.isBlank(token)){
+                phone = userService.queryPhoneByToken(token);
+            }
+
+            if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+            result = commentService.deleteMyComment(phone,id);
+
+        }else{
+            result.setMessage("id 不可为空");
+        }
+        return gson.toJson(result);
+    }
     /**
      * @Deescription : 查询评论列表-移动端
      * @param condition

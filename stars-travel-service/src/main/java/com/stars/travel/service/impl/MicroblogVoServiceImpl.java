@@ -102,6 +102,7 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
                         condition.setTopGreaterThan(condition.getTopCount());
                     }
                 }else{
+                    //id
                     if(null != condition.getfId()){
                         condition.setIdLessThan(condition.getfId());
                     }
@@ -151,9 +152,18 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     @Override
     public List<MicroblogVo> searchMicroblogVoApp(SearchCondition condition, String currentPhone) {
         List<MicroblogVo> list = null;
-        if(null != condition){
-            List<Integer> ids = microblogSearchService.queryMicroblogList(condition);
-            if(!CollectionUtils.isEmpty(ids)){
+        if(null != condition && !StringUtils.isBlank(condition.getSearchContent())){
+           // List<Integer> ids = microblogSearchService.queryMicroblogList(condition);
+            MicroblogCriteria criteria = new MicroblogCriteria();
+            criteria.or().andTitleLike(condition.getSearchContent()).andIsEnableEqualTo(true);
+            criteria.or().andDestinationEqualTo(condition.getSearchContent()).andIsEnableEqualTo(true);
+            criteria.or().andDestDescriptionLike(condition.getSearchContent()).andIsEnableEqualTo(true);
+            List<Microblog> microblogList = microblogMapper.selectByExample(criteria);
+            if(!CollectionUtils.isEmpty(microblogList)){
+                List<Integer> ids = new ArrayList<>();
+                for(Microblog microblog :microblogList){
+                    ids.add(microblog.getId());
+                }
                 condition.setIdsIn(ids);
                 list = querySharedMicroblogVoApp(condition,currentPhone);
             }
@@ -270,6 +280,25 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
             }
         }
         return success;
+    }
+
+    @Override
+    public boolean deleteMyMicroblg(String currentPhone, Integer id) {
+
+        if(null != id && !StringUtils.isBlank(currentPhone)){
+            Microblog microblog = microblogMapper.selectByPrimaryKey(id);
+            if(null != microblog){
+                //如果是自己发布的
+                if(microblog.getPhone().equals(currentPhone)){
+                    microblog.setIsEnable(false); //标记删除
+                    int i = microblogMapper.updateByPrimaryKey(microblog);
+                    if(i>0){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override

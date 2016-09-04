@@ -11,13 +11,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserVoMapper {
 
     public User queryUserByPhone(@Param("phone") String phone);
-
-    /**
-     * @Description : 更新用户密码
-     * @param phone
-     * @param password
-     * @return
-     */
-    public int updatePassword(@Param("phone") String phone,@Param("password") String password);
 }
 

@@ -57,10 +57,4 @@
       limit 1
     </where>
   </select>
-
-  <select id="updatePassword" resultType="java.lang.Integer"  parameterType="java.lang.String" >
-    update root_user
-    set password = #{password,jdbcType=VARCHAR}
-    where phone = #{phone,jdbcType=VARCHAR}
-  </select>
 </mapper>

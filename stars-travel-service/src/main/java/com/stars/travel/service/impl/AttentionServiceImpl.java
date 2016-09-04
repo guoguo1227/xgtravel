@@ -132,14 +132,19 @@ public class AttentionServiceImpl implements AttentionService{
 
         List<UserInfo> userInfoList = null;
         List<Attention> list = null;
+        boolean flag = false;
         AttentionCriteria criteria = new AttentionCriteria();
         AttentionCriteria.Criteria attentionCriteria = criteria.createCriteria();
         if(null != condition && !StringUtils.isBlank(currentPhone)){
             //我的关注
             if(null != condition.getMy() && condition.getMy()){
                 attentionCriteria.andCurrentPhoneEqualTo(currentPhone);
+                flag = true;
             }
-
+            //关注我的
+            if(null != condition.getAttentionMe() && condition.getAttentionMe()){
+                attentionCriteria.andRelatePhoneEqualTo(currentPhone);
+            }
             //是否查询最新，历史
             if(null != condition.getIfNew()){
                 if(condition.getIfNew()){
@@ -157,10 +162,7 @@ public class AttentionServiceImpl implements AttentionService{
                 criteria.setLimitStart(condition.getOffset());
                 criteria.setLimitEnd(condition.getLimit());
             }
-            //关注我的
-            if(null != condition.getAttentionMe()){
-                attentionCriteria.andRelatePhoneEqualTo(currentPhone);
-            }
+
             attentionCriteria.andIsDeleteEqualTo(false); //查询未删除的
             attentionCriteria.andTypeEqualTo(AttentionEnum.USER.getCode());//关注类型
             list = attentionMapper.selectByExample(criteria);
@@ -168,8 +170,15 @@ public class AttentionServiceImpl implements AttentionService{
                 userInfoList = new ArrayList<>();
                 for(Attention a : list){
                     //查询用户对象
-                    UserInfo userInfo = queryUserInfo(a);
-                    userInfoList.add(userInfo);
+                    UserInfo userInfo = null;
+                    if(flag){
+                        userInfo = queryUserInfo(a.getRelatePhone(),a.getCurrentPhone());
+                    }else{
+                        userInfo = queryUserInfo(a.getCurrentPhone(),a.getRelatePhone());
+                    }
+                    if(null !=  userInfo){
+                        userInfoList.add(userInfo);
+                    }
                 }
             }
         }else{
@@ -183,10 +192,10 @@ public class AttentionServiceImpl implements AttentionService{
      * @param a
      * @return
      */
-    public UserInfo queryUserInfo(Attention a){
+    public UserInfo queryUserInfo(String phone,String currentPhone){
         UserInfo userInfo = null;
-        if(null != a){
-            userInfo =userService.queryUserInfoByPhone(a.getRelatePhone(),a.getCurrentPhone());
+        if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(currentPhone)){
+            userInfo =userService.queryUserInfoByPhone(phone,currentPhone);
         }
         return userInfo;
     }

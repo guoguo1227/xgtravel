@@ -123,6 +123,14 @@ public interface JourneyService {
     public RequestResult untopJourney(Integer id, String currentPhone);
 
     /**
+     * @Descript: 删除自己发布的行程
+     * @param id
+     * @param currentPhone
+     * @return
+     */
+    public RequestResult deleteMyJourney(Integer id,String currentPhone);
+
+    /**
      * @Description : 查询我的收藏，行程收藏列表
      * @param condition
      * @param currentPhone

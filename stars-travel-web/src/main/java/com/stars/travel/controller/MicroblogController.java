@@ -242,6 +242,39 @@ public class MicroblogController extends BaseController{
     }
 
     /**
+     * @Description : 删除自己发布的微游记
+     * @param id
+     * @param token
+     * @return
+     */
+    @RequestMapping("deleteMy")
+    @ResponseBody
+    public String deleteMyMicroblog(Integer id,String token){
+        RequestResult result = new RequestResult();
+        if(null != id){
+            String phone = HttpSessionProvider.getSessionUserPhone();
+
+            //获取APP的token
+            if(!StringUtils.isBlank(token)){
+                phone = userService.queryPhoneByToken(token);
+            }
+
+            if(StringUtils.isBlank(phone)){
+                result.setMessage("请先登录。");
+                return gson.toJson(result);
+            }
+            boolean success = microblogVoService.deleteMyMicroblg(phone,id);
+            if(success){
+                result.setSuccess(true);
+            }else{
+                result.setMessage("删除微游记失败!");
+            }
+        }else{
+            result.setMessage("id 不可为空");
+        }
+        return gson.toJson(result);
+    }
+    /**
      * @Description : 收藏微游记
      * @param id
      * @return

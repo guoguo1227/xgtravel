@@ -66,6 +66,14 @@ public interface MicroblogVoService {
     public boolean deleteMicroblog(Integer id);
 
     /**
+     * @Description: 删除自己的微游记
+     * @param id
+     * @param currentPhone
+     * @return
+     */
+    public boolean deleteMyMicroblg(String currentPhone,Integer id);
+
+    /**
      * @Description : 收藏微游记
      * @param id
      * @param currentPhone

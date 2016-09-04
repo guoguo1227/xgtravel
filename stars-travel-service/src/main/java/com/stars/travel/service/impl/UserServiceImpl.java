@@ -531,9 +531,13 @@ public class UserServiceImpl implements UserService {
     public boolean updatePassword(String phone, String password) {
         if(!StringUtils.isBlank(phone) && !StringUtils.isBlank(password)) {
             password = EncryptUtil.md5(password);
-            int i = userVoMapper.updatePassword(phone,password);
-            if(i>0){
-                return true;
+            User user = queryUserByPhoneNumber(phone);
+            if(null != user){
+                user.setPassword(password);
+                int i = userMapper.updateByPrimaryKey(user);
+                if(i>0){
+                    return true;
+                }
             }
         }
         return false;
@@ -706,7 +710,8 @@ public class UserServiceImpl implements UserService {
 
         //行程分享数量
         SearchCondition journeyContion = new SearchCondition();
-        journeyContion.setUserId(u.getId());
+        //journeyContion.setUserId(u.getId());
+        journeyContion.setPhone(u.getPhone());
         int journeyCount = journeyService.queryJourneyCount(journeyContion);
         userInfo.setJourneyNumber(journeyCount+"");
         //微游记数量

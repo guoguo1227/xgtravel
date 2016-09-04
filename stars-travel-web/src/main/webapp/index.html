@@ -1,87 +1,616 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="MainApp">
-<head>
-    <meta charset="UTF-8">
-    <title>星轨旅游后台</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="/static/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/static/angular-lg-platform/angular-lg-platform.css"/>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>星轨旅行</title>
+		<link href="static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+		 <!-- Custom Theme files -->
+		<link href="static/index/css/style.css" rel='stylesheet' type='text/css' />
+   		 <!-- Custom Theme files -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
-    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
-    <link href="/static/plugins/toastr/toastr2.css" rel="stylesheet" type="text/css" />
-    <link href="/static/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-    <link href="/travels/common/forbid-constants.css" rel="stylesheet" type="text/css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Add mousewheel plugin (this is optional) -->
+		<link href="static/index/css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script type="text/javascript" src="static/index/js/jquery.corner.js"></script>
+		<script src="static/index/js/wow.min.js"></script>
+		<script>
+		 new WOW().init();
+		</script>
+		<!---- animated-css ---->
+		<!---- start-smoth-scrolling---->
+		<script type="text/javascript" src="static/index/js/move-top.js"></script>
+		<script type="text/javascript" src="static/index/js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+		 <!---- start-smoth-scrolling---->
+		<!----start-top-nav-script---->
+		<script>
+			$(function() {
+				var pull 		= $('#pull');
+					menu 		= $('nav ul');
+					menuHeight	= menu.height();
+				$(pull).on('click', function(e) {
+					e.preventDefault();
+					menu.slideToggle();
+				});
+				$(window).resize(function(){
+	        		var w = $(window).width();
+	        		if(w > 320 && menu.is(':hidden')) {
+	        			menu.removeAttr('style');
+	        		}
+	    		});
+			});
+		</script>
+		<!----//End-top-nav-script---->
+	</head>
+	<body>
+		<div class="bg">
+		<!----- start-header---->
+		<div class="container">
+			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
+					<div class="top-header">
+						<div class="logo">
+							<a href="#">星轨</a>
+						</div>
+						<!----start-top-nav---->
+						 <nav class="top-nav">
+							<ul class="top-nav">
+								<li><a href="#about" class="scroll">行程</a></li>
+								<li><a href="#process" class="scroll">微游记</a></li>
+								<li><a href="#port2" class="scroll">定制</a></li>
+								<li class="page-scroll"><a href="#contact" class="scroll">联系我们</a></li>
+								<li class="active-join" class="page-scroll"><a href="#team" class="scroll">加入我们</a></li>
+							</ul>
+							<a href="#" id="pull"><img src="static/index/images/nav-icon.png" title="menu" /></a>
+						</nav>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+			<!----- //End-header---->
+			<!---- banner-info ---->
+			<div class="banner-info">
+				<div class="container">
+					<h1 class="wow fadeIn" data-wow-delay="0.5s"><span>星轨</span><br /><label>攻略在手，轻松自由行</label></h1>
+				<div class="top-banner-grids wow bounceInUp" data-wow-delay="0.4s">
+					<div class="banner-grid text-center">
+						<span class="top-icon1"> </span>
+						<h3>发布需求</h3>
+					</div>
+					<div class="banner-grid banner-grid-active text-center">
+						<span class="top-icon2"> </span>
+						<h3>行程规划师抢单</h3>
+					</div>
+					<div class="banner-grid text-center">
+						<span class="top-icon3"> </span>
+						<h3>定制您的行程</h3>
+					</div>
+					<div class="banner-grid text-center">
+						<span class="top-icon4"> </span>
+						<h3>行程途中服务伴随</h3>
+					</div>
+					<div class="banner-grid text-center">
+						<span class="top-icon5"> </span>
+						<h3>交易完成</h3>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+			<!---- banner-info ---->
+			<!---- top-grids ---->
+			<div class="top-grids text-center">
+				<div class="container">
+					<div class="col-md-3 wow bounceIn" data-wow-delay="0.4s">
+						<div class="top-grid">
+							<span class="icon1"> </span>
+							<h3><a href="#">微游记</a></h3>
+							<label> </label>
+							<p>在这里，您可以把您旅途中的所见所闻所乐分享给每一个驴友</p>
+						</div>
+					</div>
+					<div class="col-md-3 wow bounceIn" data-wow-delay="0.4s">
+						<div class="top-grid">
+							<span class="icon2"> </span>
+							<h3><a href="#">行程分享</a></h3>
+							<label> </label>
+							<p>每一次出游，有您在身旁，我就放心。您是每一位出游游子的军事宝典,您也可以把您的宝典分享给每一个人。</p>
+						</div>
+					</div>
+					<div class="col-md-3 wow bounceIn" data-wow-delay="0.4s">
+						<div class="top-grid">
+							<span class="icon3"> </span>
+							<h3><a href="#">定制</a></h3>
+							<label> </label>
+							<p>我们承诺，您发布的每一个行程定制需求，都有我们的规划师为您服务</p>
+						</div>
+					</div>
+					<div class="col-md-3 wow bounceIn" data-wow-delay="0.4s">
+						<div class="top-grid">
+							<span class="icon4"> </span>
+							<h3><a href="#">评论</a></h3>
+							<label> </label>
+							<p>您在我们平台的每一句发言，都是给我们莫大的支持与鼓舞。</p>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<!---- top-grids ---->
+			<!---- about ---->
+			<div id="about" class="about">
+				<div class="head-section">
+					<div class="container">
+						<h3><span>about</span><label>ruddy .</label></h3>
+					</div>
+				</div>
+					<!--- about-grids ---->
+					<div class="about-grids">
+						<div class="col-md-4 about-grid about-grid1 wow fadeInLeft" data-wow-delay="0.4s">
+							<div class="about-grid-info">
+								<h4><a href="#">this is a point about the company</a></h4>
+								<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed </p>
+							</div>
+							<div class="about-grid-pic">
+							<img src="static/index/images/about-pic1.jpg" title="name" />
+							</div>
+						</div>
+						<div class="col-md-4 about-grid about-grid2 wow fadeInUp" data-wow-delay="0.4s">
+							<div class="about-grid-pic">
+							<img src="static/index/images/about-pic2.jpg" title="name" />
+							</div>
+							<div class="about-grid-info">
+								<h4><a href="#">this is a point about the company</a></h4>
+								<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed </p>
+							</div>
+						</div>
+						<div class="col-md-4 about-grid about-grid1 wow fadeInRight" data-wow-delay="0.4s">
+							<div class="about-grid-info">
+								<h4><a href="#">this is a point about the company</a></h4>
+								<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed </p>
+							</div>
+							<div class="about-grid-pic">
+							<img src="static/index/images/about-pic3.jpg" title="name" />
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<!--- /about-grids ---->
+				</div>
+			</div>
+			<!---- about ----> 
+			
+			<!--- process --->
+			<div id="process" class="process">
+				<div class="head-section">
+					<div class="container">
+						<h3><span>Our</span><label>process .</label></h3>
+					</div>
+				</div>
+				<div class="container">
+					<div class="process-grids text-center wow bounce" data-wow-delay="0.4s">
+						<div class="col-md-3 process-grid process-grid1 wow bounceInUp" data-wow-delay="0.4s">
+							<span class="p-icon1"> </span>
+							<h4><a href="#">meeting</a></h4>
+						</div>
+						<div class="col-md-3 process-grid process-grid2 wow bounceInDown" data-wow-delay="0.4s">
+							<span class="p-icon2"> </span>
+							<h4><a href="#">analysis</a></h4>
+						</div>
+						<div class="col-md-3 process-grid process-grid3 wow bounceInUp" data-wow-delay="0.4s">
+							<span class="p-icon3"> </span>
+							<h4><a href="#">making</a></h4>
+						</div>
+						<div class="col-md-3 process-grid process-grid4 wow bounceInDown" data-wow-delay="0.4s">
+							<span class="p-icon4"> </span>
+							<h4><a href="#">success</a></h4>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+			<!--- process --->
+			<!--- blog ---->
+			<div class="blog">
+				<div class="head-section">
+					<div class="container">
+						<h3><span>Our</span><label>blog .</label></h3>
+					</div>
+				</div>
+				<!---- blog-grids ---->
+				<div class="blog-grids">
+					<div class="container"> 
+					<div class="blog-grids-left">
+							<div class="blog-grid-left wow bounceIn" data-wow-delay="0.4s">
+								<div class="blog-art-pic">
+									<img src="static/index/images/b1.jpg" title="name" />
+								</div>
+								<div class="blog-art-info">
+									<h3><a href="#">Heading</a></h3>
+									<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.</p>
+									<ul class="blog-art-info-stags">
+										<li class="blog-art-info-stags-left"><span>12.11.2014</span></li>
+										<li class="blog-art-info-stags-right">
+											<ul>
+												<li><a href="#"> <label class="b-icon1"> </label>24</a></li>
+												<li><a href="#"> <label class="b-icon2"> </label>9</a></li>
+											</ul>
+										</li>
+										<div class="clearfix"> </div>
+									</ul>
+								</div>
+							</div>
+							<div class="blog-grid-left wow bounceIn" data-wow-delay="0.4s">
+								<div class="blog-art-pic">
+									<img src="static/index/images/b2.jpg" title="name" />
+								</div>
+								<div class="blog-art-info">
+									<h3><a href="#">Heading</a></h3>
+									<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.</p>
+									<ul class="blog-art-info-stags">
+										<li class="blog-art-info-stags-left"><span>12.11.2014</span></li>
+										<li class="blog-art-info-stags-right">
+											<ul>
+												<li><a href="#"> <label class="b-icon1"> </label>24</a></li>
+												<li><a href="#"> <label class="b-icon2"> </label>9</a></li>
+											</ul>
+										</li>
+										<div class="clearfix"> </div>
+									</ul>
+								</div>
+							</div>
+						<div class="clearfix"> </div>
+						<!---- ---->
+						<div class="blog-grid-left-big wow bounceIn" data-wow-delay="0.4s">
+							<div class="blog-grid-left-big-info">
+								<div class="blog-art-info">
+									<h3><a href="#">Heading</a></h3>
+									<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. </p>
+									<ul class="blog-art-info-stags">
+										<li class="blog-art-info-stags-left"><span>12.11.2014</span></li>
+										<li class="blog-art-info-stags-right">
+											<ul>
+												<li><a href="#"> <label class="b-icon1"> </label>24</a></li>
+												<li><a href="#"> <label class="b-icon2"> </label>9</a></li>
+											</ul>
+										</li>
+										<div class="clearfix"> </div>
+									</ul>
+								</div>
+							</div>
+							<div class="blog-grid-left-big-pic">
+								<div class="blog-art-pic">
+									<img src="static/index/images/b4.jpg" title="name" />
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<div class="blog-grids-right wow bounceIn" data-wow-delay="0.4s">
+						<div class="blog-grid-left blog-grid-right">
+								<div class="blog-art-pic">
+									<img src="static/index/images/b3.jpg" title="name" />
+								</div>
+								<div class="blog-art-info">
+									<h3><a href="#">Heading</a></h3>
+									<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.</p>
+									<ul class="blog-art-info-stags">
+										<li class="blog-art-info-stags-left"><span>12.11.2014</span></li>
+										<li class="blog-art-info-stags-right">
+											<ul>
+												<li><a href="#"> <label class="b-icon1"> </label>24</a></li>
+												<li><a href="#"> <label class="b-icon2"> </label>9</a></li>
+											</ul>
+										</li>
+										<div class="clearfix"> </div>
+									</ul>
+								</div>
+							</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<!---- blog-grids ---->
+				</div>
+			</div>
+			<!--- blog ---->
+			<!--- portfolio ---->
+			<div id="port1" class="portfolio">
+				<div class="head-section">
+					<div class="container">
+						<h3>portfolio .</h3>
+					</div>
+				</div>
+				<!--- Portfolio --->
+			<div id="port2" class="portfolio-box">
+				
+					<!---- start-portfolio-script----->
+					<script type="text/javascript" src="static/index/js/jquery.mixitup.min.js"></script>
+					<script type="text/javascript">
+						$(function () {
+							var filterList = {
+								init: function () {
+								
+									// MixItUp plugin
+									// http://mixitup.io
+									$('#portfoliolist').mixitup({
+										targetSelector: '.portfolio',
+										filterSelector: '.filter',
+										effects: ['fade'],
+										easing: 'snap',
+										// call the hover effect
+										onMixEnd: filterList.hoverEffect()
+									});				
+								
+								},
+								hoverEffect: function () {
+									// Simple parallax effect
+									$('#portfoliolist .portfolio').hover(
+										function () {
+											$(this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
+											$(this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');				
+										},
+										function () {
+											$(this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
+											$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
+										}		
+									);				
+								
+								}
+					
+							};
+							// Run the show!
+							filterList.init();
+						});	
+					</script>
+					<div class="container">
+						<!----//End-portfolio-script----->
+						<ul id="filters" class="clearfix">
+							<li class="filtter-color1"><span class="filter active" data-filter="app card icon logo web">All</span></li>
+							<li class="filtter-color2"><span class="filter" data-filter="app">business</span></li>
+							<li class="filtter-color3"><span class="filter" data-filter="card">building</span></li>
+							<li class="filtter-color4"><span class="filter" data-filter="icon">medicine</span></li>
+							<li class="filtter-color5"><span class="filter" data-filter="app">entertainment</span></li>
+						</ul>
+					</div>
+					<div id="portfoliolist">
+					<div class="portfolio logo1 mix_all port-big-grid wow bounceIn" data-wow-delay="0.5s" data-cat="logo" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic1.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>				
+					<div class="portfolio app mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic2.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>		
+					<div class="portfolio web mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="web" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic3.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>				
+					<div class="portfolio icon mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="icon" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic4.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>	
+					<div class="portfolio app mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic5.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>			
+					<div class="portfolio card mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic6.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>	
+					<div class="portfolio icon mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="icon" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic7.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>	
+					<div class="portfolio app mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="app" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic8.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>			
+					<div class="portfolio card mix_all wow bounceIn" data-wow-delay="0.5s" data-cat="card" style="display: inline-block; opacity: 1;">
+						<div class="portfolio-wrapper">		
+							<a data-toggle="modal" data-target=".bs-example-modal-md" href="#" class="b-link-stripe b-animate-go  thickbox">
+						     <img class="p-img" src="static/index/images/portpic9.jpg" /><div class="b-wrapper">
+						     	<h2 class="b-animate b-from-left    b-delay03 ">
+						     		<div class="caption">
+						     			<h4>heading of project</h4>
+						     			<p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+						     		</div>
+						     	</h2>
+						  	</div></a>
+		                </div>
+					</div>	
+					<div class="clearfix"> </div>	
+				</div>
+			</div>
+				</div>
+			</div>
+			<!---- work-with-us---->
+			<div class="work-with-us text-center">
+				<div class="container">
+					<h4>YOU ALSO WANT? WORK WITH US!</h4>
+					<p>Send the application form for a free call and our manager will contact with you</p>
+					<a class="catch-me wow shake" data-wow-delay="0.3s" href="#">contact us</a>
+				</div>
+			</div>
+			<!---- work-with-us---->
+			<!--- portfolio ---->
+			<!---- Team ----->
+			<div id="team" class="team">
+				<div class="head-section">
+					<div class="container">
+						<h3><span>our amazing</span><label>team .</label></h3>
+					</div>
+				</div>
+				<!----sreen-gallery-cursual---->
+						<div class="sreen-gallery-cursual">
+							 <!-- requried-jsfiles-for owl -->
+							<link href="static/index/css/owl.carousel.css" rel="stylesheet">
+							    <script src="static/index/js/owl.carousel.js"></script>
+							        <script>
+							    $(document).ready(function() {
+							      $("#owl-demo").owlCarousel({
+							        items : 3,
+							        lazyLoad : true,
+							        autoPlay : true,
+							        navigation : true,
+							        navigationText :  false,
+							        pagination : false,
+							      });
+							    });
+							    </script>
+							 <!-- //requried-jsfiles-for owl -->
+							 <!-- start content_slider -->
+						       <div id="owl-demo" class="owl-carousel text-center">
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member1.png" alt="name">
+					                	<h5><span>Peter</span> Holmes</h5>
+					                	<label>Marketing</label>
+					                </div>
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member2.png" alt="name">
+					                	<h5><span>Kenny</span> Johns</h5>
+					                	<label>CEO</label>
+					                </div>
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member3.png" alt="name">
+					                	<h5><span>Trisha </span> Steplton</h5>
+					                	<label>Designer</label>
+					                </div>
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member1.png" alt="name">
+					                	<h5><span>Peter</span> Holmes</h5>
+					                	<label>Marketing</label>
+					                </div>
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member2.png" alt="name">
+					                	<h5><span>Kenny</span> Johns</h5>
+					                	<label>CEO</label>
+					                </div>
+					                <div class="item wow zoomIn" data-wow-delay="0.3s">
+					                	<img class="lazyOwl" data-src="static/index/images/team-member3.png" alt="name">
+					                	<h5><span>Trisha </span> Steplton</h5>
+					                	<label>Designer</label>
+					                </div>
+				              </div>
+						<!--//sreen-gallery-cursual---->
+			</div>
+			</div>
+			<!---- Team ----->
+			<!---- map ---->
+			<div id="contact" class="map">
 
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="/static/plugins/fancy/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-
-    <!-- Optionally add helpers - button, thumbnail and/or media -->
-    <link rel="stylesheet" href="/static/plugins/fancy/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/static/plugins/fancy/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
-    <script src="/static/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
-
-</head>
-
-<body ng-controller="MainCtrl" ng-init="init()">
-<lg-headbar></lg-headbar>
-
-<lg-content>
-    <lg-sidebar>
-        <lg-sidebar-menu></lg-sidebar-menu>
-    </lg-sidebar>
-
-    <div class="col-xs-12">
-        <lg-breadcrumb></lg-breadcrumb>
-        <div ui-view></div>
-    </div>
-</lg-content>
-
-
-<lg-footbar></lg-footbar>
-
-<script src="/static/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-<script src="/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" type="text/javascript"></script>
-<script src="/static/plugins/daterangepicker/moment.js"></script>
-<script src="/static/plugins/daterangepicker/daterangepicker.js"></script>
-
-<!-- jquery-validator -->
-<script src="/static/plugins/lodash.js"></script>
-<script src="/static/plugins/angular/angular.js"></script>
-<script src="/static/plugins/angular/angular-ui-router.js"></script>
-<script src="/static/plugins/file-upload/ng-file-upload-shim.min.js"></script>
-<script src="/static/plugins/file-upload/ng-file-upload.min.js"></script>
-<!-- 编辑器源码文件 -->
-<script src="/static/angular-lg-platform/angular-lg-platform.js"></script>
-<script src="/navigation/getNavData.json?callback=lgGetUrlConfig"></script>
-<script src="/travels/common/angular-constants.js"></script>
-<script src="/static/plugins/toastr/toastr2.js"></script>
-<script src="static/plugins/echart/echarts.min.js"></script>
-<!-- websocket-->
-<script src="/static/plugins/websocket/reconnecting-websocket.js"></script>
-<!-- Add mousewheel plugin (this is optional) -->
-<script type="text/javascript" src="/static/plugins/fancy/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-
-<!-- Add fancyBox -->
-<script type="text/javascript" src="/static/plugins/fancy/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-<!-- Optionally add helpers - button, thumbnail and/or media -->
-<script type="text/javascript" src="/static/plugins/fancy/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-<script type="text/javascript" src="/static/plugins/fancy/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-
-<script type="text/javascript" src="/static/plugins/fancy/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-<script src="/travels/index.js"></script>
-<script src="/travels/user/user.js"></script>
-<script src="/travels/journey/journey.js"></script>
-<script src="/travels/dashboard/dashboard.js"></script>
-<script src="/travels/microblog/microblog.js"></script>
-<script src="/travels/comment/comment.js"></script>
-<script src="/travels/customization/customization.js"></script>
-<script src="/travels/common/WebSocket.js"></script>
-
+			</div>
+			<!---- map ---->
+			<div class="clearfix"> </div>
+			<!---- footer --->
+			<div class="footer text-center">
+				<div class="container">
+					<div class="footer-inner wow zoomIn" data-wow-delay="0.3s">
+						<ul>
+							<li><a href="#"><img src="static/index/images/footer-logo.png" title="xgtravles" /></a></li>
+							<li><a class="contact-me" href="#">联系我们</a></li>
+						</ul>
+					</div>
+					<script type="text/javascript">
+									$(document).ready(function() {
+										/*
+										var defaults = {
+								  			containerID: 'toTop', // fading element id
+											containerHoverID: 'toTopHover', // fading element hover id
+											scrollSpeed: 1200,
+											easingType: 'linear' 
+								 		};
+										*/
+										
+										$().UItoTop({ easingType: 'easeOutQuart' });
+										
+									});
+								</script>
+				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+				</div>
+			</div>
+			<!---- footer --->
+		</div>
 </body>
 </html>

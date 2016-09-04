@@ -158,7 +158,8 @@ function userCtrl($scope,$http,angularMeta,lgDataTableService,Upload){
             pg.userPortrait = "<a class='fancybox' rel='group' href={{$row.portrait}}><img src={{$row.portrait}} style='width:100px;height: 100px;' /></a>";
             pg.userIntroduceImage = "<a class='fancybox' rel='group' href={{$row.introduceImage}}><img src={{$row.introduceImage}} style='width:100px;height: 100px;' /></a>";
 
-            pg.action = '<a title="删除" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.disableUser($row)">禁用</a>'+
+            pg.action = '<a title="禁用" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.disableUser($row)">禁用</a>'+
+                '<a title="删除" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.deleteUser($row)">删除</a>'+
                 '<a title="恢复" class="btn bg-green btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.restoreUser($row)">恢复</a>'+
                 '<a title="认证为当地人" class="btn bg-orange btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.localUser($row)">认证为当地人</a>'+
                 '<a title="添加评论" class="btn bg-info btn-xs lagou-margin-left-3 lagou-margin-top-3" ng-click="$table.addComment($row)">添加评论</a>'+

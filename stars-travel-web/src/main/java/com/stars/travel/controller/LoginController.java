@@ -97,8 +97,7 @@ private Logger logger = Logger.getLogger(UserController.class);
             //所以这一步在调用login(token)方法时,它会走到ShiroDbRealm.doGetAuthenticationInfo()方法中
             curUser.login(token);
 
-            User loginUser = userService.queryUserByPhoneNumber(user.getPhone());
-            userInfo = packageUserInfo(loginUser);
+            userInfo  = userService.queryUserInfoByPhone(user.getPhone(),user.getPhone());
 
             result.setData(userInfo);
             result.setSuccess(true);
@@ -113,26 +112,6 @@ private Logger logger = Logger.getLogger(UserController.class);
             ThreadVariable.setUser(userInfo);
         }
         return gson.toJson(result);
-    }
-    /**
-     * @Description : 封装用户信息
-     * @param user
-     * @return
-     */
-    private UserInfo packageUserInfo(User user){
-        if(null == user){
-            return  null;
-        }
-        UserInfo userInfo = new UserInfo();
-        try {
-            BeanUtilExt.copyProperties(userInfo,user);
-            userInfo.setToken(user.getOauthid());
-        } catch (InvocationTargetException e) {
-            logger.info("拷贝用户属性失败"+e.toString());
-        } catch (IllegalAccessException e) {
-            logger.info("拷贝用户属性失败"+e.toString());
-        }
-        return  userInfo;
     }
 
     /**

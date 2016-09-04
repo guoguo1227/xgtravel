@@ -55,6 +55,9 @@ public class AttentionController extends BaseController{
             result.setMessage("请先登录");
             return gson.toJson(result);
         }
+        if(null == condition){
+            condition = new SearchCondition();
+        }
         //设置我的
         condition.setMy(true);
         List<UserInfo> list = attentionService.queryAttetionApp(condition,currentPhone);
@@ -84,6 +87,9 @@ public class AttentionController extends BaseController{
         if(StringUtils.isBlank(currentPhone)){
             result.setMessage("请先登录");
             return gson.toJson(result);
+        }
+        if(null == condition){
+            condition = new SearchCondition();
         }
         //设置我的
         condition.setAttentionMe(true);

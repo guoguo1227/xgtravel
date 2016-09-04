@@ -178,7 +178,7 @@ public class UserController extends BaseController{
      * @param password
      * @return
      */
-    @RequestMapping(value = "updatePassword" , method = RequestMethod.POST)
+    @RequestMapping(value = "updatePassword")
     @ResponseBody
     public Object updatePassword(String token,String password) {
         RequestResult result = new RequestResult();

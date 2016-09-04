@@ -4,6 +4,7 @@ import com.stars.common.utils.Page;
 import com.stars.travel.model.base.Comment;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
+import com.stars.travel.model.ext.RequestResult;
 
 import java.util.List;
 
@@ -55,6 +56,8 @@ public interface CommentService {
      * @return
      */
     public boolean deleteComment(Integer id);
+
+    public RequestResult deleteMyComment(String currentPhone,Integer id);
 
     /**
      * @Description : 删除微游记下的所有评论

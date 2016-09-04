@@ -323,6 +323,9 @@ public class JourneyServiceImpl implements JourneyService {
             if(null != condition.getId()){
                 cri.andIdEqualTo(condition.getId());
             }
+            if(null != condition.getIdsIn()){
+                cri.andIdIn(condition.getIdsIn());
+            }
             List<JourneyWithBLOBs> journeyList = journeyMapper.selectByExampleWithBLOBs(criteria);
             if(!CollectionUtils.isEmpty(journeyList)){
                 for(JourneyWithBLOBs j : journeyList){
@@ -383,9 +386,19 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public List<JourneyVo> searchJourneyListApp(SearchCondition condition, String currentPhone) {
         List<JourneyVo> list = null;
-        if(null != condition){
-            List<Integer> ids = journeySearchService.queryJourneyVoList(condition);
-            if(!CollectionUtils.isEmpty(ids)){
+        if(null != condition && !StringUtils.isBlank(condition.getSearchContent())){
+            //List<Integer> ids = journeySearchService.queryJourneyVoList(condition);
+            //数据库查询
+
+            JourneyCriteria criteria = new JourneyCriteria();
+            criteria.or().andTitleLike(condition.getSearchContent()).andIsEnableEqualTo(true);
+            criteria.or().andDestinationEqualTo(condition.getSearchContent()).andIsEnableEqualTo(true);
+            List<Journey> journeyList = journeyMapper.selectByExample(criteria);
+            if(!CollectionUtils.isEmpty(journeyList)){
+                List<Integer> ids = new ArrayList<>();
+                for(Journey j: journeyList){
+                    ids.add(j.getId());
+                }
                 condition.setIdsIn(ids);
                 list = queryJourneyListApp(condition,currentPhone);
             }
@@ -583,6 +596,30 @@ public class JourneyServiceImpl implements JourneyService {
     }
 
     @Override
+    public RequestResult deleteMyJourney(Integer id, String currentPhone) {
+        boolean success = false;
+        String message = "";
+
+        if(null != id && !StringUtils.isBlank(currentPhone)){
+            Journey journey = journeyMapper.selectByPrimaryKey(id);
+            //是否是自己发布的
+            if(null != journey && journey.getPhone().equals(currentPhone)){
+                journey.setIsEnable(false); //是否可用
+                int i = journeyMapper.updateByPrimaryKey(journey);
+                if(i>0){
+                    success = true;
+                }
+            }else{
+                message = "只能删除自己发布的行程";
+            }
+        }
+        RequestResult result = new RequestResult();
+        result.setSuccess(success);
+        result.setMessage(message);
+        return result;
+    }
+
+    @Override
     public List<JourneyVo> queryMyCollectList(SearchCondition condition, String currentPhone) {
         List<JourneyVo> list = null;
         List<Integer> ids = new ArrayList<>();
@@ -599,18 +636,6 @@ public class JourneyServiceImpl implements JourneyService {
             }
 
             if(ids.size()>0){
-                //最新，历史
-                if(null != condition.getIfNew()){
-                    if(condition.getIfNew()){
-                        if(null != condition.getfId()){
-                            condition.setIdGreaterThan(condition.getfId());
-                        }
-                    }else{
-                        if(null != condition.getfId()){
-                            condition.setIdLessThan(condition.getfId());
-                        }
-                    }
-                }
                 condition.setIdsIn(ids);
                 //排序
                 condition.setOrderByClause(" id desc ");

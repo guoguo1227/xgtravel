@@ -487,5 +487,37 @@ public class JourneyController extends BaseController{
 
         return gson.toJson(result);
     }
+    /**
+     * @Description :取消顶赞
+     * @param id
+     * @return
+     */
+    @RequestMapping("deleteMy")
+    @ResponseBody
+    public String deleteMyJourney(Integer id,String token){
+
+        RequestResult result = new RequestResult();
+        result.setSuccess(false);
+
+        String userPhone = HttpSessionProvider.getSessionUserPhone();
+        //获取APP的token
+        if(!StringUtils.isBlank(token)){
+            userPhone = userService.queryPhoneByToken(token);
+        }
+        if(StringUtils.isBlank(userPhone)){
+            result.setMessage("请先登录。");
+            return gson.toJson(result);
+        }
+
+        if(null != id){
+            RequestResult r = journeyService.untopJourney(id,userPhone);
+            result.setData(r.getData());
+            result.setSuccess(r.getSuccess());
+        }else{
+            result.setMessage("id 不可为空");
+        }
+
+        return gson.toJson(result);
+    }
 
 }
