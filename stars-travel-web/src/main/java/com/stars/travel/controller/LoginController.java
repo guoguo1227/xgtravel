@@ -97,8 +97,14 @@ private Logger logger = Logger.getLogger(UserController.class);
             //所以这一步在调用login(token)方法时,它会走到ShiroDbRealm.doGetAuthenticationInfo()方法中
             curUser.login(token);
 
+            assert user != null;
             userInfo  = userService.queryUserInfoByPhone(user.getPhone(),user.getPhone());
 
+            //获取token
+            User tmp = userService.queryUserById(userInfo.getId());
+            if(null != tmp){
+                userInfo.setToken(tmp.getOauthid());
+            }
             result.setData(userInfo);
             result.setSuccess(true);
             logger.info("用户登陆成功。");

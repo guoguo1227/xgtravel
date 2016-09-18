@@ -6,9 +6,9 @@
     <meta content="telephone=no,email=no" name="format-detection" />
     <meta content="maximum-dpr=2" name="flexible" />
     <meta content="modeName=750-12" name="grid" />
-    <script src="/WEB-INF/view/content/build/flexible_css.debug.js"></script>
-    <script src="/WEB-INF/view/content/build/flexible.debug.js"></script>
-    <script src="/WEB-INF/view/content/build/makegrid.debug.js"></script>
+    <script src="/static/build/flexible_css.debug.js"></script>
+    <script src="/static/build/flexible.debug.js"></script>
+    <script src="/static/build/makegrid.debug.js"></script>
 
 
     <title> $!{obj.tiltle}  星轨行程分享页</title>
