@@ -4,6 +4,7 @@ import com.stars.common.enums.CommentTypeEnum;
 import com.stars.common.utils.Page;
 import com.stars.travel.controller.BaseController;
 import com.stars.travel.model.base.Journey;
+import com.stars.travel.model.base.Microblog;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.CommentVo;
 import com.stars.travel.model.ext.JourneyVo;
@@ -57,6 +58,19 @@ public class StaticHtmlController extends BaseController {
                 MicroblogVo microblogVo = page.getPageData().get(0);
                 modelMap.addAttribute("obj",microblogVo);
             }
+            //评论
+            SearchCondition searchCondition = new SearchCondition();
+            String typeEnum = CommentTypeEnum.getCommentTypeByCode(2);
+            searchCondition.setType(typeEnum);
+            searchCondition.setId(id);
+            searchCondition.setIfNew(true);
+            List<CommentVo> list =  commentService.queryCommentListApp(condition);
+            modelMap.addAttribute("comments",list);
+
+            //推荐微游记
+            List<Microblog> recommendMicroblogList = microblogVoService.queryRecommendMicroblog();
+            modelMap.addAttribute("recommendMicroblog",recommendMicroblogList);
+
         }
         return "content/microblog";
     }

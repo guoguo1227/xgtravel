@@ -1,0 +1,401 @@
+html {
+  width: pxTorem(750px); }
+
+#place {
+  position: relative;
+  left: 7.69333rem;
+  top: 0.26667rem;
+  width: 2.02667rem;
+  height: 0.53333rem;
+  border-radius: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-align: center; }
+
+#text {
+  width: 1.12rem;
+  height: 0.53333rem;
+  position: relative;
+  top: 0.08rem;
+  font-family: PingFang-SC;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300; }
+
+#Introduction {
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+  top: 4rem;
+  width: 9.46667rem;
+  height: 1.33333rem;
+  opacity: 0.8;
+  background-image: linear-gradient(to bottom, transparent, rgba(36, 36, 36, 0.86));
+  background-image: linear-gradient(to bottom, transparent, var(--black-86)); }
+
+#text1 {
+  text-align: center;
+  position: relative;
+  top: 0.42667rem;
+  width: 9.46667rem;
+  font-family: PingFang-SC;
+  color: #ffffff;
+  font-size: 17px; }
+
+td {
+  text-align: left; }
+
+.text2 {
+  padding-top: 0.53333rem;
+  padding-bottom: 0.26667rem;
+  font-family: PingFang-SC;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 300; }
+
+.commenttext {
+  padding-top: 0.26667rem;
+  font-family: PingFang-SC;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 300; }
+
+#text3 {
+  width: 1.21333rem;
+  position: relative;
+  left: 0.26667rem;
+  top: 0.3rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  font-size: 15px;
+  font-weight: 500; }
+
+.name {
+  font-family: PingFang-SC;
+  color: #666666;
+  font-size: 14px; }
+
+.persontime {
+  font-family: PingFang-SC;
+  color: #999999;
+  font-size: 13px;
+  font-weight: 300; }
+
+.time {
+  width: 1.6rem;
+  font-family: PingFang-SC;
+  color: #999999;
+  font-size: 13px;
+  font-weight: 300; }
+
+.tip {
+  padding-top: 0.26667rem;
+  padding-bottom: 10px;
+  font-family: PingFang-SC;
+  color: #333333;
+  font-size: 15px; }
+
+.comment {
+  font-family: PingFang-SC;
+  color: #666666;
+  font-size: 15px;
+  font-weight: 300; }
+
+body {
+  margin: 0px auto; }
+
+#fixedLayer {
+  position: fixed;
+  bottom: 0px;
+  width: 10rem;
+  line-height: 0.4rem;
+  background: #FC6;
+  border: 1px solid #F90; }
+
+.floating {
+  height: 1.73333rem;
+  width: 10rem; }
+
+.floating table {
+  height: 1.73333rem;
+  width: 10rem; }
+
+.floating table tr {
+  height: 1.73333rem;
+  width: 10rem; }
+
+.apphp {
+  padding-left: 0.26667rem;
+  width: 1.6rem; }
+
+.apphp img {
+  width: 1.06667rem; }
+
+.xgBtn {
+  padding-right: 0.49333rem;
+  width: 2rem; }
+
+.xgBtn button {
+  width: 1.88rem;
+  height: 0.77333rem;
+  border-radius: 6px;
+  background-color: #4384f3;
+  text-align: center; }
+
+.xgBtn button text {
+  width: 1.38667rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #ffffff;
+  font-size: 13px; }
+
+.destination {
+  width: 10rem;
+  background-size: cover;
+  height: 5.86667rem; }
+
+#personInfo {
+  padding: 0.26667rem; }
+
+#personInfo table {
+  width: 9.46667rem; }
+
+#personInfo .headPortrait {
+  width: 1.6rem;
+  height: 1.06667rem; }
+
+#personInfo .headPortrait img {
+  width: 1.33333rem; }
+
+#journeyListDay .day {
+  width: 10rem;
+  height: 0.8rem;
+  background-color: #f5f5f9; }
+
+.journeyList {
+  padding: 0.26667rem; }
+
+.journeyList table {
+  width: 9.46667rem; }
+
+.journeyList table .money {
+  font-family: PingFang-SC;
+  color: #999999;
+  font-size: 13px;
+  font-weight: 300; }
+
+.journeyList table .headImg {
+  width: 0.56rem;
+  height: 0.29333rem; }
+
+.journeyList table .title {
+  width: 0.02667rem; }
+
+.journeyList table .content {
+  padding-bottom: 0.13333rem;
+  padding-top: 0.26667rem;
+  color: #333333;
+  font-size: 15px; }
+
+.line {
+  width: 10rem;
+  padding-bottom: 0.53333rem;
+  padding-top: 0.53333rem; }
+
+.line h1 {
+  height: 0.01333rem;
+  background-color: #ebebeb; }
+
+.line1 {
+  padding-bottom: 0.26667rem;
+  padding-top: 0.53333rem; }
+
+.line1 h1 {
+  width: 10rem;
+  height: 0.01333rem;
+  background-color: #ebebeb; }
+
+.commentsTitle {
+  width: 10rem;
+  padding-bottom: 0.26667rem;
+  text-align: center; }
+
+.commentsTitle text {
+  width: 1.38667rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  font-size: 13px; }
+
+.comment {
+  width: 10rem;
+  padding-top: 0.53333rem;
+  padding-left: 0.26667rem;
+  padding-right: 0.26667rem; }
+
+.comment table {
+  width: 9.46667rem; }
+
+.comment table .commentImg {
+  width: 1.33333rem; }
+
+.comment table .commentImg img {
+  width: 1.06667rem; }
+
+.comment div {
+  padding-top: 0.53333rem;
+  padding-left: 1.33333rem; }
+
+.comment div h1 {
+  width: 8.13333rem;
+  height: 0.01333rem;
+  background-color: #ebebeb; }
+
+.downTitle {
+  width: 10rem;
+  padding-left: 0.26667rem;
+  padding-right: 0.26667rem;
+  text-align: center; }
+
+.downTitle div text {
+  width: 5.44rem;
+  height: 0.44rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  font-size: 12px; }
+
+.downTitle div {
+  width: 9.46667rem;
+  height: 0.8rem;
+  border-radius: 4px;
+  border: solid 2px #4384f3;
+  padding-top: 0.4rem; }
+
+.otherJourneyTitle {
+  width: 10rem;
+  padding-bottom: 0.26667rem;
+  text-align: center; }
+
+.otherJourneyTitle text {
+  width: 1.38667rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  font-size: 13px; }
+
+.otherJourney {
+  width: 10rem;
+  height: 3.82667rem;
+  padding: 0.26667rem; }
+
+.otherJourney table {
+  width: 9.46667rem;
+  height: 3.82667rem; }
+
+.recommendTitle {
+  width: 9.46667rem;
+  height: 0.6rem;
+  font-family: PingFang-SC;
+  color: #333333;
+  font-size: 16px; }
+
+.recommendDescription {
+  width: 9.46667rem;
+  height: 1.12rem;
+  font-family: PingFang-SC;
+  color: #666666;
+  font-size: 15px;
+  font-weight: 300; }
+
+.recommendDestination {
+  width: 1.33333rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  text-align: right;
+  font-size: 13px; }
+
+.recommendTopCount {
+  width: 1.6rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #999999;
+  text-align: right;
+  font-size: 13px; }
+
+.recommendLine {
+  width: 9.73333rem;
+  padding-left: 0.26667rem; }
+
+.bottom {
+  width: 10rem;
+  height: 5.84rem;
+  background-color: #4384f3;
+  padding-top: 1.13333rem; }
+
+.bottom img {
+  padding-left: 2.08rem;
+  width: 5.84rem;
+  height: 1.66667rem; }
+
+#microTravelsList {
+  width: 10rem; }
+
+#microTravelsList .text {
+  padding-top: 0.53333rem;
+  padding-bottom: 0.26667rem;
+  width: 9.46667rem; }
+
+#microTravelsList .text text {
+  font-stretch: normal;
+  font-family: PingFang-SC;
+  font-style: normal;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 300; }
+
+#microTravelsList .microTravelsImg img {
+  width: 9.46667rem;
+  height: 5.86667rem; }
+
+.otherMicroTravelsTitle {
+  text-align: center;
+  width: 10rem;
+  height: 0.49333rem;
+  font-family: PingFang-SC;
+  color: #4384f3;
+  font-size: 13px; }
+
+#otherMicroTravelsList .otherMicroTravels {
+  width: 9.46667rem;
+  padding: 0.26667rem; }
+
+#otherMicroTravelsList .headImg {
+  width: 4rem; }
+
+#otherMicroTravelsList .headImg img {
+  width: 3.73333rem;
+  height: 2.32rem; }
+
+.micTitle {
+  padding-top: 0.26667rem;
+  width: 5.46667rem;
+  height: 1.12rem;
+  font-stretch: normal;
+  font-family: PingFang-SC;
+  font-style: normal;
+  color: #333333;
+  font-size: 15px;
+  font-weight: normal; }
+
+.micPosition {
+  padding-bottom: 0.26667rem;
+  width: 0.69333rem;
+  height: 0.49333rem;
+  font-stretch: normal;
+  font-family: PingFang-SC;
+  font-style: normal;
+  color: #4384f3;
+  font-size: 13px;
+  font-weight: normal; }
+
+/*# sourceMappingURL=rem.css.map */

@@ -1,6 +1,7 @@
 package com.stars.travel.service;
 
 import com.stars.common.utils.Page;
+import com.stars.travel.model.base.Microblog;
 import com.stars.travel.model.condition.SearchCondition;
 import com.stars.travel.model.ext.MicroblogVo;
 import com.stars.travel.model.ext.RequestResult;
@@ -37,6 +38,11 @@ public interface MicroblogVoService {
      */
     public List<MicroblogVo> searchMicroblogVoApp(SearchCondition condition, String currentPhone);
 
+    /**
+     * @Description: 推荐微游记
+     * @return
+     */
+    public List<Microblog> queryRecommendMicroblog();
     /**
      * @Description : 我的微游记收藏
      * @param condition

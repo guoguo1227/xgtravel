@@ -172,6 +172,18 @@ public class MicroblogVoServiceImpl implements MicroblogVoService {
     }
 
     @Override
+    public List<Microblog> queryRecommendMicroblog() {
+
+        MicroblogCriteria criteria = new MicroblogCriteria();
+        criteria.setOrderByClause(" createtime desc ");
+        criteria.setLimitStart(0);
+        criteria.setLimitEnd(5);
+
+        List<Microblog> list = microblogMapper.selectByExample(criteria);
+        return list;
+    }
+
+    @Override
     public List<MicroblogVo> queryMyCollection(SearchCondition condition, String currentPhone) {
         List<MicroblogVo> list = null;
         List<Integer> ids = new ArrayList<>();

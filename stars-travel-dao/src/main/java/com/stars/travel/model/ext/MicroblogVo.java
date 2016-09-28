@@ -19,7 +19,7 @@ public class MicroblogVo extends MicroblogWithBLOBs {
 
     private String commentCount = "0" ; //评论数
 
-    private String token = ""; //app登录授权码
+    private String token = ""; //
 
     public String getToken() {
         return token;

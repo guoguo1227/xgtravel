@@ -376,7 +376,7 @@ public class JourneyServiceImpl implements JourneyService {
     @Override
     public List<Journey> queryRecommendJourney() {
         JourneyCriteria criteria = new JourneyCriteria();
-        criteria.setOrderByClause(" createtime ");
+        criteria.setOrderByClause(" createtime desc ");
         criteria.setLimitEnd(5);
         List<Journey> list =  journeyMapper.selectByExample(criteria);
         return list;

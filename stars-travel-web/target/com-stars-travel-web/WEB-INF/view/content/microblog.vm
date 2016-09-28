@@ -1,46 +1,211 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html >
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>$!content.contentExt.title - $!{site.name} - POWERD BY PHYCMS</title>
-    <meta http-equiv="keywords" content="$!content.tagStr" />
-    <meta http-equiv="description" content="$!content.description" />
-    <link href="/static/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
+    <meta charset="utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta content="maximum-dpr=2" name="flexible" />
+    <meta content="modeName=750-12" name="grid" />
+    <script src="/static/build/flexible_css.debug.js"></script>
+    <script src="/static/build/flexible.debug.js"></script>
+    <script src="/static/build/makegrid.debug.js"></script>
+    <link rel="stylesheet" type="text/css" href="rem.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title> 星轨微游记分享页</title>
+
 </head>
-<body>
-<div class="main">
-    <div class="news_text">
-        <div class="other">
-            <section class="content">
-                <div class="callout callout-info">
-                    <h4>分享</h4>
-                </div>
-                <!-- Default box -->
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">${obj.title}</h3>
-                        <span></span>
-                        <span>${obj.destination}</span>
-                        <span>${obj.content}</span>
-                        <span>${obj.description}</span>
-                    </div>
-                    <div class="box-body">
-                        Start creating your amazing application!
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        Footer
-                    </div>
-                    <!-- /.box-footer-->
-                </div>
-                <!-- /.box -->
-            </section>
+<body >
+
+
+
+<!-- 下载悬浮窗 -->
+<div id="fixedLayer" >
+
+    <div class="floating" style="background-color: #454545;">
+        <table>
+            <tr >
+                <td class="apphp"><img  src="/travels/share/xingui.png" alt="Big Boat"/></td>
+                <td style="font-family: PingFang-SC;color: rgba(255, 255, 255, 0.87); font-size: 11px;font-weight: 300;">下载 星轨旅行 APP<br>行程分享更丰富，还有精彩微游记</td>
+                <td class="xgBtn" >
+
+                    <button  onclick="down()">
+
+                        <text >下载星轨</text>
+
+                    </button>
+
+                </td>
+            <tr>
+
+
+        </table>
+    </div>
+</div>
+
+
+<!-- 目的地 -->
+<div class="destination"  style="background:url('640.jpg')  no-repeat;" >
+
+    <div id="place" >
+        <text id="text">$!obj.destination</text>
+    </div>
+    <div id="Introduction" >
+        <text id="text1">$!obj.description</text>
+    </div>
+</div>
+
+
+
+<!-- 个人信息 -->
+<div id="personInfo">
+    <table  >
+        <tr  style="text-align:left;"><td class="headPortrait"  rowspan=2 > <img src="$!obj.userInfo.portrait" alt="头像"  /></td>
+            <td class="name" >$!obj.userInfo.name</td> </tr>
+        <tr><td class="persontime">$!date.format('yyyy-MM-dd HH:mm:ss', $!obj.createtime)</tr>
+    </table>
+
+    <!-- 用户微游记 -->
+    <div id="microTravelsList">
+        <div class="text">
+            <text >$!obj.content
+            </text>
+        </div>
+
+        <div class="microTravelsImg" >
+            <img src="$!obj.picture" alt="头像"  />
+        </div>
+        <!----------------------------------------------------- -->
+
+        <div class="text">
+            <text >$!obj.pictureDescription
+            </text>
+        </div>
+
+        <div class="microTravelsImg" >
+            <img src="$!obj.funPicture" alt="头像"  />
+        </div>
+
+        <!----------------------------------------------------- -->
+        <div class="text">
+            <text >$!obj.funPictureDescription
+            </text>
+        </div>
+
+        <div class="microTravelsImg" >
+            <img src="$!obj.foodPicture" alt="头像"  />
         </div>
     </div>
+</div>
+
+
+
+
+
+<!-- 分割线-->
+<div class="line" >
+
+    <h1></h1>
+
 
 </div>
+
+<!-- 评论 -->
+
+<div class="commentsTitle" >
+    <text   >热门评论</text>
+</div>
+<div id="comments">
+    #foreach( $comment in $comments)
+        <div class="comment">
+            <table >
+                <tr  >
+                    <td class="commentImg"   rowspan=2> <img src="$comment.userInfo.portrait" alt="头像" /></td>
+                    <td>$comment.userInfo.name</td>
+                    <td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $comment.createtime)</td>
+                </tr>
+                <tr><td ></td><td class="commenttext" >$!comment.recommend</td></tr>
+            </table>
+
+            <div>
+                <h1 >
+
+                </h1>
+            </div>
+        </div>
+
+    #end
+
+</div>
+
+<div  class="downTitle" >
+
+    <div onmousedown="mDown(this)" onmouseup="mUp(this)" id="downBtn" >
+        <text   >下载星轨客户端，查看更多精彩评论！</text>
+    </div>
+</div>
+
+<!-- 分割线-->
+<div class="line1">
+
+    <h1 ></h1>
+
+
+</div>
+
+<!-- 其他微游记 -->
+<div id="otherMicroTravelsList" >
+    <div class="otherMicroTravelsTitle" >
+        <text  >推荐微游记</text>
+    </div>
+    #foreach( $recommend in $recommendMicroblog)
+        <div class="otherMicroTravels">
+            <table  >
+                <tr  style="text-align:left;">
+                    <td class="headImg"  rowspan=2> <img src="$!obj.picture" alt="封面"  /></td>
+
+                    <td class="micTitle" >$!obj.title</td></tr>
+
+                <tr style="text-align:left;">
+
+                    <td class="micPosition" >$!obj.destination</td>
+                </tr>
+            </table>
+
+        </div>
+    #end
+
+    <!----------------------------------------------------- -->
+
+</div>
+
+<!--底部-->
+<div class="bottom" >
+    <img  src="/travels/share/bottom.png" alt="Big Boat"/>
+</div>
+
+
 </body>
+
+<script language="javascript">
+
+    window.onload=function(){
+
+    }
+
+    function mDown(obj){
+        obj.style.backgroundColor="#f5f5f9";
+    }
+
+    function mUp(obj){
+        obj.style.backgroundColor="white";
+        //操作下载
+        alert("准备下载");
+    }
+    function down(){
+        //操作下载
+        alert("准备下载");
+    }
+</script>
 </html>
