@@ -121,9 +121,9 @@
         <div class="comment">
             <table >
                 <tr  >
-                    <td class="commentImg"   rowspan=2> <img src="$comment.userInfo.portrait" alt="头像" /></td>
-                    <td>$comment.userInfo.name</td>
-                    <td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $comment.createtime)</td>
+                    <td class="commentImg"   rowspan=2> <img src="$!comment.userInfo.portrait" alt="头像" /></td>
+                    <td>$!comment.userInfo.name</td>
+                    <td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $!comment.createtime)</td>
                 </tr>
                 <tr><td ></td><td class="commenttext" >$!comment.recommend</td></tr>
             </table>

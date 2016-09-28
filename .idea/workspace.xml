@@ -83,8 +83,8 @@
       <file leaf-file-name="microblog.vm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/view/content/microblog.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36363637">
-              <caret line="86" column="50" selection-start-line="86" selection-start-column="50" selection-end-line="86" selection-end-column="50" />
+            <state vertical-scroll-proportion="-1.4090909">
+              <caret line="161" column="29" selection-start-line="161" selection-start-column="29" selection-end-line="161" selection-end-column="29" />
               <folding>
                 <element signature="n#style#0;n#tr#0;n#table#0;n#div#1;n#div#8;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -171,8 +171,8 @@
         <option value="$PROJECT_DIR$/stars-travel-dao/src/main/java/com/stars/travel/model/ext/MicroblogVo.java" />
         <option value="$PROJECT_DIR$/stars-travel-dao/src/main/java/com/stars/travel/model/base/Microblog.java" />
         <option value="$PROJECT_DIR$/stars-travel-service/src/main/java/com/stars/travel/service/impl/MicroblogVoServiceImpl.java" />
-        <option value="$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/view/content/microblog.vm" />
         <option value="$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/view/content/journey.vm" />
+        <option value="$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/view/content/microblog.vm" />
       </list>
     </option>
   </component>
@@ -1301,12 +1301,12 @@
       <workItem from="1474214556586" duration="2120000" />
       <workItem from="1474900908397" duration="2554000" />
       <workItem from="1474988474712" duration="2095000" />
-      <workItem from="1475067452312" duration="3396000" />
+      <workItem from="1475067452312" duration="3461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="423569000" />
+    <option name="totallyTimeSpent" value="423634000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1757,8 +1757,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stars-travel-web/src/main/webapp/WEB-INF/view/content/microblog.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36363637">
-          <caret line="86" column="50" selection-start-line="86" selection-start-column="50" selection-end-line="86" selection-end-column="50" />
+        <state vertical-scroll-proportion="-1.4090909">
+          <caret line="161" column="29" selection-start-line="161" selection-start-column="29" selection-end-line="161" selection-end-column="29" />
           <folding>
             <element signature="n#style#0;n#tr#0;n#table#0;n#div#1;n#div#8;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
