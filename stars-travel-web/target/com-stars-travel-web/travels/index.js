@@ -13,7 +13,7 @@
     /guide/guide.js,
 ]]*/
 
-var app = angular.module('MainApp', ['lg.platform','lg.datatable','userApp','journeyApp','dashboardApp','webSocketApp','microblogApp','commentApp','customizationApp']).
+var app = angular.module('MainApp', ['lg.platform','lg.datatable','userApp','journeyApp','dashboardApp','webSocketApp','microblogApp','commentApp','customizationApp','userLoginApp']).
     controller('MainCtrl', ['$scope', '$location','lgDataTableService', function($scope, $location,dtService) {
     }]);
 

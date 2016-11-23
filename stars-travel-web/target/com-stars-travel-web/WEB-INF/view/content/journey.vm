@@ -51,10 +51,10 @@
         <div class="destination"  style="background:url('${obj.coverImage}')  no-repeat;" >
 
             <div id="place" >
-                <text id="text">${obj.destination}</text>
+                <text id="text">$!{obj.destination}</text>
             </div>
             <div id="Introduction" >
-                <text id="text1">${obj.title}</text>
+                <text id="text1">$!{obj.title}</text>
             </div>
         </div>    
 
@@ -63,14 +63,14 @@
         <!-- 个人信息 -->
         <div id="personInfo">
             <table  >
-                <tr  style="text-align:left;"><td class="headPortrait"  rowspan=2 > <img src='${obj.userInfo.portrait}' alt="头像"  /></td>
-                    <td class="name" >${obj.userInfo.name}</td> </tr>
-                <tr><td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $obj.createtime)</tr>
+                <tr  style="text-align:left;"><td class="headPortrait"  rowspan=2 > <img src='$!{obj.userInfo.portrait}' alt="头像"  /></td>
+                    <td class="name" >$!{obj.userInfo.name}</td> </tr>
+                <tr><td class="persontime">$!date.format('yyyy-MM-dd HH:mm:ss', $!obj.createtime)</tr>
             </table>
             <table   >
 
-                <tr  ><td colspan=2 class='text2'>${obj.description}</td> </tr>
-                <tr ><td  class="time">$date.format('yyyy-MM-dd HH:mm:ss', $!obj.starttime) 出发   共 <text style="color: #4384f3">$!{obj.totalday}</text> 天</td> <td class="time" style="text-align:right;" >人均 <text style="color: #FFA63E">$!{obj.budget}</text> 元</td> </tr>
+                <tr  ><td colspan=2 class='text2'>$!{obj.description}</td> </tr>
+                <tr ><td  class="time">$!date.format('yyyy-MM-dd HH:mm:ss', $!obj.starttime) 出发   共 <text style="color: #4384f3">$!{obj.totalday}</text> 天</td> <td class="time" style="text-align:right;" >人均 <text style="color: #FFA63E">$!{obj.budget}</text> 元</td> </tr>
             </table>
         </div>
 
@@ -78,7 +78,7 @@
         <!-- 行程 -->
         <div id="journeyListDay">
 
-            #foreach( $journeyDayVo in $obj.journeyDayVoList)
+            #foreach( $journeyDayVo in $!obj.journeyDayVoList)
                 <div class="day" >
                     <text id="text3">DAY $!{journeyDayVo.currentDay}</text>
                 </div>
@@ -89,13 +89,13 @@
                            <tr >
                                 <td class="headImg"  ><img src="/travels/share/650.png"   alt="Big Boat"/></td>
                                 <td class="time" >$!journeyItemVo.time</td> 
-                                <td class="money" >预计花费 <text style="color: #FFA63E">$journeyItemVo.budget</text> 元</td>
+                                <td class="money" >预计花费 <text style="color: #FFA63E">$!journeyItemVo.budget</text> 元</td>
                             <tr>
                            <tr >
                                 <td  rowspan=2 ></td>
-                                <td class="content" colspan=2  >$journeyItemVo.title</td> 
+                                <td class="content" colspan=2  >$!journeyItemVo.title</td>
                            </tr>
-                           <tr ><td colspan=2 class="comment" >$journeyItemVo.description</td>  </tr>
+                           <tr ><td colspan=2 class="comment" >$!journeyItemVo.description</td>  </tr>
                        </table>
                     </div>
 
@@ -123,9 +123,9 @@
                     <div class="comment">
                         <table >
                             <tr  >
-                                <td class="commentImg"   rowspan=2> <img src="$comment.userInfo.portrait" alt="头像" /></td>
+                                <td class="commentImg"   rowspan=2> <img src="$!comment.userInfo.portrait" alt="头像" /></td>
                                 <td>用户名（未加参数）</td>
-                                <td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $comment.createtime)</td>
+                                <td class="persontime">$!date.format('yyyy-MM-dd HH:mm:ss', $!comment.createtime)</td>
                             </tr>
                             <tr><td ></td><td class="commenttext" >$!comment.recommend</td></tr>
                         </table>

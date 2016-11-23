@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>星轨旅行管理系统后台</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!--font-awesome 核心我CSS 文件-->
+    <link href="/static/plugins/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/plugins/toastr/toastr2.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        body{background: url('/travels/share/login.jpg') no-repeat;background-size:cover;font-size: 16px;}
+        .form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}
+        #login_form{display: block;}
+        #register_form{display: none;}
+        .fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}
+        input[type="text"],input[type="password"]{padding-left:26px;}
+        .checkbox{padding-left:21px;}
+    </style>
+</head>
+<body>
+<div class="container" ng-app="userLoginApp" ng-controller="userLoginCtrl" ng-init="init()">
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
+            <h3 class="form-title">登陆系统</h3>
+            <div class="col-sm-9 col-md-9">
+                <div class="form-group">
+                    <i class="fa fa-user fa-lg"></i>
+                    <input class="form-control required" type="text" placeholder="手机号" ng-model="user.phone" autofocus="autofocus" maxlength="20"/>
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-lock fa-lg"></i>
+                    <input class="form-control required" type="password" placeholder="密码" ng-model="user.password" maxlength="8"/>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="remember" ng-model= "remember"/> 记住密码
+                    </label>
+                    <hr />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success pull-right" ng-click="login()" value="登陆"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="/static/plugins/angular/angular.js"></script>
+<script src="/travels/common/angular-constants.js"></script>
+<script src="/travels/index.js"></script>
+<script src="/static/plugins/toastr/toastr2.js"></script>
+<script src="/travels/common/userLogin.js"></script>
+
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.stars.travel.controller;
 
-import com.stars.common.utils.BeanUtilExt;
 import com.stars.common.utils.TravelsUtils;
 import com.stars.travel.enums.LogType;
 import com.stars.travel.model.base.Log;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 /**

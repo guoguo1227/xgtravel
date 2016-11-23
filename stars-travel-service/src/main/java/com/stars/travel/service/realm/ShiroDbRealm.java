@@ -132,9 +132,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		String phone = token.getUsername();
 		String passwd = new String(token.getPassword());
 
+		logger.info("phone:"+phone+",passwd:"+passwd);
 		if(!StringUtils.isBlank(phone)){
 			user = userService.queryUserByPhoneNumber(phone);
 			if(null != user){
+				logger.info("用户的密码为:"+user.getPassword());
 				if(EncryptUtil.md5(passwd).equals(user.getPassword())){
 					//生成token
 					String time = DateUtil.date2stringFormate(new Date());
@@ -148,6 +150,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 					return  new SimpleAuthenticationInfo(token.getUsername(),token.getPassword(), getName());
 				}
 			}else{
+				logger.info("没有账号:"+phone);
 				throw new UnknownAccountException();//没找到帐号
 			}
 		}
