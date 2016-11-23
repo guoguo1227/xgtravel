@@ -10,11 +10,12 @@
     <script src="/static/build/flexible_css.debug.js"></script>
     <script src="/static/build/flexible.debug.js"></script>
     <script src="/static/build/makegrid.debug.js"></script>
-    <link rel="stylesheet" type="text/css" href="rem.css" />
+    <link rel="stylesheet" type="text/css" href="/static/build/rem.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <title> 星轨微游记分享页</title>
-
+ 
+   
 </head>
 <body >
 
@@ -46,13 +47,13 @@
 
 
 <!-- 目的地 -->
-<div class="destination"  style="background:url('640.jpg')  no-repeat;" >
+<div class="destination"  style="background:url('$!obj.picture')  no-repeat;" >
 
     <div id="place" >
         <text id="text">$!obj.destination</text>
     </div>
     <div id="Introduction" >
-        <text id="text1">$!obj.description</text>
+        <text id="text1">$!obj.pictureDescription</text>
     </div>
 </div>
 
@@ -69,22 +70,32 @@
     <!-- 用户微游记 -->
     <div id="microTravelsList">
         <div class="text">
-            <text >$!obj.content
+            <text >$!obj.newnessPictureDescription
             </text>
         </div>
 
         <div class="microTravelsImg" >
-            <img src="$!obj.picture" alt="头像"  />
+            <img src="$!obj.newnessPicture" alt="头像"  />
+        </div>
+        <!----------------------------------------------------- -->
+        <div class="text">
+            <text >$!obj.sceneryDescription
+            </text>
+        </div>
+
+        <div class="microTravelsImg" >
+            <img src="$!obj.sceneryPicture" alt="头像"  />
         </div>
         <!----------------------------------------------------- -->
 
+
         <div class="text">
-            <text >$!obj.pictureDescription
+            <text >$!obj.foodPictureDescription
             </text>
         </div>
 
         <div class="microTravelsImg" >
-            <img src="$!obj.funPicture" alt="头像"  />
+            <img src="$!obj.foodPicture" alt="头像"  />
         </div>
 
         <!----------------------------------------------------- -->
@@ -94,7 +105,7 @@
         </div>
 
         <div class="microTravelsImg" >
-            <img src="$!obj.foodPicture" alt="头像"  />
+            <img src="$!obj.funPicture" alt="头像"  />
         </div>
     </div>
 </div>
@@ -123,9 +134,12 @@
                 <tr  >
                     <td class="commentImg"   rowspan=2> <img src="$!comment.userInfo.portrait" alt="头像" /></td>
                     <td>$!comment.userInfo.name</td>
+                </tr>
+                <tr  >
+
                     <td class="persontime">$date.format('yyyy-MM-dd HH:mm:ss', $!comment.createtime)</td>
                 </tr>
-                <tr><td ></td><td class="commenttext" >$!comment.recommend</td></tr>
+                <tr><td></td><td class="commenttext" >$!comment.recommend</td></tr>
             </table>
 
             <div>
@@ -163,13 +177,13 @@
         <div class="otherMicroTravels">
             <table  >
                 <tr  style="text-align:left;">
-                    <td class="headImg"  rowspan=2> <img src="$!obj.picture" alt="封面"  /></td>
+                    <td class="headImg"  rowspan=2> <img src="$!recommend.picture" alt="封面"  /></td>
 
-                    <td class="micTitle" >$!obj.title</td></tr>
+                    <td class="micTitle" >$!recommend.title</td></tr>
 
                 <tr style="text-align:left;">
 
-                    <td class="micPosition" >$!obj.destination</td>
+                    <td class="micPosition" >$!recommend.destination</td>
                 </tr>
             </table>
 
